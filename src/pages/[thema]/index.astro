@@ -12,29 +12,39 @@ const { thema } = Astro.props;
 const lektionen = (await getCollection('lektionen', (l) => l.data.thema === thema.id)).sort(
   (a, b) => a.data.nummer - b.data.nummer,
 );
-const einsteiger = lektionen.filter((l) => l.data.niveau === 'Einsteiger');
-const fortgeschritten = lektionen.filter((l) => l.data.niveau === 'Fortgeschritten');
+
+// Abschnitte: nach Gruppe (z. B. „Word“ und „Excel“), sonst nach Niveau.
+type Abschnitt = { titel: string; lektionen: typeof lektionen };
+let abschnitte: Abschnitt[];
+if (lektionen.some((l) => l.data.gruppe)) {
+  const map = new Map<string, typeof lektionen>();
+  for (const l of lektionen) {
+    const g = l.data.gruppe ?? 'Weitere Anleitungen';
+    map.set(g, [...(map.get(g) ?? []), l]);
+  }
+  abschnitte = [...map].map(([titel, ls]) => ({ titel, lektionen: ls }));
+} else {
+  const fortgeschritten = lektionen.filter((l) => l.data.niveau === 'Fortgeschritten');
+  abschnitte = fortgeschritten.length
+    ? [
+        { titel: 'Für Einsteiger', lektionen: lektionen.filter((l) => l.data.niveau === 'Einsteiger') },
+        { titel: 'Für Fortgeschrittene', lektionen: fortgeschritten },
+      ]
+    : [{ titel: '', lektionen }];
+}
 ---
 
 <Base titel={thema.titel} beschreibung={thema.einleitung} krumen={[{ titel: thema.titel }]}>
   <div data-pagefind-body>
     <h1>{thema.titel}</h1>
     <p class="einleitung">{thema.einleitung}</p>
-
     {
-      fortgeschritten.length > 0 ? (
+      abschnitte.map((a) => (
         <>
-          <h2>Für Einsteiger</h2>
-          <LektionsListe lektionen={einsteiger} />
-          <h2>Für Fortgeschrittene</h2>
-          <LektionsListe lektionen={fortgeschritten} />
+          {a.titel ? <h2>{a.titel}</h2> : <h2 class="nur-vorlesen">Anleitungen</h2>}
+          <LektionsListe lektionen={a.lektionen} />
         </>
-      ) : (
-        <>
-          <h2 class="nur-vorlesen">Anleitungen</h2>
-          <LektionsListe lektionen={lektionen} />
-        </>
-      )
+      ))
     }
   </div>
 </Base>

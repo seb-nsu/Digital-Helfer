@@ -1,7 +1,8 @@
 ---
 titel: Wie lasse ich Excel rechnen?
-thema: excel
-nummer: 3
+thema: office
+gruppe: Excel
+nummer: 7
 dauer: 10
 darum: Excel kann Zahlen zusammenzählen, zum Beispiel Ihre Ausgaben im Monat. Ändern Sie eine Zahl, rechnet Excel das Ergebnis sofort neu.
 brauchen:

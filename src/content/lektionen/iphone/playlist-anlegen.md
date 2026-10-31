@@ -1,7 +1,8 @@
 ---
 titel: Wie lege ich eine Playlist an und füge Lieder hinzu?
-thema: unterhaltung
-nummer: 3
+thema: iphone
+gruppe: Musik mit Spotify
+nummer: 7
 dauer: 8
 darum: Eine Playlist ist Ihre eigene Liste mit Liedern, wie früher eine selbst aufgenommene Kassette. Hier legen Sie eine an und füllen sie mit Liedern.
 brauchen:

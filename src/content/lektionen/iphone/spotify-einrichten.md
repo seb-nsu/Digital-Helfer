@@ -1,7 +1,8 @@
 ---
 titel: Wie richte ich Spotify auf dem iPhone ein?
-thema: unterhaltung
-nummer: 1
+thema: iphone
+gruppe: Musik mit Spotify
+nummer: 5
 dauer: 10
 darum: Spotify ist eine App für Musik, Hörbücher und Radiosendungen zum Nachhören (Podcasts). Hier laden Sie die App und melden sich an.
 brauchen:

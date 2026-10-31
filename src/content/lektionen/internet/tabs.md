@@ -1,7 +1,8 @@
 ---
 titel: Wie nutze ich mehrere Tabs im Browser?
-thema: pc-grundlagen
-nummer: 4
+thema: internet
+gruppe: Internet
+nummer: 5
 dauer: 7
 darum: Im Browser können Sie mehrere Internetseiten gleichzeitig offen haben. Jede Seite liegt auf einem eigenen Reiter, einem sogenannten Tab. So wechseln Sie schnell hin und her.
 brauchen:

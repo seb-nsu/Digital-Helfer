@@ -1,7 +1,8 @@
 ---
 titel: Wie mache ich meine Tabelle übersichtlich?
-thema: excel
-nummer: 4
+thema: office
+gruppe: Excel
+nummer: 8
 niveau: Fortgeschritten
 dauer: 8
 darum: Breitere Spalten, fette Überschriften und Beträge mit Euro-Zeichen machen eine Tabelle viel leichter lesbar.

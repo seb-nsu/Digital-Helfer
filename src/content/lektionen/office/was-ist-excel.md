@@ -1,7 +1,8 @@
 ---
 titel: Was ist eine Tabelle in Excel?
-thema: excel
-nummer: 1
+thema: office
+gruppe: Excel
+nummer: 5
 dauer: 6
 darum: Excel sieht aus wie ein großes Blatt Karopapier. Hier lernen Sie, was Zeilen, Spalten und Zellen sind und wie Sie etwas eintragen.
 brauchen:
@@ -36,5 +37,5 @@ Schreiben Sie in die Zellen **A1** bis **A5** fünf Obstsorten untereinander. Dr
 
 ## Hat nicht geklappt?
 
-- **Der Text ist breiter als die Zelle:** Das ist kein Fehler. Wie Sie die Spalte breiter machen, lesen Sie in der Anleitung [„Wie mache ich meine Tabelle übersichtlich?“](../uebersichtlich/).
+- **Der Text ist breiter als die Zelle:** Das ist kein Fehler. Wie Sie die Spalte breiter machen, lesen Sie in der Anleitung [„Wie mache ich meine Tabelle übersichtlich?“](../excel-uebersichtlich/).
 - **Ich habe aus Versehen etwas gelöscht:** Drücken Sie <kbd>Strg</kbd> + <kbd>Z</kbd>.

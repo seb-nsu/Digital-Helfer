@@ -1,6 +1,7 @@
 ---
 titel: Wie schreibe ich einen Text und speichere ihn?
-thema: word
+thema: office
+gruppe: Word
 nummer: 1
 dauer: 8
 darum: Sie öffnen Word, schreiben einen kurzen Text und speichern ihn. So finden Sie den Text später wieder.

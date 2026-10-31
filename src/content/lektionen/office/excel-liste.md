@@ -1,7 +1,8 @@
 ---
 titel: Wie lege ich eine Liste an, zum Beispiel für Geburtstage?
-thema: excel
-nummer: 2
+thema: office
+gruppe: Excel
+nummer: 6
 dauer: 10
 darum: Sie legen eine Geburtstagsliste an, sortieren sie und speichern sie. Genauso funktioniert eine Adressliste oder eine Vorratsliste.
 brauchen:

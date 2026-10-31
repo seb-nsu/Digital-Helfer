@@ -1,6 +1,7 @@
 ---
 titel: Wie markiere und ändere ich einen Text?
-thema: word
+thema: office
+gruppe: Word
 nummer: 2
 dauer: 6
 darum: Sie möchten ein Wort ändern oder einen Satz löschen. Dafür markieren Sie den Text zuerst. Danach können Sie ihn überschreiben.

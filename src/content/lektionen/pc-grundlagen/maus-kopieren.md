@@ -1,7 +1,7 @@
 ---
 titel: Wie kopiere und ersetze ich Text mit der Maus?
 thema: pc-grundlagen
-nummer: 6
+nummer: 5
 niveau: Fortgeschritten
 dauer: 8
 darum: Sie möchten lieber mit der Maus arbeiten als mit Tastenkürzeln? Hier lernen Sie, wie Sie Text nur mit der Maus kopieren, verschieben und ersetzen.

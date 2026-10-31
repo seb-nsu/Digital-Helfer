@@ -1,7 +1,8 @@
 ---
 titel: Wie finde ich ein Lied bei Spotify?
-thema: unterhaltung
-nummer: 2
+thema: iphone
+gruppe: Musik mit Spotify
+nummer: 6
 dauer: 6
 darum: Sie möchten ein bestimmtes Lied oder einen Sänger hören. Hier lernen Sie, wie Sie suchen, abspielen und pausieren.
 brauchen:

@@ -1,7 +1,8 @@
 ---
 titel: Wie drucke ich eine Tabelle auf eine Seite?
-thema: excel
-nummer: 5
+thema: office
+gruppe: Excel
+nummer: 9
 niveau: Fortgeschritten
 dauer: 6
 darum: Beim Drucken zerschneidet Excel breite Tabellen manchmal auf mehrere Blätter. Mit einer Einstellung passt alles auf eine Seite.
@@ -33,7 +34,7 @@ suchwoerter: [drucken, ausdrucken, eine Seite, Tabelle zerschnitten, Querformat,
 1. Prüfen Sie oben bei **Drucker** den Namen Ihres Druckers.
 2. Klicken Sie oben auf den großen Knopf **Drucken**.
 
-> **Gut zu wissen:** Excel druckt nur die Zellen, in denen etwas steht. Die grauen Hilfslinien auf dem Bildschirm erscheinen nicht auf dem Papier. Möchten Sie Linien sehen, lesen Sie die Anleitung [„Wie mache ich meine Tabelle übersichtlich?“](../uebersichtlich/).
+> **Gut zu wissen:** Excel druckt nur die Zellen, in denen etwas steht. Die grauen Hilfslinien auf dem Bildschirm erscheinen nicht auf dem Papier. Möchten Sie Linien sehen, lesen Sie die Anleitung [„Wie mache ich meine Tabelle übersichtlich?“](../excel-uebersichtlich/).
 
 ## Jetzt Sie!
 

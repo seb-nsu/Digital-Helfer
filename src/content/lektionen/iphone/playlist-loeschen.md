@@ -1,7 +1,8 @@
 ---
 titel: Wie lösche ich ein Lied aus einer Playlist?
-thema: unterhaltung
-nummer: 4
+thema: iphone
+gruppe: Musik mit Spotify
+nummer: 8
 dauer: 5
 darum: Ein Lied gefällt Ihnen nicht mehr, oder es ist in der falschen Liste gelandet. Hier nehmen Sie es wieder heraus. Auch eine ganze Playlist können Sie löschen.
 brauchen:
