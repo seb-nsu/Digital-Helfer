@@ -1,6 +1,7 @@
 ---
 titel: Wie mache ich die Schrift größer oder fett?
-thema: word
+thema: office
+gruppe: Word
 nummer: 3
 dauer: 6
 darum: Eine Überschrift soll groß und fett sein, ein Satz in der Mitte stehen. Das stellen Sie oben im Menüband ein.

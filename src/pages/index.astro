@@ -1,15 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
 import { HILFE, THEMEN } from '../config';
 import { url } from '../lib';
 
-// Höchstens 6 Kacheln: die vier Themen, das Glossar und die Liste aller Anleitungen.
-const kacheln = [
-  ...THEMEN.map((t) => ({ titel: t.titel, text: t.kurz, icon: t.icon, href: url(`${t.id}/`) })),
-  { titel: 'Wörter erklärt', text: 'Fachwörter einfach erklärt', icon: 'book-open', href: url('glossar/') },
-  { titel: 'Alle Anleitungen', text: 'Alles auf einen Blick', icon: 'list', href: url('alle/') },
-];
+// Höchstens 6 Kacheln: die Themen. „Alle Anleitungen“ und „Wörter erklärt“ stehen als Knöpfe darunter.
+const kacheln = THEMEN.filter((t) => t.kachel !== false).map((t) => ({
+  titel: t.titel,
+  text: t.kurz,
+  icon: t.icon,
+  href: url(`${t.id}/`),
+}));
+
+// Problemlöser: die häufigsten Probleme direkt auf der Startseite.
+const probleme = (await getCollection('lektionen', (l) => l.data.thema === 'probleme')).sort(
+  (a, b) => a.data.nummer - b.data.nummer,
+);
+if (kacheln.length > 6) throw new Error('Die Startseite darf höchstens 6 Kacheln haben.');
 ---
 
 <Base titel="Startseite">
@@ -27,6 +35,25 @@ const kacheln = [
     </button>
   </form>
 
+  <section class="problemloeser" aria-labelledby="probleme-titel">
+    <h2 id="probleme-titel">
+      <Icon name="wrench" />
+      Hilfe, ich habe ein Problem
+    </h2>
+    <ul>
+      {
+        probleme.map((p) => (
+          <li>
+            <a href={url(`${p.id}/`)}>
+              <span>{p.data.titel}</span>
+              <Icon name="chevron-right" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
   <h2 class="nur-vorlesen">Themen</h2>
   <ul class="kacheln">
     {
@@ -41,6 +68,17 @@ const kacheln = [
       ))
     }
   </ul>
+
+  <p class="zusatz-link">
+    <a class="knopf" href={url('alle/')}>
+      <Icon name="list" />
+      Alle Anleitungen auf einen Blick
+    </a>
+    <a class="knopf" href={url('glossar/')}>
+      <Icon name="book-open" />
+      Wörter erklärt: Fachwörter von A bis Z
+    </a>
+  </p>
 
   <aside class="hinweis-hilfe" aria-label="Hilfe">
     <p>Etwas klappt nicht? {HILFE.name} hilft Ihnen gern.</p>

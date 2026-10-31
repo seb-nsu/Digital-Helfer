@@ -1,6 +1,7 @@
 ---
 titel: Wie schreibe und drucke ich einen Brief?
-thema: word
+thema: office
+gruppe: Word
 nummer: 4
 niveau: Fortgeschritten
 dauer: 10

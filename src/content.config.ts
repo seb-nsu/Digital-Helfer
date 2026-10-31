@@ -7,7 +7,9 @@ const lektionen = defineCollection({
   schema: z.object({
     /** Titel als Frage oder Aufgabe, z. B. „Wie kopiere ich einen Text?“ */
     titel: z.string(),
-    thema: z.enum(['pc-grundlagen', 'word', 'sicherheit', 'ki']),
+    thema: z.enum(['pc-grundlagen', 'office', 'internet', 'iphone', 'sicherheit', 'ki', 'probleme']),
+    /** Optionale Gruppe innerhalb des Themas, z. B. „Word“ und „Excel“ */
+    gruppe: z.string().optional(),
     /** Reihenfolge innerhalb des Themas */
     nummer: z.number(),
     niveau: z.enum(['Einsteiger', 'Fortgeschritten']).default('Einsteiger'),

@@ -24,6 +24,8 @@ suchwoerter: [kopieren, einfügen, ausschneiden, verschieben, doppeln, Strg C, S
 2. Klicken Sie mit der **rechten** Maustaste auf den markierten Text. Wählen Sie **Kopieren**.
 3. Klicken Sie mit der **rechten** Maustaste an die Zielstelle. Wählen Sie **Einfügen**.
 
+Mehr dazu, auch zum Ersetzen und Ziehen mit der Maus, lesen Sie in der Anleitung [„Wie kopiere und ersetze ich Text mit der Maus?“](../maus-kopieren/).
+
 ## Verschieben statt kopieren
 
 Mit <kbd>Strg</kbd> + <kbd>X</kbd> statt <kbd>Strg</kbd> + <kbd>C</kbd> schneiden Sie den Text aus. Er verschwindet an der alten Stelle. Mit <kbd>Strg</kbd> + <kbd>V</kbd> fügen Sie ihn an der neuen Stelle ein.

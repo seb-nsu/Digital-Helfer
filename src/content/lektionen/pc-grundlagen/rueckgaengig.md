@@ -1,7 +1,7 @@
 ---
 titel: Wie mache ich einen Fehler rückgängig?
 thema: pc-grundlagen
-nummer: 5
+nummer: 6
 dauer: 4
 darum: Sie haben aus Versehen etwas gelöscht oder verändert? Das ist kein Problem. Mit einem Tastendruck holen Sie es zurück.
 brauchen:
