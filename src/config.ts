@@ -6,18 +6,19 @@ export const HILFE = {
   /** Wer hilft, wenn etwas nicht klappt? */
   name: 'Sebastian',
   /**
-   * Telefonnummer im internationalen Format, ohne Leerzeichen.
-   * PLATZHALTER: bitte durch die echte Nummer ersetzen, z. B. '+491701234567'.
+   * Telefonnummer im internationalen Format, ohne Leerzeichen, z. B. '+491701234567'.
+   * Leer lassen: Dann zeigt die Hilfe-Seite keine Knöpfe zum Anrufen und für WhatsApp.
+   * Achtung: Die Seite ist öffentlich. Eine eingetragene Nummer kann jeder sehen.
    */
-  telefon: '+490000000000',
-  /** Gleiche Nummer so, wie sie auf der Seite angezeigt wird. */
-  telefonAnzeige: '0000 0000000',
+  telefon: '',
+  /** Gleiche Nummer so, wie sie auf der Seite angezeigt wird, z. B. '0170 1234567'. */
+  telefonAnzeige: '',
   /** Nummer für WhatsApp: nur Ziffern, mit Ländervorwahl, ohne + (z. B. '491701234567'). */
-  whatsapp: '490000000000',
+  whatsapp: '',
 };
 
-/** Ist noch die Platzhalter-Nummer eingetragen? Dann zeigt die Hilfe-Seite einen Hinweis. */
-export const NUMMER_IST_PLATZHALTER = HILFE.telefon === '+490000000000';
+/** Ist eine Telefonnummer eingetragen? */
+export const MIT_NUMMER = HILFE.telefon !== '';
 
 /**
  * Solange die Seite nur für die Familie gedacht ist, sollen Suchmaschinen sie nicht aufnehmen.
@@ -58,17 +59,17 @@ export const THEMEN: Thema[] = [
   {
     id: 'internet',
     titel: 'E-Mail und Internet',
-    kurz: 'E-Mails, Tabs, Musik mit Spotify',
+    kurz: 'E-Mails, Spotify, YouTube',
     einleitung:
-      'Hier lernen Sie, wie Sie E-Mails lesen und schreiben, Anhänge öffnen und Fotos verschicken. Außerdem: mehrere Internetseiten gleichzeitig öffnen und Musik hören mit Spotify.',
+      'Hier lernen Sie, wie Sie E-Mails lesen und schreiben, Anhänge öffnen und Fotos verschicken. Außerdem: mehrere Internetseiten gleichzeitig öffnen, Musik hören mit Spotify und Videos schauen auf YouTube.',
     icon: 'mail',
   },
   {
     id: 'iphone',
     titel: 'iPhone',
-    kurz: 'Schrift, WhatsApp, Fotos, Notruf',
+    kurz: 'Fotos, WhatsApp, Schrift, Notruf',
     einleitung:
-      'Hier finden Sie Anleitungen für Ihr iPhone: größere Schrift, Fotos per WhatsApp verschicken, Fotos auf den Computer holen, und den Notruf.',
+      'Hier finden Sie Anleitungen für Ihr iPhone: größere Schrift, der Notruf, Ihre Fotos ansehen und ordnen sowie Nachrichten, Fotos und Videoanrufe mit WhatsApp.',
     icon: 'smartphone',
   },
   {
