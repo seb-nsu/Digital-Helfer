@@ -93,3 +93,15 @@
 - id: zwei-faktor
   wort: Zwei-Faktor-Anmeldung
   erklaerung: Eine doppelte Sicherung beim Anmelden. Sie brauchen Ihr Passwort und zusätzlich einen Code, der zum Beispiel per SMS auf Ihr Handy kommt.
+- id: tab
+  wort: Tab
+  erklaerung: Ein Reiter oben im Browser, wie bei einem Karteikasten. Auf jedem Tab kann eine andere Internetseite offen sein.
+- id: zelle
+  wort: Zelle
+  erklaerung: Ein einzelnes Kästchen in einer Excel-Tabelle. Jede Zelle hat einen Namen aus Buchstabe und Zahl, zum Beispiel B3.
+- id: formel
+  wort: Formel
+  erklaerung: Eine Rechenanweisung in Excel. Sie beginnt immer mit einem Gleichheitszeichen, zum Beispiel =A1+A2. Excel rechnet das Ergebnis dann selbst aus.
+- id: arbeitsmappe
+  wort: Arbeitsmappe
+  erklaerung: So heißt eine Excel-Datei. Sie kann mehrere Tabellen enthalten, die unten als Blätter angezeigt werden.

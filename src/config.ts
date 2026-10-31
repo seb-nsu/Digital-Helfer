@@ -25,7 +25,7 @@ export const NUMMER_IST_PLATZHALTER = HILFE.telefon === '+490000000000';
  */
 export const NICHT_INDEXIEREN = true;
 
-export type ThemaId = 'pc-grundlagen' | 'word' | 'sicherheit' | 'ki';
+export type ThemaId = 'pc-grundlagen' | 'word' | 'excel' | 'sicherheit' | 'ki';
 
 export const THEMEN: {
   id: ThemaId;
@@ -37,7 +37,7 @@ export const THEMEN: {
   {
     id: 'pc-grundlagen',
     titel: 'PC-Grundlagen',
-    kurz: 'Maus, Tastatur und Fenster',
+    kurz: 'Maus, Tastatur, Fenster und Tabs',
     einleitung:
       'Hier lernen Sie die Grundlagen am Computer. Fangen Sie oben an. Jede Anleitung dauert nur wenige Minuten.',
     icon: 'monitor',
@@ -49,6 +49,14 @@ export const THEMEN: {
     einleitung:
       'Mit dem Programm Word schreiben Sie Briefe, Einladungen und andere Texte. Hier sehen Sie, wie das geht.',
     icon: 'file-text',
+  },
+  {
+    id: 'excel',
+    titel: 'Excel',
+    kurz: 'Listen und Tabellen',
+    einleitung:
+      'Mit dem Programm Excel legen Sie Listen und Tabellen an, zum Beispiel für Geburtstage oder Ihr Haushaltsbuch. Excel kann auch für Sie rechnen.',
+    icon: 'sheet',
   },
   {
     id: 'sicherheit',

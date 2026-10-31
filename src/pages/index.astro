@@ -4,12 +4,13 @@ import Icon from '../components/Icon.astro';
 import { HILFE, THEMEN } from '../config';
 import { url } from '../lib';
 
-// Höchstens 6 Kacheln: die vier Themen, das Glossar und die Liste aller Anleitungen.
+// Höchstens 6 Kacheln: die fünf Themen und die Liste aller Anleitungen.
+// „Wörter erklärt“ steht als Link direkt darunter.
 const kacheln = [
   ...THEMEN.map((t) => ({ titel: t.titel, text: t.kurz, icon: t.icon, href: url(`${t.id}/`) })),
-  { titel: 'Wörter erklärt', text: 'Fachwörter einfach erklärt', icon: 'book-open', href: url('glossar/') },
   { titel: 'Alle Anleitungen', text: 'Alles auf einen Blick', icon: 'list', href: url('alle/') },
 ];
+if (kacheln.length > 6) throw new Error('Die Startseite darf höchstens 6 Kacheln haben.');
 ---
 
 <Base titel="Startseite">
@@ -41,6 +42,13 @@ const kacheln = [
       ))
     }
   </ul>
+
+  <p class="zusatz-link">
+    <a class="knopf" href={url('glossar/')}>
+      <Icon name="book-open" />
+      Wörter erklärt: Fachwörter von A bis Z
+    </a>
+  </p>
 
   <aside class="hinweis-hilfe" aria-label="Hilfe">
     <p>Etwas klappt nicht? {HILFE.name} hilft Ihnen gern.</p>

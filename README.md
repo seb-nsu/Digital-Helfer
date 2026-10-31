@@ -35,7 +35,7 @@ Jede Anleitung ist eine Markdown-Datei in `src/content/lektionen/<thema>/`. Der 
 ```yaml
 ---
 titel: Wie kopiere ich einen Text?        # als Frage oder Aufgabe
-thema: pc-grundlagen                     # pc-grundlagen | word | sicherheit | ki
+thema: pc-grundlagen                     # pc-grundlagen | word | excel | sicherheit | ki
 nummer: 4                                # Reihenfolge im Thema
 niveau: Einsteiger                       # oder Fortgeschritten
 dauer: 6                                 # Minuten

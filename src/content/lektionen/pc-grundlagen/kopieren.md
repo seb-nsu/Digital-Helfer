@@ -1,7 +1,7 @@
 ---
 titel: Wie kopiere ich einen Text?
 thema: pc-grundlagen
-nummer: 4
+nummer: 5
 dauer: 6
 darum: Sie möchten einen Text an einer anderen Stelle noch einmal haben, ohne ihn neu zu tippen. Dafür gibt es Kopieren und Einfügen.
 brauchen:
@@ -23,6 +23,8 @@ suchwoerter: [kopieren, einfügen, ausschneiden, verschieben, doppeln, Strg C, S
 1. Markieren Sie den Text.
 2. Klicken Sie mit der **rechten** Maustaste auf den markierten Text. Wählen Sie **Kopieren**.
 3. Klicken Sie mit der **rechten** Maustaste an die Zielstelle. Wählen Sie **Einfügen**.
+
+Mehr dazu, auch zum Ersetzen und Ziehen mit der Maus, lesen Sie in der Anleitung [„Wie kopiere und ersetze ich Text mit der Maus?“](../maus-kopieren/).
 
 ## Verschieben statt kopieren
 

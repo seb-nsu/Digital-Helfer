@@ -385,6 +385,10 @@ main {
   color: var(--text-leise);
 }
 
+.zusatz-link {
+  margin: 1.5rem 0 0;
+}
+
 .hinweis-hilfe {
   display: flex;
   flex-wrap: wrap;
