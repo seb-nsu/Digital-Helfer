@@ -1,0 +1,815 @@
+/*
+ * Digital-Helfer: Gestaltung
+ * Ziele: große Schrift, hoher Kontrast (WCAG 2.2 AA, meist AAA), ruhige Farben,
+ * große Klickflächen (mind. 48 x 48 px), klare Fokusrahmen.
+ */
+
+:root {
+  --hintergrund: #fbf8f3; /* hell, leicht warm */
+  --flaeche: #ffffff;
+  --text: #1c1c1c;
+  --text-leise: #4a4a4a;
+  --rand: #cfc7ba;
+  --primaer: #174a7c; /* dunkles Blau */
+  --primaer-hell: #e6eef7;
+  --hilfe: #a33a12; /* warmes Rotbraun für den Hilfe-Knopf */
+  --hilfe-dunkel: #7d2c0d;
+  --gruen: #1e6b3a;
+  --gruen-hell: #e5f2e9;
+  --warnung: #8a5300;
+  --warnung-hell: #fff3d6;
+  --tipp-hell: #eef4fb;
+  --fokus: #1c1c1c;
+  --fokus-hof: #ffd23f;
+
+  --radius: 0.75rem;
+  --schatten: 0 1px 3px rgb(0 0 0 / 0.12);
+  --inhalt-breite: 46rem;
+  --seiten-breite: 64rem;
+
+  color-scheme: light;
+}
+
+/* Schriftgröße: per Knopf in drei Stufen. Alles ist in rem angegeben und wächst mit. */
+html {
+  font-size: 125%; /* 20 px Fließtext */
+}
+html[data-schrift='2'] {
+  font-size: 162.5%; /* 26 px */
+}
+html[data-schrift='3'] {
+  font-size: 200%; /* 32 px */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--hintergrund);
+  color: var(--text);
+  font-family: 'Atkinson Hyperlegible Next', Verdana, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+}
+h1 {
+  font-size: 1.9rem;
+}
+h2 {
+  font-size: 1.4rem;
+  margin-top: 2.25rem;
+}
+h3 {
+  font-size: 1.15rem;
+  margin-top: 1.5rem;
+}
+
+p,
+ul,
+ol {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--primaer);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.08em;
+}
+a:hover {
+  text-decoration-thickness: 0.16em;
+}
+
+/* Deutlicher Fokusrahmen für Tastatur-Bedienung */
+:focus-visible {
+  outline: 0.2rem solid var(--fokus);
+  outline-offset: 0.15rem;
+  box-shadow: 0 0 0 0.45rem var(--fokus-hof);
+  border-radius: 0.25rem;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.8em;
+  padding: 0.05em 0.45em;
+  margin: 0 0.1em;
+  border: 2px solid #8c8478;
+  border-bottom-width: 4px;
+  border-radius: 0.4em;
+  background: var(--flaeche);
+  font-family: inherit;
+  font-size: 0.95em;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.icon {
+  width: 1.4em;
+  height: 1.4em;
+  flex: none;
+  vertical-align: middle;
+}
+
+.nur-vorlesen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sprung-link {
+  position: absolute;
+  left: 1rem;
+  top: -10rem;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  background: var(--flaeche);
+  border: 3px solid var(--fokus);
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+.sprung-link:focus {
+  top: 1rem;
+}
+
+.seite {
+  max-width: var(--seiten-breite);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+main {
+  padding-bottom: 4rem;
+}
+
+/* ---------- Knöpfe ---------- */
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  min-width: 3rem;
+  padding: 0.55rem 1.1rem;
+  border: 3px solid var(--primaer);
+  border-radius: var(--radius);
+  background: var(--flaeche);
+  color: var(--primaer);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 100%;
+  text-decoration: none;
+  cursor: pointer;
+}
+.knopf:hover {
+  background: var(--primaer-hell);
+}
+.knopf[disabled] {
+  border-color: var(--rand);
+  color: #6b6b6b;
+  background: #f2efe9;
+  cursor: not-allowed;
+}
+.knopf--voll {
+  background: var(--primaer);
+  color: #fff;
+}
+.knopf--voll:hover {
+  background: #0f3459;
+}
+.knopf--hilfe {
+  background: var(--hilfe);
+  border-color: var(--hilfe);
+  color: #fff;
+}
+.knopf--hilfe:hover {
+  background: var(--hilfe-dunkel);
+  border-color: var(--hilfe-dunkel);
+}
+.knopf--gross {
+  min-height: 4.25rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.2rem;
+}
+
+/* ---------- Kopfbereich (auf jeder Seite gleich) ---------- */
+.kopf {
+  background: var(--flaeche);
+  border-bottom: 2px solid var(--rand);
+}
+.kopf__innen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.marke {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.marke .icon {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--primaer);
+}
+.kopf__werkzeuge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.schrift {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.schrift__titel {
+  font-weight: 700;
+  margin-right: 0.25rem;
+}
+.schrift .knopf {
+  padding: 0.4rem 0.8rem;
+  min-width: 3.25rem;
+}
+
+/* ---------- Orientierungsleiste: Zurück + Brotkrumen ---------- */
+.orientierung {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin: 1.5rem 0 1.75rem;
+}
+.brotkrumen ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.brotkrumen li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.brotkrumen li + li::before {
+  content: '›';
+  color: var(--text-leise);
+  font-weight: 700;
+}
+.brotkrumen [aria-current='page'] {
+  font-weight: 700;
+}
+
+/* ---------- Startseite ---------- */
+.begruessung {
+  margin: 2rem 0 1.5rem;
+}
+.begruessung h1 {
+  margin-bottom: 0.25rem;
+}
+.begruessung p {
+  color: var(--text-leise);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.suchfeld {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 2.5rem;
+}
+.suchfeld label {
+  flex-basis: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.suchfeld input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.5rem 1rem;
+  border: 3px solid #6f6759;
+  border-radius: var(--radius);
+  background: var(--flaeche);
+  color: var(--text);
+  font: inherit;
+  font-size: 1.1rem;
+}
+.suchfeld input::placeholder {
+  color: #6b6459;
+}
+.suchfeld .knopf {
+  min-height: 3.5rem;
+}
+
+.kacheln {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.kachel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  height: 100%;
+  min-height: 9rem;
+  padding: 1.4rem 1.4rem 1.2rem;
+  border: 3px solid var(--rand);
+  border-radius: 1rem;
+  background: var(--flaeche);
+  box-shadow: var(--schatten);
+  color: var(--text);
+  text-decoration: none;
+}
+.kachel:hover {
+  border-color: var(--primaer);
+  background: var(--primaer-hell);
+}
+.kachel .icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--primaer);
+}
+.kachel__titel {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.06em;
+  color: var(--primaer);
+}
+.kachel__text {
+  color: var(--text-leise);
+}
+
+.hinweis-hilfe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  background: var(--gruen-hell);
+  border: 2px solid #9cc7a9;
+}
+.hinweis-hilfe p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* ---------- Themenseite ---------- */
+.einleitung {
+  font-size: 1.15rem;
+  max-width: var(--inhalt-breite);
+}
+.lektionsliste {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+  max-width: var(--inhalt-breite);
+}
+.lektionsliste a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4rem;
+  padding: 1rem 1.25rem;
+  border: 3px solid var(--rand);
+  border-radius: var(--radius);
+  background: var(--flaeche);
+  color: var(--text);
+  text-decoration: none;
+}
+.lektionsliste a:hover {
+  border-color: var(--primaer);
+  background: var(--primaer-hell);
+}
+.lektionsliste__nr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--primaer);
+  color: #fff;
+  font-weight: 700;
+}
+.lektionsliste__text {
+  flex: 1;
+}
+.lektionsliste__titel {
+  display: block;
+  font-weight: 700;
+  color: var(--primaer);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.06em;
+}
+.lektionsliste__info {
+  display: block;
+  color: var(--text-leise);
+  font-size: 0.9rem;
+}
+.lektionsliste__erledigt {
+  display: none;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--gruen);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.ist-erledigt .lektionsliste__erledigt {
+  display: inline-flex;
+}
+.ist-erledigt .lektionsliste__nr {
+  background: var(--gruen);
+}
+
+/* ---------- Lektion ---------- */
+.lektion {
+  max-width: var(--inhalt-breite);
+}
+.lektion__info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0 0 1.5rem;
+  color: var(--text-leise);
+}
+.lektion__info span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.kasten {
+  margin: 0 0 1.5rem;
+  padding: 1.1rem 1.4rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--rand);
+  background: var(--flaeche);
+}
+.kasten h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+.kasten > :last-child {
+  margin-bottom: 0;
+}
+.kasten--darum {
+  background: var(--primaer-hell);
+  border-color: #aec4dc;
+  font-size: 1.1rem;
+}
+
+/* Inhalt aus Markdown */
+.inhalt h2 {
+  padding-top: 0.5rem;
+  border-top: 2px solid var(--rand);
+}
+.inhalt h2:first-child {
+  margin-top: 0.5rem;
+}
+.inhalt li {
+  margin-bottom: 0.4rem;
+}
+
+/* Nummerierte Schritte werden zu Karten: ein Schritt pro Karte */
+.inhalt ol {
+  counter-reset: schritt;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.inhalt ol > li {
+  counter-increment: schritt;
+  position: relative;
+  margin: 0;
+  padding: 1.1rem 1.25rem 1.1rem 4.5rem;
+  min-height: 4.25rem;
+  border: 2px solid var(--rand);
+  border-radius: var(--radius);
+  background: var(--flaeche);
+  box-shadow: var(--schatten);
+}
+.inhalt ol > li::before {
+  content: counter(schritt);
+  position: absolute;
+  left: 1rem;
+  top: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--primaer);
+  color: #fff;
+  font-weight: 700;
+}
+.inhalt ol > li > :last-child {
+  margin-bottom: 0;
+}
+.inhalt ol > li img {
+  display: block;
+  margin-top: 0.75rem;
+  border: 2px solid var(--rand);
+  border-radius: 0.5rem;
+}
+
+/* „Gut zu wissen“: Zitate in Markdown werden zu Hinweis-Kästen */
+.inhalt blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 0.5rem solid var(--primaer);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--tipp-hell);
+}
+.inhalt blockquote > :last-child {
+  margin-bottom: 0;
+}
+/* Warnung: in Markdown als <div class="warnung"> … </div> */
+.inhalt .warnung {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border: 3px solid var(--warnung);
+  border-radius: var(--radius);
+  background: var(--warnung-hell);
+}
+.inhalt .warnung > :last-child {
+  margin-bottom: 0;
+}
+
+.lektion__ende {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 2px solid var(--rand);
+  background: var(--flaeche);
+}
+.lektion__ende h2 {
+  margin-top: 0;
+}
+.lektion__knoepfe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.knopf--geschafft[aria-pressed='true'] {
+  background: var(--gruen);
+  border-color: var(--gruen);
+  color: #fff;
+}
+.geschafft-meldung {
+  min-height: 1.6em;
+  margin: 0;
+  color: var(--gruen);
+  font-weight: 700;
+}
+.weiter {
+  margin-top: 1.5rem;
+}
+
+/* ---------- Glossar ---------- */
+.glossar {
+  max-width: var(--inhalt-breite);
+}
+.glossar__abc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+}
+.glossar__abc a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  min-height: 3rem;
+  border: 2px solid var(--rand);
+  border-radius: 0.5rem;
+  background: var(--flaeche);
+  font-weight: 700;
+}
+.glossar dl {
+  margin: 0;
+}
+.glossar__eintrag {
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.9rem;
+  border: 2px solid var(--rand);
+  border-radius: var(--radius);
+  background: var(--flaeche);
+  scroll-margin-top: 1rem;
+}
+.glossar__eintrag:target {
+  border-color: var(--primaer);
+  border-width: 3px;
+  background: var(--primaer-hell);
+}
+.glossar dt {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.glossar dd {
+  margin: 0.25rem 0 0;
+}
+
+/* ---------- Hilfe-Seite ---------- */
+.hilfe-wege {
+  display: grid;
+  gap: 1.25rem;
+  max-width: var(--inhalt-breite);
+  margin: 1.5rem 0 2rem;
+}
+.hilfe-wege .knopf {
+  justify-content: flex-start;
+  width: 100%;
+}
+.hilfe-wege .knopf .icon {
+  width: 2rem;
+  height: 2rem;
+}
+.hilfe-wege small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.85em;
+}
+.knopf--whatsapp {
+  background: var(--gruen);
+  border-color: var(--gruen);
+  color: #fff;
+}
+.knopf--whatsapp:hover {
+  background: #154d29;
+  border-color: #154d29;
+}
+.platzhalter-hinweis {
+  max-width: var(--inhalt-breite);
+  padding: 1rem 1.25rem;
+  border: 3px solid var(--warnung);
+  border-radius: var(--radius);
+  background: var(--warnung-hell);
+}
+
+/* ---------- Suche (Pagefind) ---------- */
+.suche {
+  max-width: var(--inhalt-breite);
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: var(--primaer);
+  --pagefind-ui-text: var(--text);
+  --pagefind-ui-background: var(--flaeche);
+  --pagefind-ui-border: #6f6759;
+  --pagefind-ui-tag: var(--primaer-hell);
+  --pagefind-ui-border-width: 3px;
+  --pagefind-ui-border-radius: 12px;
+  --pagefind-ui-font: inherit;
+}
+.suche .pagefind-ui__search-input {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+.suche .pagefind-ui__result-link {
+  font-size: 1.15rem;
+  text-decoration: underline;
+}
+.suche .pagefind-ui__result-excerpt,
+.suche .pagefind-ui__message {
+  font-size: 1rem;
+}
+.suche .pagefind-ui__button {
+  font-size: 1rem;
+  min-height: 3rem;
+}
+.suche .pagefind-ui__search-clear {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primaer);
+  min-height: 3rem;
+  padding: 0 1rem;
+  text-decoration: underline;
+}
+.suche mark {
+  background: #ffe48a;
+  color: inherit;
+}
+.suche-ohne-js {
+  max-width: var(--inhalt-breite);
+}
+
+/* ---------- Fuß ---------- */
+.fuss {
+  border-top: 2px solid var(--rand);
+  background: var(--flaeche);
+  padding: 1.5rem 0;
+  color: var(--text-leise);
+  font-size: 0.9rem;
+}
+.fuss p {
+  margin: 0;
+}
+
+/* ---------- Schmale Bildschirme (Handy) ---------- */
+@media (max-width: 40rem) {
+  main {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  .schrift__titel {
+    flex-basis: 100%;
+  }
+  .schrift {
+    flex-wrap: wrap;
+  }
+  .inhalt ol > li {
+    padding-left: 1.25rem;
+    padding-top: 3.75rem;
+  }
+}
+
+/* ---------- Druckansicht ---------- */
+@media print {
+  html,
+  html[data-schrift] {
+    font-size: 12pt;
+  }
+  body {
+    background: #fff;
+  }
+  .kopf,
+  .orientierung,
+  .fuss,
+  .lektion__ende,
+  .sprung-link {
+    display: none !important;
+  }
+  .inhalt ol > li,
+  .kasten {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  a {
+    color: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

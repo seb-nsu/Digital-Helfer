@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { url } from '../lib';
+---
+
+<Base titel="Seite nicht gefunden" krumen={[{ titel: 'Seite nicht gefunden' }]}>
+  <h1>Diese Seite gibt es nicht</h1>
+  <p class="einleitung">Das ist nicht schlimm. Vielleicht hat sich die Adresse geändert.</p>
+  <p>
+    <a class="knopf knopf--voll knopf--gross" href={url()}>
+      <Icon name="house" />
+      Zur Startseite
+    </a>
+  </p>
+</Base>

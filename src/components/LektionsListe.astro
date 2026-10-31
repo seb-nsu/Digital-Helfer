@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { minuten, url } from '../lib';
+
+interface Props {
+  lektionen: CollectionEntry<'lektionen'>[];
+}
+const { lektionen } = Astro.props;
+---
+
+<ol class="lektionsliste">
+  {
+    lektionen.map((l, i) => (
+      <li>
+        <a href={url(`${l.id}/`)} data-lektion={l.id}>
+          <span class="lektionsliste__nr" aria-hidden="true">
+            {i + 1}
+          </span>
+          <span class="lektionsliste__text">
+            <span class="lektionsliste__titel">{l.data.titel}</span>
+            <span class="lektionsliste__info">{minuten(l.data.dauer)}</span>
+          </span>
+          <span class="lektionsliste__erledigt">
+            <Icon name="circle-check" />
+            Geschafft
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ol>
+
+<script>
+  // Erledigte Anleitungen mit Häkchen zeigen (im Browser gespeichert).
+  let erledigt: string[] = [];
+  try {
+    erledigt = JSON.parse(localStorage.getItem('dh-erledigt') ?? '[]');
+  } catch {}
+  document.querySelectorAll<HTMLAnchorElement>('[data-lektion]').forEach((a) => {
+    if (erledigt.includes(a.dataset.lektion ?? '')) a.classList.add('ist-erledigt');
+  });
+</script>

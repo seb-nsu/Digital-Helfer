@@ -1,0 +1,137 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { THEMEN, themaById } from '../../config';
+import { minuten, url } from '../../lib';
+
+export async function getStaticPaths() {
+  const alle = await getCollection('lektionen');
+  return alle.map((lektion) => {
+    const [thema, name] = lektion.id.split('/');
+    const geschwister = alle
+      .filter((l) => l.data.thema === lektion.data.thema)
+      .sort((a, b) => a.data.nummer - b.data.nummer);
+    const index = geschwister.findIndex((l) => l.id === lektion.id);
+    return {
+      params: { thema, lektion: name },
+      props: { lektion, naechste: geschwister[index + 1], position: index + 1, anzahl: geschwister.length },
+    };
+  });
+}
+
+const { lektion, naechste, position, anzahl } = Astro.props;
+const thema = themaById(lektion.data.thema) ?? THEMEN[0];
+const { Content } = await render(lektion);
+const themaHref = url(`${thema.id}/`);
+---
+
+<Base
+  titel={lektion.data.titel}
+  beschreibung={lektion.data.darum}
+  krumen={[{ titel: thema.titel, href: themaHref }, { titel: lektion.data.titel }]}
+  zurueck={{ href: themaHref, titel: thema.titel }}
+>
+  <article class="lektion" data-pagefind-body>
+    <h1>{lektion.data.titel}</h1>
+    <p class="lektion__info">
+      <span><Icon name="clock" /> {minuten(lektion.data.dauer)}</span>
+      <span>Anleitung {position} von {anzahl} im Thema {thema.titel}</span>
+    </p>
+
+    <div class="kasten kasten--darum">
+      <h2>Darum geht es</h2>
+      <p>{lektion.data.darum}</p>
+    </div>
+
+    {
+      lektion.data.brauchen.length > 0 && (
+        <div class="kasten">
+          <h2>Das brauchen Sie</h2>
+          <ul>
+            {lektion.data.brauchen.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    <div class="inhalt">
+      <Content />
+    </div>
+
+    {
+      lektion.data.suchwoerter.length > 0 && (
+        <p hidden data-pagefind-weight="3">
+          {lektion.data.suchwoerter.join(', ')}
+        </p>
+      )
+    }
+  </article>
+
+  <section class="lektion__ende" aria-labelledby="ende-titel" data-pagefind-ignore>
+    <h2 id="ende-titel">Hat alles geklappt?</h2>
+    <div class="lektion__knoepfe">
+      <button type="button" class="knopf knopf--geschafft" aria-pressed="false" data-geschafft={lektion.id}>
+        <Icon name="check" />
+        <span>Geschafft!</span>
+      </button>
+      <button type="button" class="knopf" data-drucken>
+        <Icon name="printer" />
+        Anleitung ausdrucken
+      </button>
+    </div>
+    <p class="geschafft-meldung" aria-live="polite"></p>
+    <p>
+      Hat es nicht geklappt? Kein Problem. <a href={url('hilfe/')}>Fragen Sie einfach nach Hilfe</a>.
+    </p>
+    {
+      naechste ? (
+        <a class="knopf knopf--voll knopf--gross weiter" href={url(`${naechste.id}/`)}>
+          Nächste Anleitung: {naechste.data.titel}
+          <Icon name="chevron-right" />
+        </a>
+      ) : (
+        <a class="knopf knopf--voll knopf--gross weiter" href={themaHref}>
+          Alle Anleitungen zu {thema.titel}
+          <Icon name="chevron-right" />
+        </a>
+      )
+    }
+  </section>
+</Base>
+
+<script>
+  const knopf = document.querySelector<HTMLButtonElement>('[data-geschafft]');
+  const meldung = document.querySelector('.geschafft-meldung');
+  const id = knopf?.dataset.geschafft ?? '';
+
+  function lesen(): string[] {
+    try {
+      return JSON.parse(localStorage.getItem('dh-erledigt') ?? '[]');
+    } catch {
+      return [];
+    }
+  }
+  function zeigen(erledigt: boolean) {
+    if (!knopf) return;
+    knopf.setAttribute('aria-pressed', String(erledigt));
+    const text = knopf.querySelector('span');
+    if (text) text.textContent = erledigt ? 'Geschafft! (abgehakt)' : 'Geschafft!';
+  }
+
+  zeigen(lesen().includes(id));
+  knopf?.addEventListener('click', () => {
+    let liste = lesen();
+    const jetztErledigt = !liste.includes(id);
+    liste = jetztErledigt ? [...liste, id] : liste.filter((x) => x !== id);
+    try {
+      localStorage.setItem('dh-erledigt', JSON.stringify(liste));
+    } catch {}
+    zeigen(jetztErledigt);
+    if (meldung) meldung.textContent = jetztErledigt ? 'Sehr gut! Die Anleitung ist abgehakt.' : 'Das Häkchen ist wieder entfernt.';
+  });
+
+  document.querySelector('[data-drucken]')?.addEventListener('click', () => window.print());
+</script>

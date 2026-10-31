@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { HILFE, THEMEN } from '../config';
+import { url } from '../lib';
+
+// Höchstens 6 Kacheln: die vier Themen, das Glossar und die Liste aller Anleitungen.
+const kacheln = [
+  ...THEMEN.map((t) => ({ titel: t.titel, text: t.kurz, icon: t.icon, href: url(`${t.id}/`) })),
+  { titel: 'Wörter erklärt', text: 'Fachwörter einfach erklärt', icon: 'book-open', href: url('glossar/') },
+  { titel: 'Alle Anleitungen', text: 'Alles auf einen Blick', icon: 'list', href: url('alle/') },
+];
+---
+
+<Base titel="Startseite">
+  <section class="begruessung" aria-labelledby="gruss">
+    <h1 id="gruss" data-gruss>Willkommen beim Digital-Helfer</h1>
+    <p data-datum>Hier finden Sie Anleitungen für Computer, Internet und KI.</p>
+  </section>
+
+  <form class="suchfeld" role="search" action={url('suche/')} method="get">
+    <label for="suche-start">Was möchten Sie wissen?</label>
+    <input id="suche-start" name="q" type="search" placeholder="z. B. Text kopieren" autocomplete="off" />
+    <button class="knopf knopf--voll" type="submit">
+      <Icon name="search" />
+      Suchen
+    </button>
+  </form>
+
+  <h2 class="nur-vorlesen">Themen</h2>
+  <ul class="kacheln">
+    {
+      kacheln.map((k) => (
+        <li>
+          <a class="kachel" href={k.href}>
+            <Icon name={k.icon} />
+            <span class="kachel__titel">{k.titel}</span>
+            <span class="kachel__text">{k.text}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <aside class="hinweis-hilfe" aria-label="Hilfe">
+    <p>Etwas klappt nicht? {HILFE.name} hilft Ihnen gern.</p>
+    <a class="knopf knopf--hilfe" href={url('hilfe/')}>
+      <Icon name="phone" />
+      {HILFE.name} anrufen oder schreiben
+    </a>
+  </aside>
+</Base>
+
+<script>
+  // Begrüßung passend zur Tageszeit, dazu das heutige Datum.
+  const jetzt = new Date();
+  const h = jetzt.getHours();
+  const gruss = h < 11 ? 'Guten Morgen' : h < 18 ? 'Guten Tag' : 'Guten Abend';
+  const datum = jetzt.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const el = document.querySelector('[data-gruss]');
+  const d = document.querySelector('[data-datum]');
+  if (el) el.textContent = `${gruss}!`;
+  if (d) d.textContent = `Heute ist ${datum}.`;
+</script>

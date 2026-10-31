@@ -1,0 +1,95 @@
+# Glossar: Fachwörter in ein bis zwei Sätzen erklärt.
+# id = Anker auf der Seite (nur Kleinbuchstaben, keine Umlaute), z. B. /glossar/#browser
+- id: anhang
+  wort: Anhang
+  erklaerung: Eine Datei, die an einer E-Mail hängt, zum Beispiel ein Foto oder ein Brief. Öffnen Sie Anhänge nur, wenn Sie den Absender kennen und den Anhang erwarten.
+- id: app
+  wort: App
+  erklaerung: Ein Programm, meist auf dem Handy. Auf dem iPhone holen Sie neue Apps aus dem „App Store“.
+- id: browser
+  wort: Browser
+  erklaerung: Das Programm, mit dem Sie Internetseiten anschauen. Auf Ihrem Computer heißt es zum Beispiel „Microsoft Edge“ oder „Google Chrome“, auf dem iPhone „Safari“.
+- id: cloud
+  wort: Cloud
+  erklaerung: Ein Speicherplatz im Internet. Ihre Fotos oder Dateien liegen dann nicht nur auf Ihrem Gerät, sondern zusätzlich bei einem Anbieter wie Apple, Google oder Microsoft.
+- id: cookie
+  wort: Cookie
+  erklaerung: Eine kleine Notiz, die eine Internetseite auf Ihrem Gerät speichert. Viele Seiten fragen beim ersten Besuch, ob sie Cookies speichern dürfen. „Nur notwendige“ ist meist eine gute Wahl.
+- id: cursor
+  wort: Cursor
+  erklaerung: Der blinkende senkrechte Strich in einem Text. Dort erscheint, was Sie tippen.
+- id: datei
+  wort: Datei
+  erklaerung: Ein gespeichertes Stück Arbeit auf dem Computer, zum Beispiel ein Brief, ein Foto oder eine Liste.
+- id: desktop
+  wort: Desktop
+  erklaerung: Die Fläche, die Sie nach dem Einschalten des Computers sehen. Dort liegen Symbole für Programme und Dateien.
+- id: doppelklick
+  wort: Doppelklick
+  erklaerung: Zweimal schnell hintereinander auf die linke Maustaste drücken. Damit öffnen Sie Dateien und Ordner.
+- id: download
+  wort: Download
+  erklaerung: Etwas aus dem Internet auf Ihr Gerät laden, zum Beispiel ein Formular oder ein Foto. Auf Deutsch auch „herunterladen“.
+- id: fenster
+  wort: Fenster
+  erklaerung: Ein Rahmen auf dem Bildschirm, in dem ein Programm läuft. Oben rechts hat jedes Fenster Knöpfe zum Verkleinern, Vergrößern und Schließen.
+- id: gemini
+  wort: Gemini
+  erklaerung: Der KI-Assistent von Google. Sie können ihm Fragen stellen, und er antwortet in ganzen Sätzen. Es gibt ihn als App auf dem iPhone und im Browser.
+- id: google-konto
+  wort: Google-Konto
+  erklaerung: Ihr Zugang zu Diensten von Google, zum Beispiel Gmail oder Gemini. Sie melden sich mit Ihrer E-Mail-Adresse und Ihrem Passwort an.
+- id: ki
+  wort: KI (Künstliche Intelligenz)
+  erklaerung: Ein Computerprogramm, das Fragen in normaler Sprache versteht und in ganzen Sätzen antwortet. Die KI kann sich aber auch irren.
+- id: link
+  wort: Link
+  erklaerung: Ein Verweis auf eine andere Seite. Links sind oft blau und unterstrichen. Wenn Sie darauf klicken, öffnet sich die andere Seite.
+- id: markieren
+  wort: Markieren
+  erklaerung: Text oder Dateien auswählen, damit Sie danach etwas damit machen können, zum Beispiel kopieren. Markierter Text ist farbig hinterlegt.
+- id: menueband
+  wort: Menüband
+  erklaerung: Die breite Leiste oben in Word und Excel. Dort finden Sie alle Knöpfe, zum Beispiel für fette Schrift oder zum Drucken.
+- id: ordner
+  wort: Ordner
+  erklaerung: Ein Behälter für Dateien auf dem Computer, so wie ein Aktenordner im Regal. Er hat meist ein gelbes Symbol.
+- id: passwort
+  wort: Passwort
+  erklaerung: Ein geheimes Wort, mit dem Sie sich anmelden. Nur Sie sollten es kennen. Geben Sie es niemals am Telefon oder in einer E-Mail weiter.
+- id: pdf
+  wort: PDF
+  erklaerung: Eine Art von Datei, die überall gleich aussieht. Rechnungen und Formulare kommen oft als PDF.
+- id: phishing
+  wort: Phishing
+  erklaerung: Betrug mit gefälschten E-Mails, SMS oder Internetseiten. Die Betrüger wollen an Ihre Passwörter oder Ihr Geld.
+- id: programm
+  wort: Programm
+  erklaerung: Ein Werkzeug auf dem Computer für eine bestimmte Aufgabe, zum Beispiel Word zum Schreiben oder Edge für das Internet.
+- id: rechtsklick
+  wort: Rechtsklick
+  erklaerung: Einmal auf die rechte Maustaste drücken. Dann erscheint ein kleines Menü mit passenden Möglichkeiten.
+- id: scrollen
+  wort: Scrollen
+  erklaerung: Eine Seite nach oben oder unten bewegen, zum Beispiel mit dem Rädchen an der Maus.
+- id: spam
+  wort: Spam
+  erklaerung: Unerwünschte Werbe-E-Mails. Sie können Spam einfach löschen, ohne ihn zu öffnen.
+- id: startmenue
+  wort: Startmenü
+  erklaerung: Das Menü, das sich öffnet, wenn Sie unten auf das Windows-Symbol klicken. Dort finden Sie alle Programme.
+- id: taskleiste
+  wort: Taskleiste
+  erklaerung: Die Leiste ganz unten am Bildschirm. Dort sehen Sie das Windows-Symbol und alle geöffneten Programme.
+- id: update
+  wort: Update
+  erklaerung: Eine Aktualisierung für ein Programm oder ein Gerät. Updates beheben Fehler und schließen Sicherheitslücken. Installieren Sie sie deshalb immer.
+- id: wlan
+  wort: WLAN
+  erklaerung: Internet ohne Kabel, zum Beispiel über den Router zu Hause.
+- id: zwischenablage
+  wort: Zwischenablage
+  erklaerung: Ein unsichtbarer Merkzettel im Computer. Wenn Sie etwas kopieren, liegt es dort, bis Sie es woanders einfügen.
+- id: zwei-faktor
+  wort: Zwei-Faktor-Anmeldung
+  erklaerung: Eine doppelte Sicherung beim Anmelden. Sie brauchen Ihr Passwort und zusätzlich einen Code, der zum Beispiel per SMS auf Ihr Handy kommt.

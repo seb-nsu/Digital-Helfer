@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { HILFE, NUMMER_IST_PLATZHALTER } from '../config';
+import { url } from '../lib';
+
+const whatsappText = encodeURIComponent('Hallo, ich brauche Hilfe mit dem Computer.');
+---
+
+<Base titel="Hilfe holen" krumen={[{ titel: 'Hilfe holen' }]}>
+  <h1>Hilfe holen</h1>
+  <p class="einleitung">
+    Etwas klappt nicht? Das ist ganz normal. {HILFE.name} hilft Ihnen gern. Wählen Sie einen Weg:
+  </p>
+
+  {
+    NUMMER_IST_PLATZHALTER && (
+      <p class="platzhalter-hinweis" role="note">
+        <strong>Hinweis für die Einrichtung:</strong> Hier ist noch keine echte Telefonnummer eingetragen. Bitte die
+        Nummer in der Datei <code>src/config.ts</code> eintragen.
+      </p>
+    )
+  }
+
+  <div class="hilfe-wege">
+    <a class="knopf knopf--hilfe knopf--gross" href={`tel:${HILFE.telefon}`}>
+      <Icon name="phone" />
+      <span>
+        {HILFE.name} anrufen
+        <small>{HILFE.telefonAnzeige}</small>
+      </span>
+    </a>
+    <a class="knopf knopf--whatsapp knopf--gross" href={`https://wa.me/${HILFE.whatsapp}?text=${whatsappText}`}>
+      <Icon name="message-circle" />
+      <span>
+        {HILFE.name} bei WhatsApp schreiben
+        <small>Öffnet WhatsApp mit einer fertigen Nachricht</small>
+      </span>
+    </a>
+  </div>
+
+  <h2>Am Computer anrufen?</h2>
+  <p>
+    Der Knopf „anrufen“ funktioniert am besten auf dem iPhone. Am Computer öffnet sich vielleicht ein Fenster. Dann
+    nehmen Sie einfach Ihr Telefon und wählen die Nummer <strong>{HILFE.telefonAnzeige}</strong>.
+  </p>
+
+  <h2>{HILFE.name} soll auf Ihren Bildschirm schauen</h2>
+  <p>
+    Windows 11 hat dafür ein Programm. Es heißt <strong>Schnellhilfe</strong>. Damit sieht {HILFE.name} Ihren Bildschirm
+    und kann Ihnen helfen. So geht es:
+  </p>
+  <ol class="schritte-einfach">
+    <li>Rufen Sie {HILFE.name} zuerst an.</li>
+    <li>Drücken Sie gleichzeitig die Tasten <kbd>Strg</kbd> + <kbd>Windows-Taste</kbd> + <kbd>Q</kbd>.</li>
+    <li>Das Programm „Schnellhilfe“ öffnet sich.</li>
+    <li>{HILFE.name} nennt Ihnen einen Code. Tippen Sie ihn in das Feld ein und klicken Sie auf „Senden“.</li>
+    <li>Klicken Sie danach auf „Zulassen“. Jetzt sieht {HILFE.name} Ihren Bildschirm.</li>
+    <li>Zum Beenden schließen Sie einfach das Fenster der Schnellhilfe.</li>
+  </ol>
+  <p>
+    <strong>Wichtig:</strong> Machen Sie das nur mit {HILFE.name}. Fremde Anrufer, die auf Ihren Bildschirm wollen, sind
+    Betrüger. Mehr dazu lesen Sie in der Anleitung
+    <a href={url('sicherheit/falscher-support/')}>„Ein Anrufer will auf meinen Computer“</a>.
+  </p>
+</Base>
+
+<style>
+  .schritte-einfach {
+    list-style: decimal;
+    padding-left: 2rem;
+    display: block;
+  }
+  .schritte-einfach li {
+    margin-bottom: 0.6rem;
+  }
+</style>
