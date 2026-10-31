@@ -743,13 +743,6 @@ main {
   background: #154d29;
   border-color: #154d29;
 }
-.platzhalter-hinweis {
-  max-width: var(--inhalt-breite);
-  padding: 1rem 1.25rem;
-  border: 3px solid var(--warnung);
-  border-radius: var(--radius);
-  background: var(--warnung-hell);
-}
 
 /* ---------- Suche (Pagefind) ---------- */
 .suche {

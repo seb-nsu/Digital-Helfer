@@ -2,7 +2,7 @@
 titel: Wie rufe ich mit dem iPhone schnell einen Notruf?
 thema: iphone
 gruppe: iPhone-Grundlagen
-nummer: 4
+nummer: 2
 dauer: 6
 darum: In einem Notfall zählt jede Sekunde. Das iPhone hat dafür eine eigene Funktion. Und mit einem Notfallpass sehen Helfer wichtige Angaben zu Ihrer Gesundheit, auch ohne Ihren Code.
 brauchen:

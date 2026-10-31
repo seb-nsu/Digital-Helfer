@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { HILFE, NUMMER_IST_PLATZHALTER } from '../config';
+import { HILFE, MIT_NUMMER } from '../config';
 import { url } from '../lib';
 
 const whatsappText = encodeURIComponent('Hallo, ich brauche Hilfe mit dem Computer.');
@@ -10,39 +10,45 @@ const whatsappText = encodeURIComponent('Hallo, ich brauche Hilfe mit dem Comput
 <Base titel="Hilfe holen" krumen={[{ titel: 'Hilfe holen' }]}>
   <h1>Hilfe holen</h1>
   <p class="einleitung">
-    Etwas klappt nicht? Das ist ganz normal. {HILFE.name} hilft Ihnen gern. Wählen Sie einen Weg:
+    Etwas klappt nicht? Das ist ganz normal. {HILFE.name} hilft Ihnen gern.
+    {MIT_NUMMER ? 'Wählen Sie einen Weg:' : `Rufen Sie ${HILFE.name} einfach wie gewohnt an oder schreiben Sie eine Nachricht.`}
   </p>
 
   {
-    NUMMER_IST_PLATZHALTER && (
-      <p class="platzhalter-hinweis" role="note">
-        <strong>Hinweis für die Einrichtung:</strong> Hier ist noch keine echte Telefonnummer eingetragen. Bitte die
-        Nummer in der Datei <code>src/config.ts</code> eintragen.
-      </p>
+    MIT_NUMMER && (
+      <>
+        <div class="hilfe-wege">
+          <a class="knopf knopf--hilfe knopf--gross" href={`tel:${HILFE.telefon}`}>
+            <Icon name="phone" />
+            <span>
+              {HILFE.name} anrufen
+              <small>{HILFE.telefonAnzeige}</small>
+            </span>
+          </a>
+          {HILFE.whatsapp && (
+            <a class="knopf knopf--whatsapp knopf--gross" href={`https://wa.me/${HILFE.whatsapp}?text=${whatsappText}`}>
+              <Icon name="message-circle" />
+              <span>
+                {HILFE.name} bei WhatsApp schreiben
+                <small>Öffnet WhatsApp mit einer fertigen Nachricht</small>
+              </span>
+            </a>
+          )}
+        </div>
+
+        <h2>Am Computer anrufen?</h2>
+        <p>
+          Der Knopf „anrufen“ funktioniert am besten auf dem iPhone. Am Computer öffnet sich vielleicht ein Fenster. Dann
+          nehmen Sie einfach Ihr Telefon und wählen die Nummer <strong>{HILFE.telefonAnzeige}</strong>.
+        </p>
+      </>
     )
   }
 
-  <div class="hilfe-wege">
-    <a class="knopf knopf--hilfe knopf--gross" href={`tel:${HILFE.telefon}`}>
-      <Icon name="phone" />
-      <span>
-        {HILFE.name} anrufen
-        <small>{HILFE.telefonAnzeige}</small>
-      </span>
-    </a>
-    <a class="knopf knopf--whatsapp knopf--gross" href={`https://wa.me/${HILFE.whatsapp}?text=${whatsappText}`}>
-      <Icon name="message-circle" />
-      <span>
-        {HILFE.name} bei WhatsApp schreiben
-        <small>Öffnet WhatsApp mit einer fertigen Nachricht</small>
-      </span>
-    </a>
-  </div>
-
-  <h2>Am Computer anrufen?</h2>
+  <h2>Selbst nachschauen</h2>
   <p>
-    Der Knopf „anrufen“ funktioniert am besten auf dem iPhone. Am Computer öffnet sich vielleicht ein Fenster. Dann
-    nehmen Sie einfach Ihr Telefon und wählen die Nummer <strong>{HILFE.telefonAnzeige}</strong>.
+    Viele Probleme lassen sich schnell lösen. Schauen Sie in die <a href={url()}>häufigsten Probleme auf der Startseite</a>
+    oder nutzen Sie dort die Suche.
   </p>
 
   <h2>{HILFE.name} soll auf Ihren Bildschirm schauen</h2>

@@ -20,8 +20,8 @@ Benötigt Node.js 22.23 oder neuer.
 
 Alles Wichtige steht in [`src/config.ts`](src/config.ts):
 
-- **Telefonnummer und WhatsApp** für den Hilfe-Knopf. Aktuell ist ein **Platzhalter** eingetragen.
-  Solange das so ist, zeigt die Hilfe-Seite einen gelben Hinweis.
+- **Telefonnummer und WhatsApp** für die Hilfe-Seite. Aktuell ist **keine Nummer** eingetragen;
+  dann zeigt die Hilfe-Seite keine Knöpfe zum Anrufen und für WhatsApp.
 - **`NICHT_INDEXIEREN`**: Solange die Seite nur für die Familie ist, sollen Suchmaschinen sie nicht aufnehmen.
 - **Themen** (Titel, Kurzbeschreibung, Symbol) für die Startseite.
 

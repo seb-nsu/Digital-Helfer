@@ -1,8 +1,8 @@
 ---
 titel: Wie schicke ich ein Foto mit WhatsApp?
 thema: iphone
-gruppe: iPhone-Grundlagen
-nummer: 2
+gruppe: WhatsApp
+nummer: 6
 dauer: 6
 darum: Sie möchten der Familie ein Foto schicken. Mit WhatsApp geht das schnell, entweder ein Foto aus Ihrer Sammlung oder ein neues Foto mit der Kamera.
 brauchen:
