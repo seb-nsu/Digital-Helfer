@@ -9,7 +9,7 @@ Gebaut mit [Astro](https://astro.build) (statische Seite), Suche mit [Pagefind](
 
 ```bash
 npm install
-npm run dev      # Vorschau während der Arbeit: http://localhost:4321/digital-helfer/
+npm run dev      # Vorschau während der Arbeit: http://localhost:4321/Digital-Helfer/
 npm run build    # fertige Seite in dist/ bauen, inklusive Suchindex
 npm run preview  # gebaute Seite ansehen (nur hier funktioniert die Suche)
 ```
@@ -62,6 +62,20 @@ Fachwörter für die Seite „Wörter erklärt“ stehen in `src/content/glossar
 
 ## Veröffentlichen
 
-Die Seite ist komplett statisch: Der Inhalt von `dist/` kann auf jeden Webspace, zu GitHub Pages, Netlify o. Ä.
-Der Basis-Pfad ist standardmäßig `/digital-helfer/` und lässt sich beim Bauen mit `BASE_PATH` ändern,
-die Domain mit `SITE_URL`.
+Jede Änderung in `main` wird automatisch auf GitHub Pages veröffentlicht
+(Workflow `.github/workflows/deploy.yml`). Die Adresse ist
+**https://seb-nsu.github.io/Digital-Helfer/**.
+
+Einmalig einschalten: im Repository unter **Settings → Pages** bei **Source** „GitHub Actions“ wählen.
+
+> Die Seite ist dann öffentlich erreichbar. Suchmaschinen sind über `NICHT_INDEXIEREN` in `src/config.ts` ausgesperrt.
+
+### Am PC der Eltern einrichten
+
+1. **Startseite im Browser (Edge):** Einstellungen → „Start, Startseite und neue Tabs“ → „Diese Seiten öffnen“ →
+   „Neue Seite hinzufügen“ → Adresse oben einfügen.
+2. **Symbol auf dem Desktop:** Seite in Edge öffnen → Menü „…“ → „Weitere Tools“ → „Verknüpfung erstellen“
+   (oder rechte Maustaste auf den Desktop → „Neu“ → „Verknüpfung“ → Adresse einfügen → Name „Digital-Helfer“).
+3. Auf dem iPhone: Seite in Safari öffnen → Teilen → „Zum Home-Bildschirm“.
+
+Lokal lässt sich der Basis-Pfad beim Bauen mit `BASE_PATH` ändern, die Domain mit `SITE_URL`.
