@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import LektionsListe from '../../components/LektionsListe.astro';
+import { THEMEN } from '../../config';
+
+export function getStaticPaths() {
+  return THEMEN.map((thema) => ({ params: { thema: thema.id }, props: { thema } }));
+}
+
+const { thema } = Astro.props;
+const lektionen = (await getCollection('lektionen', (l) => l.data.thema === thema.id)).sort(
+  (a, b) => a.data.nummer - b.data.nummer,
+);
+const einsteiger = lektionen.filter((l) => l.data.niveau === 'Einsteiger');
+const fortgeschritten = lektionen.filter((l) => l.data.niveau === 'Fortgeschritten');
+---
+
+<Base titel={thema.titel} beschreibung={thema.einleitung} krumen={[{ titel: thema.titel }]}>
+  <div data-pagefind-body>
+    <h1>{thema.titel}</h1>
+    <p class="einleitung">{thema.einleitung}</p>
+
+    {
+      fortgeschritten.length > 0 ? (
+        <>
+          <h2>Für Einsteiger</h2>
+          <LektionsListe lektionen={einsteiger} />
+          <h2>Für Fortgeschrittene</h2>
+          <LektionsListe lektionen={fortgeschritten} />
+        </>
+      ) : (
+        <>
+          <h2 class="nur-vorlesen">Anleitungen</h2>
+          <LektionsListe lektionen={lektionen} />
+        </>
+      )
+    }
+  </div>
+</Base>

@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const eintraege = (await getCollection('glossar')).sort((a, b) => a.data.wort.localeCompare(b.data.wort, 'de'));
+const buchstabe = (w: string) => w.charAt(0).toLocaleUpperCase('de').replace('Ä', 'A').replace('Ö', 'O').replace('Ü', 'U');
+// Jeder Buchstabe verweist auf das erste Wort mit diesem Anfangsbuchstaben.
+const buchstaben = new Map<string, string>();
+for (const e of eintraege) if (!buchstaben.has(buchstabe(e.data.wort))) buchstaben.set(buchstabe(e.data.wort), e.id);
+---
+
+<Base titel="Wörter erklärt" beschreibung="Fachwörter rund um Computer und Internet, einfach erklärt." krumen={[{ titel: 'Wörter erklärt' }]}>
+  <div class="glossar" data-pagefind-body>
+    <h1>Wörter erklärt</h1>
+    <p class="einleitung">Hier finden Sie Fachwörter von A bis Z. Jedes Wort ist in ein bis zwei Sätzen erklärt.</p>
+
+    <nav aria-label="Springen zum Buchstaben">
+      <ul class="glossar__abc">
+        {
+          [...buchstaben].map(([b, id]) => (
+            <li>
+              <a href={`#${id}`} aria-label={`Wörter mit ${b}`}>{b}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <dl>
+      {
+        eintraege.map((e) => (
+          <div class="glossar__eintrag" id={e.id}>
+            <dt>{e.data.wort}</dt>
+            <dd>{e.data.erklaerung}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</Base>
