@@ -25,7 +25,7 @@ export const NUMMER_IST_PLATZHALTER = HILFE.telefon === '+490000000000';
  */
 export const NICHT_INDEXIEREN = true;
 
-export type ThemaId = 'pc-grundlagen' | 'word' | 'excel' | 'sicherheit' | 'ki';
+export type ThemaId = 'pc-grundlagen' | 'word' | 'excel' | 'sicherheit' | 'ki' | 'unterhaltung';
 
 export const THEMEN: {
   id: ThemaId;
@@ -73,6 +73,14 @@ export const THEMEN: {
     einleitung:
       'Künstliche Intelligenz, kurz KI, beantwortet Fragen in ganzen Sätzen. Hier lernen Sie die KI in der Google-Suche und den Assistenten Gemini kennen.',
     icon: 'sparkles',
+  },
+  {
+    id: 'unterhaltung',
+    titel: 'Musik und Unterhaltung',
+    kurz: 'Spotify: Lieder und Playlists',
+    einleitung:
+      'Mit Spotify hören Sie fast jedes Lied, das es gibt. Hier lernen Sie, wie Sie Lieder finden und eigene Listen mit Ihren Lieblingsliedern anlegen.',
+    icon: 'music',
   },
 ];
 

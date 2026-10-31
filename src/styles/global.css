@@ -386,6 +386,9 @@ main {
 }
 
 .zusatz-link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin: 1.5rem 0 0;
 }
 
