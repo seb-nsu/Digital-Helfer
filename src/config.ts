@@ -58,17 +58,17 @@ export const THEMEN: Thema[] = [
   {
     id: 'internet',
     titel: 'E-Mail und Internet',
-    kurz: 'E-Mails, Fotos verschicken, Tabs',
+    kurz: 'E-Mails, Tabs, Musik mit Spotify',
     einleitung:
-      'Hier lernen Sie, wie Sie E-Mails lesen und schreiben, Anhänge öffnen und Fotos verschicken. Und wie Sie im Internet mehrere Seiten gleichzeitig öffnen.',
+      'Hier lernen Sie, wie Sie E-Mails lesen und schreiben, Anhänge öffnen und Fotos verschicken. Außerdem: mehrere Internetseiten gleichzeitig öffnen und Musik hören mit Spotify.',
     icon: 'mail',
   },
   {
     id: 'iphone',
     titel: 'iPhone',
-    kurz: 'Schrift, WhatsApp, Fotos, Spotify',
+    kurz: 'Schrift, WhatsApp, Fotos, Notruf',
     einleitung:
-      'Hier finden Sie Anleitungen für Ihr iPhone: größere Schrift, Fotos per WhatsApp verschicken, Fotos auf den Computer holen, den Notruf und Musik mit Spotify.',
+      'Hier finden Sie Anleitungen für Ihr iPhone: größere Schrift, Fotos per WhatsApp verschicken, Fotos auf den Computer holen, und den Notruf.',
     icon: 'smartphone',
   },
   {
