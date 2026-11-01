@@ -2,7 +2,7 @@
 titel: Wie leite ich eine WhatsApp-Nachricht weiter?
 thema: iphone
 gruppe: WhatsApp
-nummer: 7
+nummer: 3
 dauer: 5
 darum: Sie haben ein schönes Foto oder eine Nachricht bekommen und möchten sie an jemand anderen schicken. Das nennt man Weiterleiten. Sie müssen nichts neu schreiben.
 brauchen:

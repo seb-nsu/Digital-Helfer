@@ -105,3 +105,51 @@
 - id: arbeitsmappe
   wort: Arbeitsmappe
   erklaerung: So heißt eine Excel-Datei. Sie kann mehrere Tabellen enthalten, die unten als Blätter angezeigt werden.
+- id: bluetooth
+  wort: Bluetooth
+  erklaerung: Eine Funkverbindung über kurze Strecken, ganz ohne Kabel. Damit verbinden Sie zum Beispiel Kopfhörer oder einen Lautsprecher mit dem iPhone.
+- id: diktieren
+  wort: Diktieren
+  erklaerung: Sprechen statt tippen. Das Gerät hört zu und schreibt Ihre Worte als Text auf. Auf dem iPhone tippen Sie dafür auf das Mikrofon in der Tastatur.
+- id: facetime
+  wort: FaceTime
+  erklaerung: Die Videoanruf-App von Apple. Sie ist auf jedem iPhone dabei und funktioniert mit anderen iPhones und iPads.
+- id: home-bildschirm
+  wort: Home-Bildschirm
+  erklaerung: Die Startseite des iPhones mit den Symbolen aller Apps. Dorthin kommen Sie zurück, wenn Sie vom unteren Rand nach oben wischen.
+- id: iban
+  wort: IBAN
+  erklaerung: Die Nummer eines Bankkontos. Deutsche IBANs beginnen mit DE und haben 22 Zeichen. Sie brauchen die IBAN des Empfängers für eine Überweisung.
+- id: konto
+  wort: Konto (im Internet)
+  erklaerung: Ihr persönlicher Zugang bei einer Internetseite oder App, zum Beispiel bei Amazon. Sie melden sich mit E-Mail-Adresse und Passwort an.
+- id: lesezeichen
+  wort: Lesezeichen
+  erklaerung: Eine gespeicherte Internetseite im Browser. Mit einem Klick auf das Lesezeichen kommen Sie direkt hin, ohne die Adresse einzutippen. In Edge heißen sie auch „Favoriten“.
+- id: online-banking
+  wort: Online-Banking
+  erklaerung: Bankgeschäfte im Internet erledigen, zum Beispiel den Kontostand ansehen oder Geld überweisen. Ihre Bank fragt Sie dabei nie per E-Mail oder Telefon nach PIN oder TAN.
+- id: qr-code
+  wort: QR-Code
+  erklaerung: Ein kleines Quadrat aus schwarzen Punkten. Halten Sie die Kamera des iPhones darauf, erscheint ein Link. Tippen Sie nur darauf, wenn Sie der Quelle vertrauen.
+- id: router
+  wort: Router
+  erklaerung: Das Kästchen mit den Lämpchen, das Ihr Zuhause mit dem Internet verbindet, zum Beispiel eine FRITZ!Box. Es macht auch das WLAN.
+- id: scannen
+  wort: Scannen
+  erklaerung: Ein Blatt Papier abfotografieren und als Datei speichern, meist als PDF. Das geht mit einem Scanner oder einfach mit dem iPhone.
+- id: suchmaschine
+  wort: Suchmaschine
+  erklaerung: Eine Internetseite, die andere Internetseiten findet. Die bekannteste ist Google. Sie tippen ein, was Sie suchen, und bekommen eine Liste mit Treffern.
+- id: tan
+  wort: TAN
+  erklaerung: Ein Einmal-Code beim Online-Banking. Damit bestätigen Sie eine Überweisung. Heute bekommen Sie die TAN meist über die App Ihrer Bank. Geben Sie eine TAN niemals am Telefon weiter.
+- id: videoanruf
+  wort: Videoanruf
+  erklaerung: Ein Telefonat, bei dem Sie sich gegenseitig sehen. Das geht zum Beispiel mit WhatsApp, FaceTime oder Zoom.
+- id: virus
+  wort: Virus
+  erklaerung: Ein schädliches Programm, das sich auf Computern einnistet. Windows hat einen Schutz schon eingebaut. Warnungen mit Telefonnummer im Internet sind dagegen immer ein Betrugsversuch.
+- id: zoom
+  wort: Zoom
+  erklaerung: Ein Programm für Videotreffen mit mehreren Menschen. Sie bekommen dafür einen Link und klicken einfach darauf. Zoomen heißt außerdem vergrößern.

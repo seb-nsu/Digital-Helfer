@@ -1,6 +1,7 @@
 ---
 titel: Welche Tasten auf der Tastatur sind wichtig?
 thema: pc-grundlagen
+gruppe: Erste Schritte
 nummer: 2
 dauer: 7
 darum: Die Tastatur hat viele Tasten. Für den Anfang brauchen Sie aber nur wenige. Hier lernen Sie die wichtigsten kennen.

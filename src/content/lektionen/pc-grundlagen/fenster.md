@@ -1,6 +1,7 @@
 ---
 titel: Wie öffne, schließe und wechsle ich Fenster?
 thema: pc-grundlagen
+gruppe: Erste Schritte
 nummer: 3
 dauer: 7
 darum: Jedes Programm läuft in einem eigenen Fenster. Hier lernen Sie, wie Sie Fenster vergrößern, schließen und zwischen ihnen wechseln.

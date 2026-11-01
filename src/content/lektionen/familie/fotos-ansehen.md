@@ -1,8 +1,8 @@
 ---
 titel: Wie schaue ich meine Fotos auf dem iPhone an?
-thema: iphone
+thema: familie
 gruppe: Fotos
-nummer: 3
+nummer: 4
 dauer: 7
 darum: Alle Fotos, die Sie mit dem iPhone machen oder per WhatsApp speichern, landen in der App „Fotos“. Hier lernen Sie, wie Sie Ihre Fotos groß ansehen, durchblättern und vergrößern.
 brauchen:

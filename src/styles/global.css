@@ -382,11 +382,26 @@ main {
 
 .kacheln {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  /* eine Spalte am Handy, zwei auf dem Tablet, drei am Computer (3 × 3 Kacheln) */
+  grid-template-columns: 1fr;
   gap: 1.25rem;
   list-style: none;
   margin: 0;
   padding: 0;
+}
+@media (min-width: 36em) {
+  .kacheln {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 56em) {
+  .kacheln {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Bei großer Schrift lieber weniger Spalten, damit die Titel nicht zerbrechen */
+html[data-schrift] .kacheln {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
 }
 .kachel {
   display: flex;

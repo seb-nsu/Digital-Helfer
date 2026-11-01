@@ -1,6 +1,7 @@
 ---
 titel: Wie kopiere ich einen Text?
 thema: pc-grundlagen
+gruppe: Erste Schritte
 nummer: 4
 dauer: 6
 darum: Sie möchten einen Text an einer anderen Stelle noch einmal haben, ohne ihn neu zu tippen. Dafür gibt es Kopieren und Einfügen.

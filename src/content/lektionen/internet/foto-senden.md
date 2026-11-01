@@ -34,5 +34,5 @@ Schicken Sie Sebastian ein Foto aus Ihrem Ordner **Bilder**.
 ## Hat nicht geklappt?
 
 - **Die E-Mail bleibt im Postausgang hängen:** Die Fotos sind vermutlich zu groß. Löschen Sie die E-Mail im Postausgang und schicken Sie weniger Fotos pro E-Mail.
-- **Ich finde das Foto nicht:** Fotos vom iPhone liegen oft in einem anderen Ordner. Lesen Sie [„Wie hole ich Fotos vom iPhone auf den Computer?“](../../iphone/fotos-auf-pc/).
+- **Ich finde das Foto nicht:** Fotos vom iPhone liegen oft in einem anderen Ordner. Lesen Sie [„Wie hole ich Fotos vom iPhone auf den Computer?“](../../familie/fotos-auf-pc/).
 - **Ich habe den falschen Anhang gewählt:** Zeigen Sie auf das Kästchen des Anhangs und klicken Sie auf das kleine Kreuz oder den kleinen Pfeil und dann auf **Anlage entfernen**.

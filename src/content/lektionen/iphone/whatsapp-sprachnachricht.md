@@ -2,7 +2,7 @@
 titel: Wie schicke und höre ich eine Sprachnachricht?
 thema: iphone
 gruppe: WhatsApp
-nummer: 8
+nummer: 4
 dauer: 5
 darum: Statt zu tippen, können Sie bei WhatsApp einfach sprechen. Das ist praktisch für längere Nachrichten. Hier lernen Sie, wie Sie Sprachnachrichten aufnehmen und anhören.
 brauchen:

@@ -1,8 +1,8 @@
 ---
 titel: Wie mache ich die Schrift auf dem iPhone größer?
-thema: iphone
-gruppe: iPhone-Grundlagen
-nummer: 1
+thema: bedienhilfen
+gruppe: Am iPhone
+nummer: 10
 dauer: 5
 darum: Auf dem iPhone können Sie die Schrift überall größer stellen, in Nachrichten, WhatsApp und vielen Apps. Das geht in den Einstellungen.
 brauchen:

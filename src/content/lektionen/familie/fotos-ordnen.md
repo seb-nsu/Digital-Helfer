@@ -1,8 +1,8 @@
 ---
 titel: Wie finde und lösche ich Fotos auf dem iPhone?
-thema: iphone
+thema: familie
 gruppe: Fotos
-nummer: 4
+nummer: 5
 dauer: 8
 darum: Mit der Zeit werden es viele Fotos. Hier lernen Sie, wie Sie ein bestimmtes Foto wiederfinden, misslungene Fotos löschen und aus Versehen gelöschte Fotos zurückholen.
 brauchen:

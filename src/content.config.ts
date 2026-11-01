@@ -1,13 +1,14 @@
 import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { THEMA_IDS } from './config';
 
 const lektionen = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/lektionen' }),
   schema: z.object({
     /** Titel als Frage oder Aufgabe, z. B. „Wie kopiere ich einen Text?“ */
     titel: z.string(),
-    thema: z.enum(['pc-grundlagen', 'office', 'internet', 'iphone', 'sicherheit', 'ki', 'probleme']),
+    thema: z.enum(THEMA_IDS),
     /** Optionale Gruppe innerhalb des Themas, z. B. „Word“ und „Excel“ */
     gruppe: z.string().optional(),
     /** Reihenfolge innerhalb des Themas */

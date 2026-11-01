@@ -32,7 +32,7 @@ suchwoerter: [zu klein, größer, Schrift größer, vergrößern, Zoom, Lupe, le
 
 ## Auf dem iPhone
 
-Lesen Sie die Anleitung [„Wie mache ich die Schrift auf dem iPhone größer?“](../../iphone/schrift-groesser/).
+Lesen Sie die Anleitung [„Wie mache ich die Schrift auf dem iPhone größer?“](../../bedienhilfen/schrift-iphone/).
 
 ## Hat nicht geklappt?
 
