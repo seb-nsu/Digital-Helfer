@@ -1,6 +1,7 @@
 ---
 titel: Wie kopiere und ersetze ich Text mit der Maus?
 thema: pc-grundlagen
+gruppe: Erste Schritte
 nummer: 5
 niveau: Fortgeschritten
 dauer: 8

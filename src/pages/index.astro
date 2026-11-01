@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import { HILFE, THEMEN } from '../config';
 import { url } from '../lib';
 
-// Höchstens 6 Kacheln: die Themen. „Alle Anleitungen“ und „Wörter erklärt“ stehen als Knöpfe darunter.
+// Höchstens 9 Kacheln: die Themen. Übungsecke, „Alle Anleitungen“ und „Wörter erklärt“ stehen als Knöpfe darunter.
 const kacheln = THEMEN.filter((t) => t.kachel !== false).map((t) => ({
   titel: t.titel,
   text: t.kurz,
@@ -17,13 +17,13 @@ const kacheln = THEMEN.filter((t) => t.kachel !== false).map((t) => ({
 const probleme = (await getCollection('lektionen', (l) => l.data.thema === 'probleme')).sort(
   (a, b) => a.data.nummer - b.data.nummer,
 );
-if (kacheln.length > 6) throw new Error('Die Startseite darf höchstens 6 Kacheln haben.');
+if (kacheln.length > 9) throw new Error('Die Startseite darf höchstens 9 Kacheln haben.');
 ---
 
 <Base titel="Startseite">
   <section class="begruessung" aria-labelledby="gruss">
     <h1 id="gruss" data-gruss>Willkommen beim Digital-Helfer</h1>
-    <p data-datum>Hier finden Sie Anleitungen für Computer, Internet und KI.</p>
+    <p data-datum>Hier finden Sie Anleitungen für Computer, iPhone und Internet.</p>
   </section>
 
   <form class="suchfeld" role="search" action={url('suche/')} method="get">
@@ -70,13 +70,17 @@ if (kacheln.length > 6) throw new Error('Die Startseite darf höchstens 6 Kachel
   </ul>
 
   <p class="zusatz-link">
+    <a class="knopf" href={url('ueben/')}>
+      <Icon name="mouse-pointer-click" />
+      Übungsecke: Klicken und Tippen üben
+    </a>
     <a class="knopf" href={url('alle/')}>
       <Icon name="list" />
       Alle Anleitungen auf einen Blick
     </a>
     <a class="knopf" href={url('glossar/')}>
       <Icon name="book-open" />
-      Wörter erklärt: Fachwörter von A bis Z
+      Kleines Lexikon: Wörter erklärt
     </a>
   </p>
 

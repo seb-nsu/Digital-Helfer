@@ -1,8 +1,8 @@
 ---
 titel: Wie mache ich einen Videoanruf mit WhatsApp?
-thema: iphone
-gruppe: WhatsApp
-nummer: 9
+thema: familie
+gruppe: Videoanrufe
+nummer: 1
 dauer: 6
 darum: Bei einem Videoanruf sehen Sie die andere Person, und sie sieht Sie. Das ist kostenlos, wenn Sie im WLAN sind. So können Sie zum Beispiel die Enkel sehen.
 brauchen:

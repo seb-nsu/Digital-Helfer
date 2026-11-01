@@ -1,7 +1,8 @@
 # Digital-Helfer
 
 Digitaler Helfer am PC für ältere Menschen: eine ruhige, übersichtliche Seite mit Anleitungen
-für PC, Word, Sicherheit und Künstliche Intelligenz. Alle Texte sind in einfacher Sprache und in Sie-Form.
+für PC, Word und Excel, iPhone, Fotos und Videoanrufe, Online-Alltag, Sicherheit, Bedienhilfen und Künstliche Intelligenz.
+Dazu gibt es eine Übungsecke (`/ueben/`) und ein kleines Lexikon (`/glossar/`). Alle Texte sind in einfacher Sprache und in Sie-Form.
 
 Gebaut mit [Astro](https://astro.build) (statische Seite), Suche mit [Pagefind](https://pagefind.app).
 
@@ -23,7 +24,7 @@ Alles Wichtige steht in [`src/config.ts`](src/config.ts):
 - **Telefonnummer und WhatsApp** für die Hilfe-Seite. Aktuell ist **keine Nummer** eingetragen;
   dann zeigt die Hilfe-Seite keine Knöpfe zum Anrufen und für WhatsApp.
 - **`NICHT_INDEXIEREN`**: Solange die Seite nur für die Familie ist, sollen Suchmaschinen sie nicht aufnehmen.
-- **Themen** (Titel, Kurzbeschreibung, Symbol) für die Startseite.
+- **Themen** (Titel, Kurzbeschreibung, Symbol) für die Startseite. Höchstens 9 Kacheln (3 × 3).
 
 > Achtung: Ist das Repository öffentlich, ist auch die eingetragene Telefonnummer öffentlich sichtbar.
 
@@ -35,7 +36,7 @@ Jede Anleitung ist eine Markdown-Datei in `src/content/lektionen/<thema>/`. Der 
 ```yaml
 ---
 titel: Wie kopiere ich einen Text?        # als Frage oder Aufgabe
-thema: pc-grundlagen                     # pc-grundlagen | office | internet | iphone | sicherheit | ki | probleme
+thema: pc-grundlagen                     # pc-grundlagen | office | internet | iphone | familie | alltag | sicherheit | bedienhilfen | ki | probleme
 nummer: 4                                # Reihenfolge im Thema
 niveau: Einsteiger                       # oder Fortgeschritten
 gruppe: Word                             # optional: Abschnitt auf der Themenseite

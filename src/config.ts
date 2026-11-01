@@ -26,7 +26,19 @@ export const MIT_NUMMER = HILFE.telefon !== '';
  */
 export const NICHT_INDEXIEREN = true;
 
-export type ThemaId = 'pc-grundlagen' | 'office' | 'internet' | 'iphone' | 'sicherheit' | 'ki' | 'probleme';
+export const THEMA_IDS = [
+  'pc-grundlagen',
+  'office',
+  'internet',
+  'iphone',
+  'familie',
+  'alltag',
+  'sicherheit',
+  'bedienhilfen',
+  'ki',
+  'probleme',
+] as const;
+export type ThemaId = (typeof THEMA_IDS)[number];
 
 export interface Thema {
   id: ThemaId;
@@ -38,14 +50,14 @@ export interface Thema {
   kachel?: boolean;
 }
 
-/** Reihenfolge = Reihenfolge der Kacheln auf der Startseite (höchstens 6 Kacheln). */
+/** Reihenfolge = Reihenfolge der Kacheln auf der Startseite (höchstens 9 Kacheln, drei Reihen zu je drei). */
 export const THEMEN: Thema[] = [
   {
     id: 'pc-grundlagen',
     titel: 'PC-Grundlagen',
-    kurz: 'Maus, Tastatur, Fenster, Kopieren',
+    kurz: 'Maus, Tastatur, Drucken, Scannen',
     einleitung:
-      'Hier lernen Sie die Grundlagen am Computer. Fangen Sie oben an. Jede Anleitung dauert nur wenige Minuten.',
+      'Hier lernen Sie die Grundlagen am Computer: Maus, Tastatur und Fenster, dazu Drucken und Scannen. Fangen Sie oben an. Jede Anleitung dauert nur wenige Minuten.',
     icon: 'monitor',
   },
   {
@@ -66,11 +78,27 @@ export const THEMEN: Thema[] = [
   },
   {
     id: 'iphone',
-    titel: 'iPhone',
-    kurz: 'Fotos, WhatsApp, Schrift, Notruf',
+    titel: 'iPhone und WhatsApp',
+    kurz: 'Notruf, Nachrichten, Sprachnachrichten',
     einleitung:
-      'Hier finden Sie Anleitungen für Ihr iPhone: größere Schrift, der Notruf, Ihre Fotos ansehen und ordnen sowie Nachrichten, Fotos und Videoanrufe mit WhatsApp.',
+      'Hier finden Sie Anleitungen für Ihr iPhone: den Notruf und WhatsApp mit Fotos, Sprachnachrichten und weitergeleiteten Nachrichten. Videoanrufe und Fotos haben ein eigenes Thema.',
     icon: 'smartphone',
+  },
+  {
+    id: 'familie',
+    titel: 'Fotos und Videoanrufe',
+    kurz: 'Familie per Video sehen, Fotos ordnen',
+    einleitung:
+      'Hier lernen Sie, wie Sie Ihre Familie per Video sehen, mit WhatsApp, FaceTime oder Zoom. Außerdem: Fotos auf dem iPhone ansehen und ordnen und auf den Computer holen.',
+    icon: 'camera',
+  },
+  {
+    id: 'alltag',
+    titel: 'Online-Alltag',
+    kurz: 'Bank, Arzttermin, Bahn, Einkaufen',
+    einleitung:
+      'Vieles geht heute bequem im Internet: Überweisungen, Arzttermine, Fahrkarten und Einkäufe. Hier lernen Sie, wie das geht und worauf Sie achten müssen.',
+    icon: 'shopping-cart',
   },
   {
     id: 'sicherheit',
@@ -79,6 +107,14 @@ export const THEMEN: Thema[] = [
     einleitung:
       'Betrüger versuchen es per E-Mail, SMS und Telefon. Hier lernen Sie die Tricks kennen. So fallen Sie nicht darauf herein.',
     icon: 'shield-check',
+  },
+  {
+    id: 'bedienhilfen',
+    titel: 'Besser sehen und hören',
+    kurz: 'Größere Schrift, Lupe, Vorlesen, Diktieren',
+    einleitung:
+      'Computer und iPhone können sich Ihnen anpassen: größere Schrift, eine Lupe, Texte vorlesen lassen oder sprechen statt tippen. Probieren Sie aus, was Ihnen hilft.',
+    icon: 'eye',
   },
   {
     id: 'ki',

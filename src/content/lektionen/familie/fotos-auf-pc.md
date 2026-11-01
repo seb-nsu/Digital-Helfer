@@ -1,8 +1,8 @@
 ---
 titel: Wie hole ich Fotos vom iPhone auf den Computer?
-thema: iphone
+thema: familie
 gruppe: Fotos
-nummer: 5
+nummer: 6
 niveau: Fortgeschritten
 dauer: 10
 darum: Ihre Fotos sollen auch auf dem Computer liegen, zum Beispiel als Sicherung oder um sie per E-Mail zu verschicken. Dafür verbinden Sie das iPhone mit einem Kabel.

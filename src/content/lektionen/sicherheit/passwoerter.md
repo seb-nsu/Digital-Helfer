@@ -1,7 +1,7 @@
 ---
 titel: Wie baue ich ein gutes Passwort?
 thema: sicherheit
-nummer: 4
+nummer: 6
 dauer: 7
 darum: Ein gutes Passwort schützt Ihre E-Mails und Konten. Es soll lang sein und trotzdem leicht zu merken. Hier lernen Sie einen einfachen Trick.
 brauchen:

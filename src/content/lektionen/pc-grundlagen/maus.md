@@ -1,6 +1,7 @@
 ---
 titel: Wie benutze ich die Maus?
 thema: pc-grundlagen
+gruppe: Erste Schritte
 nummer: 1
 dauer: 5
 darum: Mit der Maus zeigen Sie auf Dinge am Bildschirm und wählen sie aus. Hier lernen Sie Klicken, Doppelklick, Rechtsklick und Scrollen.
@@ -23,6 +24,8 @@ suchwoerter: [Maus, klicken, Doppelklick, Rechtsklick, Mausrad, scrollen, Zeiger
 4. **Scrollen:** Drehen Sie mit dem Zeigefinger das Rädchen zwischen den beiden Tasten. Die Seite bewegt sich nach oben oder unten.
 
 > **Gut zu wissen:** Im Internet reicht fast immer ein einfacher Klick. Den Doppelklick brauchen Sie vor allem für Dateien und Ordner auf dem Computer.
+
+> **Üben ohne Risiko:** In der [Übungsecke](../../ueben/) können Sie Klicken, Doppelklick, Rechtsklick und Ziehen in Ruhe ausprobieren.
 
 ## Jetzt Sie!
 

@@ -1,0 +1,576 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib';
+---
+
+<Base
+  titel="Übungsecke"
+  beschreibung="Klicken, Doppelklick, Rechtsklick, Ziehen und Tippen in Ruhe üben. Hier kann nichts kaputt gehen."
+  krumen={[{ titel: 'Übungsecke' }]}
+>
+  <div data-pagefind-body>
+    <h1>Übungsecke</h1>
+    <p class="einleitung">
+      Hier üben Sie Maus und Tastatur ohne Risiko. Es kann nichts kaputt gehen und nichts verloren gehen. Fangen Sie oben an.
+      Jede Übung können Sie so oft wiederholen, wie Sie möchten.
+    </p>
+
+    <section class="uebung" aria-labelledby="ue-klick" data-uebung="klick">
+      <h2 id="ue-klick"><span class="uebung__nr" aria-hidden="true">1</span> Klicken</h2>
+      <p>Klicken Sie einmal mit der <strong>linken</strong> Maustaste auf den Knopf. Er springt danach an eine andere Stelle. Schaffen Sie es fünfmal?</p>
+      <div class="uebung__feld uebung__feld--klick">
+        <button type="button" class="knopf knopf--voll uebung__ziel" data-klick-ziel>Klicken Sie hier</button>
+      </div>
+      <p class="uebung__meldung" aria-live="polite" data-meldung>Noch 5 Klicks.</p>
+      <button type="button" class="knopf" data-neu>Noch einmal üben</button>
+    </section>
+
+    <section class="uebung" aria-labelledby="ue-doppel" data-uebung="doppel">
+      <h2 id="ue-doppel"><span class="uebung__nr" aria-hidden="true">2</span> Doppelklick</h2>
+      <p>Klicken Sie <strong>zweimal schnell hintereinander</strong> auf den Ordner. Halten Sie die Maus dabei ganz ruhig. Dann öffnet er sich.</p>
+      <div class="uebung__feld">
+        <button type="button" class="uebung__ordner" data-ordner aria-describedby="ue-doppel-hinweis">
+          <span class="uebung__ordner-bild" aria-hidden="true">📁</span>
+          <span data-ordner-text>Ordner „Urlaub“</span>
+        </button>
+        <span id="ue-doppel-hinweis" class="nur-vorlesen">Mit der Tastatur: Taste Enter zweimal schnell drücken.</span>
+      </div>
+      <p class="uebung__meldung" aria-live="polite" data-meldung></p>
+      <button type="button" class="knopf" data-neu>Noch einmal üben</button>
+    </section>
+
+    <section class="uebung" aria-labelledby="ue-rechts" data-uebung="rechts">
+      <h2 id="ue-rechts"><span class="uebung__nr" aria-hidden="true">3</span> Rechtsklick</h2>
+      <p>
+        Klicken Sie einmal mit der <strong>rechten</strong> Maustaste auf den Kasten. Ein kleines Menü erscheint. Klicken Sie dort mit der
+        linken Taste auf <strong>Kopieren</strong>.
+      </p>
+      <div class="uebung__feld">
+        <div class="uebung__kasten" tabindex="0" data-rechts-ziel aria-describedby="ue-rechts-hinweis">Rechtsklick hier</div>
+        <span id="ue-rechts-hinweis" class="nur-vorlesen">Mit der Tastatur: Umschalt und F10 drücken.</span>
+        <div class="uebung__menue" role="menu" hidden data-menue>
+          <button type="button" role="menuitem" data-wahl="falsch">Ausschneiden</button>
+          <button type="button" role="menuitem" data-wahl="richtig">Kopieren</button>
+          <button type="button" role="menuitem" data-wahl="falsch">Einfügen</button>
+        </div>
+      </div>
+      <p class="uebung__meldung" aria-live="polite" data-meldung></p>
+      <button type="button" class="knopf" data-neu>Noch einmal üben</button>
+    </section>
+
+    <section class="uebung" aria-labelledby="ue-ziehen" data-uebung="ziehen">
+      <h2 id="ue-ziehen"><span class="uebung__nr" aria-hidden="true">4</span> Ziehen</h2>
+      <p>
+        Zeigen Sie auf einen Apfel. Halten Sie die <strong>linke</strong> Maustaste gedrückt. Ziehen Sie den Apfel in den Korb und lassen Sie
+        die Taste dann los. So verschieben Sie auch Fotos und Dateien.
+      </p>
+      <div class="uebung__feld uebung__feld--ziehen">
+        <div class="uebung__aepfel" data-aepfel>
+          <button type="button" class="uebung__apfel" data-apfel aria-label="Apfel 1">🍎</button>
+          <button type="button" class="uebung__apfel" data-apfel aria-label="Apfel 2">🍎</button>
+          <button type="button" class="uebung__apfel" data-apfel aria-label="Apfel 3">🍎</button>
+        </div>
+        <button type="button" class="uebung__korb" data-korb aria-label="Korb">
+          <span aria-hidden="true">🧺</span>
+          <span class="uebung__korb-zahl" data-korb-zahl>0 von 3</span>
+        </button>
+      </div>
+      <p class="uebung__meldung" aria-live="polite" data-meldung></p>
+      <button type="button" class="knopf" data-neu>Noch einmal üben</button>
+    </section>
+
+    <section class="uebung" aria-labelledby="ue-tippen" data-uebung="tippen">
+      <h2 id="ue-tippen"><span class="uebung__nr" aria-hidden="true">5</span> Tippen</h2>
+      <p>
+        Klicken Sie in das weiße Feld. Tippen Sie das Wort ab, das darüber steht. Einen <strong>großen Buchstaben</strong> bekommen Sie, wenn
+        Sie die <kbd>Umschalt</kbd>-Taste (dicker Pfeil nach oben) gedrückt halten.
+      </p>
+      <div class="uebung__feld uebung__feld--tippen">
+        <p class="uebung__vorlage">Tippen Sie: <strong data-vorlage>Hallo</strong></p>
+        <label class="nur-vorlesen" for="ue-tippen-feld">Ihr Text</label>
+        <input id="ue-tippen-feld" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-tippen />
+      </div>
+      <p class="uebung__meldung" aria-live="polite" data-meldung></p>
+      <button type="button" class="knopf" data-neu>Noch einmal üben</button>
+    </section>
+
+    <div class="kasten kasten--darum">
+      <h2>Sehr gut!</h2>
+      <p>
+        Mehr über die Maus lesen Sie in der Anleitung <a href={url('pc-grundlagen/maus/')}>„Wie benutze ich die Maus?“</a>. Die wichtigsten
+        Tasten erklärt <a href={url('pc-grundlagen/tastatur/')}>„Welche Tasten auf der Tastatur sind wichtig?“</a>.
+      </p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .uebung {
+    margin: 2rem 0;
+    padding: 1.25rem 1.25rem 1.5rem;
+    border: 3px solid var(--rand);
+    border-radius: 1rem;
+    background: var(--flaeche);
+    box-shadow: var(--schatten);
+  }
+  .uebung h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0;
+  }
+  .uebung__nr {
+    display: inline-grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: var(--primaer);
+    color: #fff;
+    font-size: 1.1rem;
+  }
+  .uebung.ist-geschafft {
+    border-color: var(--gruen);
+  }
+  .uebung.ist-geschafft .uebung__nr {
+    background: var(--gruen);
+  }
+  .uebung__feld {
+    position: relative;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: var(--radius);
+    background: var(--hintergrund);
+    border: 2px dashed var(--rand);
+  }
+  .uebung__feld--klick {
+    min-height: 14rem;
+    padding: 0;
+    overflow: hidden;
+  }
+  .uebung__ziel {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+  }
+  .uebung__meldung {
+    min-height: 1.6em;
+    font-weight: 700;
+  }
+  .ist-geschafft .uebung__meldung {
+    color: var(--gruen);
+  }
+
+  .uebung__ordner {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    background: transparent;
+    font: inherit;
+    color: var(--text);
+    cursor: default;
+    user-select: none;
+  }
+  .uebung__ordner.ist-markiert {
+    border-color: var(--primaer);
+    background: var(--primaer-hell);
+  }
+  .uebung__ordner-bild {
+    font-size: 3.5rem;
+    line-height: 1;
+  }
+
+  .uebung__kasten {
+    display: inline-block;
+    padding: 1.5rem 2rem;
+    border: 3px solid var(--primaer);
+    border-radius: var(--radius);
+    background: var(--primaer-hell);
+    font-weight: 700;
+    user-select: none;
+  }
+  .uebung__menue {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    min-width: 12rem;
+    padding: 0.3rem;
+    border: 1px solid var(--rand);
+    border-radius: 0.5rem;
+    background: var(--flaeche);
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.2);
+  }
+  .uebung__menue[hidden] {
+    display: none;
+  }
+  .uebung__menue button {
+    min-height: 48px;
+    padding: 0.4rem 1rem;
+    border: 0;
+    border-radius: 0.35rem;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    color: var(--text);
+  }
+  .uebung__menue button:hover,
+  .uebung__menue button:focus-visible {
+    background: var(--primaer-hell);
+  }
+
+  .uebung__feld--ziehen {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 10rem;
+    touch-action: none;
+  }
+  .uebung__aepfel {
+    display: flex;
+    gap: 1rem;
+    min-height: 4.5rem;
+  }
+  .uebung__apfel {
+    width: 4.5rem;
+    height: 4.5rem;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 3rem;
+    line-height: 1;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+  .uebung__apfel.ist-gezogen {
+    position: relative;
+    z-index: 10;
+    cursor: grabbing;
+    filter: drop-shadow(0 6px 6px rgb(0 0 0 / 0.3));
+  }
+  .uebung__apfel.ist-gewaehlt {
+    border-color: var(--primaer);
+    background: var(--primaer-hell);
+  }
+  .uebung__korb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 9rem;
+    padding: 0.75rem 1.25rem;
+    border: 3px dashed var(--primaer);
+    border-radius: 1rem;
+    background: var(--flaeche);
+    font: inherit;
+    color: var(--text);
+  }
+  .uebung__korb > span:first-child {
+    font-size: 4rem;
+    line-height: 1;
+  }
+  .uebung__korb.ist-drueber {
+    background: var(--gruen-hell);
+    border-color: var(--gruen);
+  }
+  .uebung__korb-zahl {
+    font-weight: 700;
+  }
+
+  .uebung__vorlage {
+    margin-top: 0;
+    font-size: 1.3rem;
+  }
+  .uebung__feld--tippen input {
+    width: 100%;
+    max-width: 24rem;
+    min-height: 3.2rem;
+    padding: 0.4rem 0.8rem;
+    border: 3px solid var(--text-leise);
+    border-radius: 0.5rem;
+    background: #fff;
+    font: inherit;
+    font-size: 1.4rem;
+  }
+  .uebung__feld--tippen input.ist-richtig {
+    border-color: var(--gruen);
+    background: var(--gruen-hell);
+  }
+</style>
+
+<script>
+  function bereich(name: string) {
+    const el = document.querySelector<HTMLElement>(`[data-uebung="${name}"]`)!;
+    const meldung = el.querySelector<HTMLElement>('[data-meldung]')!;
+    return {
+      el,
+      sag(text: string) {
+        meldung.textContent = text;
+      },
+      geschafft(text: string) {
+        el.classList.add('ist-geschafft');
+        meldung.textContent = text;
+      },
+      zuruecksetzen() {
+        el.classList.remove('ist-geschafft');
+        meldung.textContent = '';
+      },
+      beiNeu(fn: () => void) {
+        el.querySelector('[data-neu]')?.addEventListener('click', fn);
+      },
+    };
+  }
+
+  // 1. Klicken: Der Knopf springt nach jedem Klick an eine neue Stelle.
+  {
+    const b = bereich('klick');
+    const feld = b.el.querySelector<HTMLElement>('.uebung__feld')!;
+    const ziel = b.el.querySelector<HTMLButtonElement>('[data-klick-ziel]')!;
+    const ZIEL = 5;
+    let anzahl = 0;
+    const springen = () => {
+      const maxX = Math.max(0, feld.clientWidth - ziel.offsetWidth - 16);
+      const maxY = Math.max(0, feld.clientHeight - ziel.offsetHeight - 16);
+      ziel.style.left = `${8 + Math.random() * maxX}px`;
+      ziel.style.top = `${8 + Math.random() * maxY}px`;
+    };
+    ziel.addEventListener('click', () => {
+      if (anzahl >= ZIEL) return;
+      anzahl++;
+      if (anzahl === ZIEL) {
+        ziel.textContent = 'Geschafft!';
+        b.geschafft('Prima! Sie haben fünfmal getroffen.');
+      } else {
+        b.sag(`Gut! Noch ${ZIEL - anzahl} ${ZIEL - anzahl === 1 ? 'Klick' : 'Klicks'}.`);
+        springen();
+      }
+    });
+    b.beiNeu(() => {
+      anzahl = 0;
+      ziel.textContent = 'Klicken Sie hier';
+      ziel.style.left = '1rem';
+      ziel.style.top = '1rem';
+      b.zuruecksetzen();
+      b.sag(`Noch ${ZIEL} Klicks.`);
+    });
+  }
+
+  // 2. Doppelklick: Ein Klick markiert nur, ein Doppelklick öffnet.
+  {
+    const b = bereich('doppel');
+    const ordner = b.el.querySelector<HTMLButtonElement>('[data-ordner]')!;
+    const text = b.el.querySelector<HTMLElement>('[data-ordner-text]')!;
+    const bild = b.el.querySelector<HTMLElement>('.uebung__ordner-bild')!;
+    let offen = false;
+    ordner.addEventListener('click', (e) => {
+      if (offen) return;
+      ordner.classList.add('ist-markiert');
+      // detail = Anzahl schneller Klicks; 0 bei der Tastatur
+      if (e.detail === 1) b.sag('Der Ordner ist jetzt nur markiert. Klicken Sie zweimal schnell hintereinander.');
+    });
+    ordner.addEventListener('dblclick', () => {
+      if (offen) return;
+      offen = true;
+      bild.textContent = '📂';
+      text.textContent = 'Der Ordner ist offen';
+      b.geschafft('Super! Mit einem Doppelklick öffnen Sie Ordner und Dateien.');
+    });
+    // Tastatur: zweimal schnell Enter
+    let letztes = 0;
+    ordner.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' || offen) return;
+      const jetzt = Date.now();
+      if (jetzt - letztes < 600) ordner.dispatchEvent(new MouseEvent('dblclick'));
+      letztes = jetzt;
+    });
+    b.beiNeu(() => {
+      offen = false;
+      bild.textContent = '📁';
+      text.textContent = 'Ordner „Urlaub“';
+      ordner.classList.remove('ist-markiert');
+      b.zuruecksetzen();
+    });
+  }
+
+  // 3. Rechtsklick: eigenes kleines Menü.
+  {
+    const b = bereich('rechts');
+    const feld = b.el.querySelector<HTMLElement>('.uebung__feld')!;
+    const kasten = b.el.querySelector<HTMLElement>('[data-rechts-ziel]')!;
+    const menue = b.el.querySelector<HTMLElement>('[data-menue]')!;
+    const schliessen = () => {
+      menue.hidden = true;
+    };
+    kasten.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      const r = feld.getBoundingClientRect();
+      const k = kasten.getBoundingClientRect();
+      // Mauskoordinaten, bei Tastatur (0/0) die Mitte des Kastens
+      const x = e.clientX || k.left + k.width / 2;
+      const y = e.clientY || k.top + k.height / 2;
+      menue.style.left = `${Math.min(x - r.left, r.width - 200)}px`;
+      menue.style.top = `${y - r.top}px`;
+      menue.hidden = false;
+      menue.querySelector<HTMLButtonElement>('button')?.focus();
+      b.sag('Das Menü ist offen. Klicken Sie jetzt mit der linken Taste auf „Kopieren“.');
+    });
+    kasten.addEventListener('click', () => {
+      if (menue.hidden) b.sag('Das war die linke Taste. Nehmen Sie die rechte Maustaste.');
+    });
+    menue.addEventListener('click', (e) => {
+      const wahl = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-wahl]');
+      if (!wahl) return;
+      schliessen();
+      if (wahl.dataset.wahl === 'richtig') {
+        b.geschafft('Richtig! So kopieren Sie mit der Maus.');
+        kasten.focus();
+      } else {
+        b.sag(`Das war „${wahl.textContent}“. Versuchen Sie es noch einmal und wählen Sie „Kopieren“.`);
+        kasten.focus();
+      }
+    });
+    menue.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        schliessen();
+        kasten.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!menue.hidden && !menue.contains(e.target as Node)) schliessen();
+    });
+    b.beiNeu(() => {
+      schliessen();
+      b.zuruecksetzen();
+    });
+  }
+
+  // 4. Ziehen: Äpfel in den Korb. Funktioniert mit Maus und Finger.
+  // Ohne Ziehen geht es auch: erst Apfel anklicken, dann Korb anklicken (z. B. mit der Tastatur).
+  {
+    const b = bereich('ziehen');
+    const aepfel = [...b.el.querySelectorAll<HTMLButtonElement>('[data-apfel]')];
+    const korb = b.el.querySelector<HTMLButtonElement>('[data-korb]')!;
+    const zahl = b.el.querySelector<HTMLElement>('[data-korb-zahl]')!;
+    let imKorb = 0;
+    let gewaehlt: HTMLButtonElement | null = null;
+
+    const ueberKorb = (x: number, y: number) => {
+      const r = korb.getBoundingClientRect();
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    };
+    const ablegen = (apfel: HTMLButtonElement) => {
+      apfel.hidden = true;
+      apfel.classList.remove('ist-gewaehlt');
+      imKorb++;
+      zahl.textContent = `${imKorb} von 3`;
+      if (imKorb === 3) b.geschafft('Wunderbar! Alle Äpfel sind im Korb.');
+      else b.sag(`Sehr gut! Noch ${3 - imKorb}.`);
+    };
+
+    for (const apfel of aepfel) {
+      let start: { x: number; y: number } | null = null;
+      let bewegt = false;
+      apfel.addEventListener('pointerdown', (e) => {
+        start = { x: e.clientX, y: e.clientY };
+        bewegt = false;
+        apfel.setPointerCapture(e.pointerId);
+        apfel.classList.add('ist-gezogen');
+      });
+      apfel.addEventListener('pointermove', (e) => {
+        if (!start) return;
+        const dx = e.clientX - start.x;
+        const dy = e.clientY - start.y;
+        if (Math.abs(dx) + Math.abs(dy) > 6) bewegt = true;
+        apfel.style.transform = `translate(${dx}px, ${dy}px)`;
+        korb.classList.toggle('ist-drueber', ueberKorb(e.clientX, e.clientY));
+      });
+      const ende = (e: PointerEvent) => {
+        if (!start) return;
+        start = null;
+        apfel.classList.remove('ist-gezogen');
+        apfel.style.transform = '';
+        korb.classList.remove('ist-drueber');
+        if (bewegt && ueberKorb(e.clientX, e.clientY)) ablegen(apfel);
+        else if (bewegt) b.sag('Fast! Lassen Sie die Taste erst los, wenn der Apfel über dem Korb ist.');
+      };
+      apfel.addEventListener('pointerup', ende);
+      apfel.addEventListener('pointercancel', ende);
+      apfel.addEventListener('click', () => {
+        if (bewegt) return;
+        aepfel.forEach((a) => a.classList.remove('ist-gewaehlt'));
+        gewaehlt = apfel;
+        apfel.classList.add('ist-gewaehlt');
+        b.sag('Halten Sie die Maustaste gedrückt und ziehen Sie den Apfel zum Korb. Oder klicken Sie jetzt auf den Korb.');
+      });
+    }
+    korb.addEventListener('click', () => {
+      if (gewaehlt && !gewaehlt.hidden) {
+        ablegen(gewaehlt);
+        gewaehlt = null;
+      }
+    });
+    b.beiNeu(() => {
+      imKorb = 0;
+      gewaehlt = null;
+      aepfel.forEach((a) => {
+        a.hidden = false;
+        a.classList.remove('ist-gewaehlt');
+      });
+      zahl.textContent = '0 von 3';
+      b.zuruecksetzen();
+    });
+  }
+
+  // 5. Tippen: drei Wörter, vom leichten zum schwereren.
+  {
+    const b = bereich('tippen');
+    const feld = b.el.querySelector<HTMLInputElement>('[data-tippen]')!;
+    const vorlage = b.el.querySelector<HTMLElement>('[data-vorlage]')!;
+    const WOERTER = ['Hallo', 'Guten Tag', 'Bis bald!'];
+    const TIPPS = [
+      'Das H ist groß: Umschalt-Taste gedrückt halten und H tippen.',
+      'Zwischen den Wörtern tippen Sie einmal auf die lange Leertaste unten.',
+      'Das Ausrufezeichen bekommen Sie mit Umschalt-Taste und der Taste 1.',
+    ];
+    let stufe = 0;
+    const zeigen = () => {
+      vorlage.textContent = WOERTER[stufe];
+      feld.value = '';
+      feld.classList.remove('ist-richtig');
+      b.sag(`Tipp: ${TIPPS[stufe]}`);
+    };
+    feld.addEventListener('input', () => {
+      const soll = WOERTER[stufe];
+      const ist = feld.value;
+      if (ist === soll) {
+        feld.classList.add('ist-richtig');
+        if (stufe === WOERTER.length - 1) {
+          b.geschafft('Ausgezeichnet! Sie haben alle drei richtig getippt.');
+        } else {
+          b.sag('Richtig! Gleich kommt das nächste.');
+          setTimeout(() => {
+            stufe++;
+            zeigen();
+            feld.focus();
+          }, 1200);
+        }
+      } else if (ist.toLowerCase() === soll.toLowerCase()) {
+        b.sag('Fast! Achten Sie auf die großen und kleinen Buchstaben.');
+      } else if (!soll.startsWith(ist)) {
+        b.sag('Da hat sich ein Tippfehler eingeschlichen. Mit der Taste ⌫ (Rücktaste) löschen Sie das letzte Zeichen.');
+      }
+    });
+    b.beiNeu(() => {
+      stufe = 0;
+      b.zuruecksetzen();
+      zeigen();
+    });
+    zeigen();
+  }
+</script>
