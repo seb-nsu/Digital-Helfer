@@ -32,7 +32,7 @@ suchwoerter: [Bahn, Zug, Fahrkarte, Ticket, DB, bahn.de, DB Navigator, Sparpreis
 1. Die Fahrkarte kommt als [PDF](../../glossar/#pdf) per E-Mail. Drucken Sie sie aus. Wie das geht, steht in [„Wie drucke ich ein Dokument?“](../../pc-grundlagen/drucken/).
 2. Nehmen Sie im Zug den Ausdruck mit. Die Fahrkarte gilt nur mit einem Ausweis oder der angegebenen Karte, zum Beispiel der BahnCard.
 
-> **Gut zu wissen:** Auf dem iPhone gibt es die kostenlose App **DB Navigator**. Dort sind gekaufte Fahrkarten gespeichert und Sie sehen, ob Ihr Zug Verspätung hat.
+> **Gut zu wissen:** Auf dem iPhone gibt es die kostenlose App **DB Navigator**. Dort sind gekaufte Fahrkarten gespeichert und Sie sehen, ob Ihr Zug Verspätung hat. Wie das geht, steht in [„Wie buche ich eine Fahrkarte mit der App DB Navigator?“](../bahn-app/). Kommt der Zug zu spät, hilft [„Mein Zug hat Verspätung. Was kann ich tun?“](../bahn-verspaetung/).
 
 ## Jetzt Sie!
 

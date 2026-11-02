@@ -153,3 +153,15 @@
 - id: zoom
   wort: Zoom
   erklaerung: Ein Programm für Videotreffen mit mehreren Menschen. Sie bekommen dafür einen Link und klicken einfach darauf. Zoomen heißt außerdem vergrößern.
+- id: impressum
+  wort: Impressum
+  erklaerung: Eine Seite mit Name, Adresse und Telefonnummer der Firma hinter einer Internetseite. Der Link steht meist ganz unten. Fehlt das Impressum bei einem Online-Shop, ist Vorsicht geboten.
+- id: mediathek
+  wort: Mediathek
+  erklaerung: Eine Sammlung von Fernsehsendungen im Internet, zum Beispiel von ARD und ZDF. Dort schauen Sie Sendungen, wann Sie möchten. Die Mediatheken von ARD und ZDF sind kostenlos.
+- id: paypal
+  wort: PayPal
+  erklaerung: Ein Dienst zum Bezahlen im Internet. Sie melden sich nur bei PayPal an und bestätigen die Zahlung. Der Shop bekommt Ihre Bankdaten dabei nicht.
+- id: smart-tv
+  wort: Smart-TV
+  erklaerung: Ein Fernseher, der mit dem Internet verbunden ist. Darauf laufen Apps, zum Beispiel die Mediathek von ARD und ZDF.

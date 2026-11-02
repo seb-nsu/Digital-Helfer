@@ -36,6 +36,8 @@ suchwoerter: [Fotos ansehen, Bilder anschauen, Fotos App, Galerie, blättern, wi
 
 Videos erkennen Sie an einer kleinen **Zeitangabe** unten rechts im Bild, zum Beispiel **0:35**. Tippen Sie darauf. Das Video spielt ab. Tippen Sie noch einmal auf das Video, um die Knöpfe für Pause und Lautstärke zu sehen.
 
+> **Gut zu wissen:** Fotos aus WhatsApp landen erst hier, wenn Sie sie speichern. Wie das geht, steht in [„Wie speichere ich ein Foto aus WhatsApp?“](../../iphone/whatsapp-foto-speichern/).
+
 ## Lieblingsfotos merken
 
 1. Öffnen Sie ein Foto groß.

@@ -1,7 +1,7 @@
 ---
 titel: Wie stelle ich der KI gute Fragen?
 thema: ki
-nummer: 5
+nummer: 6
 niveau: Fortgeschritten
 dauer: 8
 darum: Je genauer Ihre Frage, desto besser die Antwort. Hier finden Sie Beispiele für gute Fragen. Und Sie erfahren, was Sie der KI besser nicht verraten.
