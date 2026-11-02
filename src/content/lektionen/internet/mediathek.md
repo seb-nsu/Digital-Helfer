@@ -51,4 +51,4 @@ suchwoerter: [Mediathek, ARD, ZDF, Fernsehen, TV, Sendung verpasst, Tatort, Nach
 - **Das Bild hängt oder lädt nicht:** Die Internetverbindung ist schwach. Lesen Sie [„Ich habe kein Internet“](../../probleme/kein-internet/).
 - **Ich höre nichts:** Lesen Sie [„Ich höre keinen Ton“](../../probleme/kein-ton/).
 - **Die Sendung ist nicht mehr da:** Sendungen bleiben nur eine bestimmte Zeit in der Mediathek, oft einige Wochen. Spielfilme sind manchmal nur wenige Tage zu sehen.
-- **Am Fernseher schauen:** Lesen Sie [„Wie schaue ich die Mediathek am Fernseher?“](../mediathek-fernseher/).
+- **Am Fernseher schauen:** Lesen Sie [„Wie schaue ich die Mediathek am Samsung-Fernseher?“](../mediathek-fernseher/).
