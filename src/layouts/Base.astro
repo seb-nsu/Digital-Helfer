@@ -37,6 +37,8 @@ const seitenTitel = krumen ? `${titel} | Digital-Helfer` : 'Digital-Helfer';
       try {
         var s = localStorage.getItem('dh-schrift');
         if (s === '2' || s === '3') document.documentElement.dataset.schrift = s;
+        // Gewähltes Outlook (klassisch oder neu) ebenso sofort, für die Outlook-Anleitungen.
+        if (localStorage.getItem('dh-outlook') === 'neu') document.documentElement.dataset.outlook = 'neu';
       } catch (e) {}
     </script>
   </head>
@@ -52,13 +54,13 @@ const seitenTitel = krumen ? `${titel} | Digital-Helfer` : 'Digital-Helfer';
         <div class="kopf__werkzeuge">
           <div class="schrift" role="group" aria-labelledby="schrift-titel">
             <span class="schrift__titel" id="schrift-titel">Schrift:</span>
-            <button type="button" class="knopf" data-schrift-aendern="-1" ><span aria-hidden="true">A&minus;</span> kleiner</button>
-            <button type="button" class="knopf" data-schrift-aendern="1" ><span aria-hidden="true">A+</span> größer</button>
+            <button type="button" class="knopf" data-schrift-aendern="-1"><span aria-hidden="true">A&minus;</span> <span class="kopf__lang">kleiner</span></button>
+            <button type="button" class="knopf" data-schrift-aendern="1"><span aria-hidden="true">A+</span> <span class="kopf__lang">größer</span></button>
             <span class="nur-vorlesen" aria-live="polite" id="schrift-meldung"></span>
           </div>
           <a class="knopf knopf--hilfe" href={url('hilfe/')}>
             <Icon name="life-buoy" />
-            Ich brauche Hilfe
+            <span><span class="kopf__lang">Ich brauche </span>Hilfe</span>
           </a>
         </div>
       </div>
@@ -94,6 +96,7 @@ const seitenTitel = krumen ? `${titel} | Digital-Helfer` : 'Digital-Helfer';
     <footer class="fuss">
       <div class="seite">
         <p>Digital-Helfer: Anleitungen in einfacher Sprache. Sie können nichts kaputt machen. Probieren Sie es in Ruhe aus.</p>
+        <p>Eine private Seite für die Familie. Es werden keine Daten gesammelt. Ihre Schriftgröße und Ihre Häkchen bleiben nur in diesem Browser.</p>
       </div>
     </footer>
 

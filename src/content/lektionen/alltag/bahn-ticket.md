@@ -34,6 +34,8 @@ suchwoerter: [Bahn, Zug, Fahrkarte, Ticket, DB, bahn.de, DB Navigator, Sparpreis
 
 > **Gut zu wissen:** Auf dem iPhone gibt es die kostenlose App **DB Navigator**. Dort sind gekaufte Fahrkarten gespeichert und Sie sehen, ob Ihr Zug Verspätung hat. Wie das geht, steht in [„Wie buche ich eine Fahrkarte mit der App DB Navigator?“](../bahn-app/). Kommt der Zug zu spät, hilft [„Mein Zug hat Verspätung. Was kann ich tun?“](../bahn-verspaetung/).
 
+> **Haben Sie ein Deutschlandticket?** Damit fahren Sie in ganz Deutschland mit Bus, Straßenbahn, U-Bahn, S-Bahn und Regionalzügen (RE und RB) ohne extra Fahrkarte. Für **ICE** und **IC** brauchen Sie trotzdem eine eigene Fahrkarte.
+
 ## Jetzt Sie!
 
 Suchen Sie auf bahn.de eine Verbindung von Ihrem Bahnhof zu einem Ziel, das Sie gern besuchen. Schauen Sie sich die Preise an. Sie müssen nichts kaufen.

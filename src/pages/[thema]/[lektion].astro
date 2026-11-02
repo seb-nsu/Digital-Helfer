@@ -4,26 +4,41 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import { THEMEN, themaById } from '../../config';
 import { minuten, url } from '../../lib';
+import { abschnitteVon } from '../../abschnitte';
 
 export async function getStaticPaths() {
   const alle = await getCollection('lektionen');
   return alle.map((lektion) => {
     const [thema, name] = lektion.id.split('/');
-    const geschwister = alle
-      .filter((l) => l.data.thema === lektion.data.thema)
-      .sort((a, b) => a.data.nummer - b.data.nummer);
-    const index = geschwister.findIndex((l) => l.id === lektion.id);
+    // Dieselbe Einteilung wie auf der Themenseite: Nummern zählen je Abschnitt (z. B. „Word“, „Excel“).
+    const abschnitte = abschnitteVon(alle.filter((l) => l.data.thema === lektion.data.thema));
+    const reihe = abschnitte.flatMap((a) => a.lektionen.map((l) => ({ l, abschnitt: a.titel })));
+    const index = reihe.findIndex((r) => r.l.id === lektion.id);
+    const abschnitt = abschnitte.find((a) => a.titel === reihe[index].abschnitt)!;
+    const naechste = reihe[index + 1];
     return {
       params: { thema, lektion: name },
-      props: { lektion, naechste: geschwister[index + 1], position: index + 1, anzahl: geschwister.length },
+      props: {
+        lektion,
+        naechste: naechste?.l,
+        // Beginnt mit der nächsten Anleitung ein neuer Abschnitt? Dann sagen wir das auf dem Knopf.
+        naechsterAbschnitt: naechste && naechste.abschnitt !== abschnitt.titel ? naechste.abschnitt : '',
+        position: abschnitt.lektionen.findIndex((l) => l.id === lektion.id) + 1,
+        anzahl: abschnitt.lektionen.length,
+        abschnittTitel: abschnitt.titel,
+      },
     };
   });
 }
 
-const { lektion, naechste, position, anzahl } = Astro.props;
+const { lektion, naechste, naechsterAbschnitt, position, anzahl, abschnittTitel } = Astro.props;
 const thema = themaById(lektion.data.thema) ?? THEMEN[0];
 const { Content } = await render(lektion);
 const themaHref = url(`${thema.id}/`);
+const glossar = (await getCollection('glossar')).map((g) => ({ id: g.id, wort: g.data.wort, text: g.data.erklaerung }));
+// Anleitungen mit Abschnitten für klassisches und neues Outlook bekommen einen Umschalter.
+const mitOutlook = (lektion.body ?? '').includes('data-outlook=');
+const wo = abschnittTitel ? `im Bereich ${abschnittTitel}` : `im Thema ${thema.titel}`;
 ---
 
 <Base
@@ -34,10 +49,19 @@ const themaHref = url(`${thema.id}/`);
 >
   <article class="lektion" data-pagefind-body>
     <h1>{lektion.data.titel}</h1>
-    <p class="lektion__info">
+    <p class="lektion__info" data-pagefind-ignore>
       <span><Icon name="clock" /> {minuten(lektion.data.dauer)}</span>
-      <span>Anleitung {position} von {anzahl} im Thema {thema.titel}</span>
+      <span>Anleitung {position} von {anzahl} {wo}</span>
+      {lektion.data.niveau === 'Fortgeschritten' && <span class="etikett">Für Fortgeschrittene</span>}
     </p>
+
+    {
+      lektion.data.niveau === 'Fortgeschritten' && (
+        <p class="hinweis-niveau" data-pagefind-ignore>
+          Diese Anleitung hat etwas mehr Schritte. Nehmen Sie sich Zeit. Sie können jederzeit eine Pause machen und später weitermachen.
+        </p>
+      )
+    }
 
     <div class="kasten kasten--darum">
       <h2>Darum geht es</h2>
@@ -54,6 +78,29 @@ const themaHref = url(`${thema.id}/`);
             ))}
           </ul>
         </div>
+      )
+    }
+
+    {
+      mitOutlook && (
+        <fieldset class="umschalter" data-pagefind-ignore>
+          <legend>Welches Outlook haben Sie?</legend>
+          <div class="umschalter__wahl">
+            <label>
+              <input type="radio" name="outlook" value="klassisch" checked />
+              Klassisches Outlook
+            </label>
+            <label>
+              <input type="radio" name="outlook" value="neu" />
+              Neues Outlook
+            </label>
+          </div>
+          <p class="umschalter__tipp">
+            Nicht sicher? Steht in Outlook oben rechts ein Schalter <strong>Neues Outlook</strong> und ist er eingeschaltet? Dann haben Sie das
+            neue Outlook.
+          </p>
+          <p class="nur-vorlesen" aria-live="polite" data-umschalter-meldung></p>
+        </fieldset>
       )
     }
 
@@ -89,18 +136,26 @@ const themaHref = url(`${thema.id}/`);
     {
       naechste ? (
         <a class="knopf knopf--voll knopf--gross weiter" href={url(`${naechste.id}/`)}>
-          Nächste Anleitung: {naechste.data.titel}
+          <span class="weiter__text">
+            <small>{naechsterAbschnitt ? `Nächster Bereich: ${naechsterAbschnitt}` : 'Nächste Anleitung'}</small>
+            {naechste.data.titel}
+          </span>
           <Icon name="chevron-right" />
         </a>
       ) : (
         <a class="knopf knopf--voll knopf--gross weiter" href={themaHref}>
-          Alle Anleitungen zu {thema.titel}
+          <span class="weiter__text">
+            <small>Fertig mit diesem Thema</small>
+            Alle Anleitungen zu {thema.titel}
+          </span>
           <Icon name="chevron-right" />
         </a>
       )
     }
   </section>
 </Base>
+
+<script is:inline type="application/json" id="glossar-daten" set:html={JSON.stringify(glossar).replace(/</g, '\\u003c')} />
 
 <script>
   const knopf = document.querySelector<HTMLButtonElement>('[data-geschafft]');
@@ -133,5 +188,94 @@ const themaHref = url(`${thema.id}/`);
     if (meldung) meldung.textContent = jetztErledigt ? 'Sehr gut! Die Anleitung ist abgehakt.' : 'Das Häkchen ist wieder entfernt.';
   });
 
+  // Outlook-Umschalter: Es bleibt immer nur die gewählte Version sichtbar. Die Wahl merkt sich der Browser.
+  const wahl = document.querySelectorAll<HTMLInputElement>('input[name="outlook"]');
+  if (wahl.length) {
+    const umschalterMeldung = document.querySelector('[data-umschalter-meldung]');
+    const setzen = (wert: string) => {
+      document.documentElement.dataset.outlook = wert;
+      wahl.forEach((r) => (r.checked = r.value === wert));
+    };
+    let gespeichert = 'klassisch';
+    try {
+      gespeichert = localStorage.getItem('dh-outlook') === 'neu' ? 'neu' : 'klassisch';
+    } catch {}
+    setzen(gespeichert);
+    wahl.forEach((r) =>
+      r.addEventListener('change', () => {
+        setzen(r.value);
+        try {
+          localStorage.setItem('dh-outlook', r.value);
+        } catch {}
+        if (umschalterMeldung)
+          umschalterMeldung.textContent = `Die Anleitung zeigt jetzt das ${r.value === 'neu' ? 'neue' : 'klassische'} Outlook.`;
+      }),
+    );
+  }
+
   document.querySelector('[data-drucken]')?.addEventListener('click', () => window.print());
+
+  // Fachwörter: Ein Klick zeigt die Erklärung direkt unter dem Absatz, statt die Anleitung zu verlassen.
+  type Eintrag = { id: string; wort: string; text: string };
+  let eintraege: Eintrag[] = [];
+  try {
+    eintraege = JSON.parse(document.getElementById('glossar-daten')?.textContent ?? '[]');
+  } catch {}
+  const nachId = new Map(eintraege.map((e) => [e.id, e]));
+  let zaehler = 0;
+
+  document.querySelectorAll<HTMLAnchorElement>('.inhalt a[href*="glossar/#"]').forEach((link) => {
+    const anker = link.hash.slice(1);
+    const eintrag = nachId.get(anker);
+    if (!eintrag) return;
+    const kastenId = `erklaerung-${++zaehler}`;
+    link.classList.add('fachwort');
+    link.title = `${eintrag.wort}: ${eintrag.text}`;
+    link.setAttribute('aria-expanded', 'false');
+    link.setAttribute('aria-controls', kastenId);
+    const lexikonHref = link.href;
+
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const offen = document.getElementById(kastenId);
+      if (offen) {
+        offen.remove();
+        link.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      const kasten = document.createElement('div');
+      kasten.className = 'erklaerung';
+      kasten.id = kastenId;
+      kasten.setAttribute('role', 'note');
+      const titel = document.createElement('p');
+      titel.className = 'erklaerung__wort';
+      titel.textContent = eintrag.wort;
+      const text = document.createElement('p');
+      text.textContent = eintrag.text;
+      const knoepfe = document.createElement('p');
+      knoepfe.className = 'erklaerung__knoepfe';
+      const zu = document.createElement('button');
+      zu.type = 'button';
+      zu.className = 'knopf';
+      zu.textContent = 'Verstanden, schließen';
+      zu.addEventListener('click', () => {
+        kasten.remove();
+        link.setAttribute('aria-expanded', 'false');
+        link.focus();
+      });
+      const mehr = document.createElement('a');
+      mehr.href = lexikonHref;
+      mehr.textContent = 'Alle Wörter im Lexikon';
+      knoepfe.append(zu, mehr);
+      kasten.append(titel, text, knoepfe);
+      // Unter dem ganzen Absatz oder Schritt einfügen, damit der Lesefluss nicht zerreißt.
+      const absatz = link.closest('p');
+      const punkt = link.closest('li');
+      if (absatz) absatz.after(kasten);
+      else if (punkt) punkt.append(kasten);
+      else link.parentElement?.after(kasten);
+      link.setAttribute('aria-expanded', 'true');
+      zu.focus();
+    });
+  });
 </script>

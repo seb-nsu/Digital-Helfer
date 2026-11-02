@@ -21,7 +21,7 @@ suchwoerter: [Fotos ordnen, Ordner anlegen, neuer Ordner, Bilder sortieren, Date
 1. Klicken Sie mit der **rechten** Maustaste auf eine freie, weiße Stelle zwischen den Fotos.
 2. Zeigen Sie auf **Neu** und klicken Sie auf **Ordner**.
 3. Ein neuer Ordner erscheint. Sein Name ist blau markiert. Tippen Sie gleich einen Namen ein, zum Beispiel **Urlaub 2026**.
-4. Drücken Sie die Taste <kbd>Enter</kbd>. Fertig.
+4. Drücken Sie die Taste <kbd>↵ Enter</kbd>. Fertig.
 
 ## Fotos in den Ordner legen
 

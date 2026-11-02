@@ -19,7 +19,10 @@ const { lektionen } = Astro.props;
           </span>
           <span class="lektionsliste__text">
             <span class="lektionsliste__titel">{l.data.titel}</span>
-            <span class="lektionsliste__info">{minuten(l.data.dauer)}</span>
+            <span class="lektionsliste__info">
+              {minuten(l.data.dauer)}
+              {l.data.niveau === 'Fortgeschritten' && <span class="etikett">Für Fortgeschrittene</span>}
+            </span>
           </span>
           <span class="lektionsliste__erledigt">
             <Icon name="circle-check" />

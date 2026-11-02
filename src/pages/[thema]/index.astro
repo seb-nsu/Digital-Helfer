@@ -1,37 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import LektionsListe from '../../components/LektionsListe.astro';
 import { THEMEN } from '../../config';
+import { abschnitteFuerThema } from '../../abschnitte';
 
 export function getStaticPaths() {
   return THEMEN.map((thema) => ({ params: { thema: thema.id }, props: { thema } }));
 }
 
 const { thema } = Astro.props;
-const lektionen = (await getCollection('lektionen', (l) => l.data.thema === thema.id)).sort(
-  (a, b) => a.data.nummer - b.data.nummer,
-);
-
-// Abschnitte: nach Gruppe (z. B. „Word“ und „Excel“), sonst nach Niveau.
-type Abschnitt = { titel: string; lektionen: typeof lektionen };
-let abschnitte: Abschnitt[];
-if (lektionen.some((l) => l.data.gruppe)) {
-  const map = new Map<string, typeof lektionen>();
-  for (const l of lektionen) {
-    const g = l.data.gruppe ?? 'Weitere Anleitungen';
-    map.set(g, [...(map.get(g) ?? []), l]);
-  }
-  abschnitte = [...map].map(([titel, ls]) => ({ titel, lektionen: ls }));
-} else {
-  const fortgeschritten = lektionen.filter((l) => l.data.niveau === 'Fortgeschritten');
-  abschnitte = fortgeschritten.length
-    ? [
-        { titel: 'Für Einsteiger', lektionen: lektionen.filter((l) => l.data.niveau === 'Einsteiger') },
-        { titel: 'Für Fortgeschrittene', lektionen: fortgeschritten },
-      ]
-    : [{ titel: '', lektionen }];
-}
+// Abschnitte nach Gruppe (z. B. „Word“ und „Excel“). Jede Gruppe zählt ab 1, genau wie auf der Anleitungsseite.
+const abschnitte = await abschnitteFuerThema(thema.id);
 ---
 
 <Base titel={thema.titel} beschreibung={thema.einleitung} krumen={[{ titel: thema.titel }]}>

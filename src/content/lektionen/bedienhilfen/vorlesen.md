@@ -14,7 +14,7 @@ suchwoerter: [vorlesen, Laut vorlesen, Edge, Stimme, Text anhören, Augen schone
 ## Eine Seite vorlesen lassen
 
 1. Öffnen Sie in Edge eine Internetseite mit Text, zum Beispiel einen Artikel.
-2. Drücken Sie gleichzeitig <kbd>Strg</kbd> + <kbd>Umschalt</kbd> + <kbd>U</kbd>. Die Umschalt-Taste ist die Taste mit dem dicken Pfeil nach oben.
+2. Drücken Sie gleichzeitig <kbd>Strg</kbd> + <kbd>⇧ Shift</kbd> + <kbd>U</kbd>. Die Umschalttaste <kbd>⇧ Shift</kbd> ist die Taste mit dem dicken Pfeil nach oben.
 3. Edge beginnt zu lesen. Das Wort, das gerade gelesen wird, ist farbig markiert.
 4. Oben erscheint eine Leiste. Dort können Sie **anhalten** (zwei Striche) und **weiterlesen** (Dreieck).
 
@@ -27,7 +27,7 @@ suchwoerter: [vorlesen, Laut vorlesen, Edge, Stimme, Text anhören, Augen schone
 
 ## Jetzt Sie!
 
-Lassen Sie sich diese Anleitung vorlesen. Drücken Sie jetzt <kbd>Strg</kbd> + <kbd>Umschalt</kbd> + <kbd>U</kbd>.
+Lassen Sie sich diese Anleitung vorlesen. Drücken Sie jetzt <kbd>Strg</kbd> + <kbd>⇧ Shift</kbd> + <kbd>U</kbd>.
 
 ## Hat nicht geklappt?
 

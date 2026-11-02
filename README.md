@@ -15,7 +15,7 @@ npm run build    # fertige Seite in dist/ bauen, inklusive Suchindex
 npm run preview  # gebaute Seite ansehen (nur hier funktioniert die Suche)
 ```
 
-Benötigt Node.js 22.23 oder neuer.
+Benötigt Node.js 22.23 oder neuer (die Veröffentlichung auf GitHub läuft mit Node.js 24).
 
 ## Wichtige Einstellungen
 
@@ -31,15 +31,15 @@ Alles Wichtige steht in [`src/config.ts`](src/config.ts):
 ## Eine neue Anleitung schreiben
 
 Jede Anleitung ist eine Markdown-Datei in `src/content/lektionen/<thema>/`. Der Dateiname wird zur Adresse
-(`word/brief.md` → `/word/brief/`). Kopfdaten:
+(`office/word-brief.md` → `/office/word-brief/`). Kopfdaten:
 
 ```yaml
 ---
 titel: Wie kopiere ich einen Text?        # als Frage oder Aufgabe
 thema: pc-grundlagen                     # pc-grundlagen | office | internet | iphone | familie | alltag | sicherheit | bedienhilfen | ki | probleme
-nummer: 4                                # Reihenfolge im Thema
-niveau: Einsteiger                       # oder Fortgeschritten
-gruppe: Word                             # optional: Abschnitt auf der Themenseite
+nummer: 4                                # Reihenfolge im Thema (jede Nummer nur einmal je Thema)
+niveau: Einsteiger                       # oder Fortgeschritten (zeigt das Etikett „Für Fortgeschrittene“)
+gruppe: Word                             # optional: Abschnitt auf der Themenseite; die Nummern in der Liste zählen je Abschnitt
 dauer: 6                                 # Minuten
 darum: Ein bis zwei Sätze, worum es geht.
 brauchen:
@@ -56,7 +56,8 @@ Aufbau des Textes:
 - `<div class="warnung">` … `</div>` (mit Leerzeilen davor und danach) wird zu einem Warn-Kasten.
 - Tasten schreiben Sie als `<kbd>Strg</kbd> + <kbd>C</kbd>`.
 - Bildschirmfotos legen Sie neben die Datei und binden sie mit `![Beschreibung](./bild.png)` in einen Schritt ein.
-- Links ins Glossar: `[Browser](../../glossar/#browser)`, zu einer anderen Anleitung: `[Text](../rueckgaengig/)`.
+- Links ins Glossar: `[Browser](../../glossar/#browser)`. In der Anleitung öffnet ein Klick darauf die Erklärung direkt unter dem Absatz.
+  Zu einer anderen Anleitung: `[Text](../rueckgaengig/)`.
 - Jede Anleitung endet mit `## Jetzt Sie!` und, wenn sinnvoll, `## Hat nicht geklappt?`.
 
 Fachwörter für die Seite „Wörter erklärt“ stehen in `src/content/glossar.yaml`.
