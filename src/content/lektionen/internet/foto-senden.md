@@ -14,8 +14,8 @@ suchwoerter: [Foto verschicken, Bild senden, Anhang anfügen, Datei anhängen, B
 ## Das Foto anhängen
 
 1. Klicken Sie in Outlook auf **Neue E-Mail**. Füllen Sie **An** und **Betreff** aus und schreiben Sie einen kurzen Text.
-2. Klicken Sie oben auf **Datei anfügen**. Das Symbol ist eine **Büroklammer**.
-3. Wählen Sie **Diesen PC durchsuchen**. Ein Fenster öffnet sich.
+2. <span data-outlook="neu">Klicken Sie oben auf den Reiter **Einfügen**. </span>Klicken Sie <span data-outlook="neu">dann </span>auf **Datei anfügen**. Das Symbol ist eine **Büroklammer**.
+3. Wählen Sie <span data-outlook="klassisch">**Diesen PC durchsuchen**.</span><span data-outlook="neu">**Diesen Computer durchsuchen**.</span> Ein Fenster öffnet sich.
 4. Klicken Sie links auf den Ordner **Bilder**. Suchen Sie das Foto.
 5. Klicken Sie einmal auf das Foto und dann auf **Öffnen**.
 6. Das Foto erscheint als kleines Kästchen über Ihrem Text.

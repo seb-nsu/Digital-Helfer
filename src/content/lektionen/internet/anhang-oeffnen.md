@@ -24,12 +24,12 @@ suchwoerter: [Anhang, Anlage, Datei öffnen, Foto in E-Mail, Rechnung, PDF öffn
 
 ## Den Anhang speichern
 
-1. Klicken Sie mit der **rechten** Maustaste auf das Kästchen des Anhangs.
-2. Wählen Sie **Speichern unter**.
-3. Wählen Sie links einen Ordner: Fotos in **Bilder**, Briefe und Rechnungen in **Dokumente**.
-4. Klicken Sie auf **Speichern**. Die Datei liegt jetzt auch auf Ihrem Computer.
+1. Klicken Sie mit der **rechten** Maustaste auf das Kästchen des Anhangs. Oder klicken Sie auf den kleinen **Pfeil** rechts im Kästchen.
+2. Wählen Sie <span data-outlook="klassisch">**Speichern unter**.</span><span data-outlook="neu">**Herunterladen**.</span>
+3. <span data-outlook="klassisch">Wählen Sie links einen Ordner: Fotos in **Bilder**, Briefe und Rechnungen in **Dokumente**.</span><span data-outlook="neu">Die Datei landet von selbst im Ordner **Downloads**. Sie müssen keinen Ordner wählen.</span>
+4. <span data-outlook="klassisch">Klicken Sie auf **Speichern**. Die Datei liegt jetzt auch auf Ihrem Computer.</span><span data-outlook="neu">Fertig. Die Datei liegt jetzt auch auf Ihrem Computer.</span>
 
-> **Gut zu wissen:** Sind es mehrere Fotos? Klicken Sie mit der rechten Maustaste auf einen Anhang und wählen Sie **Alle Anlagen speichern**.
+> **Gut zu wissen:** Sind es mehrere Fotos? <span data-outlook="klassisch">Klicken Sie mit der rechten Maustaste auf einen Anhang und wählen Sie **Alle Anlagen speichern**.</span><span data-outlook="neu">Klicken Sie über den Anhängen auf **Alle herunterladen**.</span>
 
 ## Jetzt Sie!
 
@@ -38,4 +38,4 @@ Bitten Sie Sebastian, Ihnen ein Foto per E-Mail zu schicken. Speichern Sie es im
 ## Hat nicht geklappt?
 
 - **Outlook zeigt eine Warnung:** Bei manchen Dateien warnt Outlook vor dem Öffnen. Kennen Sie den Absender nicht, öffnen Sie die Datei nicht. Im Zweifel fragen Sie nach.
-- **Ich finde die gespeicherte Datei nicht:** Klicken Sie unten auf das Windows-Symbol und tippen Sie den Namen der Datei ein.
+- **Ich finde die gespeicherte Datei nicht:** Schauen Sie im Ordner **Downloads** nach. Oder klicken Sie unten auf das Windows-Symbol und tippen Sie den Namen der Datei ein.

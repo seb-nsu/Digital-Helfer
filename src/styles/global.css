@@ -24,7 +24,7 @@
 
   --radius: 0.75rem;
   --schatten: 0 1px 3px rgb(0 0 0 / 0.12);
-  --inhalt-breite: 46rem;
+  --inhalt-breite: 38rem; /* rund 65 Zeichen je Zeile: gut für ältere Augen */
   --seiten-breite: 64rem;
 
   color-scheme: light;
@@ -216,8 +216,12 @@ main {
   font-size: 1.2rem;
 }
 
-/* ---------- Kopfbereich (auf jeder Seite gleich) ---------- */
+/* ---------- Kopfbereich (auf jeder Seite gleich) ----------
+ * Der Kopf wächst mit der Schriftgröße, aber höchstens bis 24 px.
+ * So bleibt bei „sehr groß“ der Inhalt sichtbar und der Kopf frisst nicht den Bildschirm.
+ */
 .kopf {
+  font-size: min(1rem, 24px);
   background: var(--flaeche);
   border-bottom: 2px solid var(--rand);
 }
@@ -226,43 +230,46 @@ main {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem 1.5rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  gap: 0.75em 1.5em;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+}
+.kopf .knopf {
+  min-height: max(2.4em, 48px);
+  min-width: max(2.4em, 48px);
 }
 .marke {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  min-height: 3rem;
+  gap: 0.6em;
+  min-height: max(2.4em, 48px);
   color: var(--text);
-  font-size: 1.3rem;
+  font-size: 1.3em;
   font-weight: 700;
   text-decoration: none;
 }
 .marke .icon {
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 1.4em;
+  height: 1.4em;
   color: var(--primaer);
 }
 .kopf__werkzeuge {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.75em;
 }
 .schrift {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.4em;
 }
 .schrift__titel {
   font-weight: 700;
-  margin-right: 0.25rem;
+  margin-right: 0.25em;
 }
 .schrift .knopf {
-  padding: 0.4rem 0.8rem;
-  min-width: 3.25rem;
+  padding: 0.4em 0.8em;
 }
 
 /* ---------- Orientierungsleiste: Zurück + Brotkrumen ---------- */
@@ -680,6 +687,95 @@ html[data-schrift] .kacheln {
 }
 .weiter {
   margin-top: 1.5rem;
+  justify-content: space-between;
+  text-align: left;
+  max-width: var(--inhalt-breite);
+}
+.weiter__text small {
+  display: block;
+  font-size: 0.8em;
+  font-weight: 400;
+  opacity: 0.95;
+}
+
+/* Etikett „Für Fortgeschrittene“ */
+.etikett {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0 0.5rem;
+  border: 2px solid var(--warnung);
+  border-radius: 0.4rem;
+  background: var(--warnung-hell);
+  color: #5e3900;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+.lektion__info .etikett {
+  margin-left: 0;
+}
+.hinweis-niveau {
+  max-width: var(--inhalt-breite);
+  margin: -0.75rem 0 1.5rem;
+  color: var(--text-leise);
+}
+
+/* Fachwort-Erklärung direkt in der Anleitung */
+.inhalt a.fachwort {
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.12em;
+  cursor: help;
+}
+.erklaerung {
+  margin: 0.75rem 0 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 3px solid var(--primaer);
+  border-radius: var(--radius);
+  background: var(--primaer-hell);
+}
+.inhalt ol > li .erklaerung {
+  margin-bottom: 0;
+}
+.erklaerung p {
+  margin: 0 0 0.6rem;
+}
+.erklaerung__wort {
+  font-weight: 700;
+}
+.erklaerung__knoepfe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  margin: 0 !important;
+}
+
+/* Fortschritt auf der Startseite */
+.fortschritt {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 2rem;
+  padding: 0.9rem 1.25rem;
+  border: 2px solid #9cc7a9;
+  border-radius: var(--radius);
+  background: var(--gruen-hell);
+  font-size: 1.05rem;
+}
+.fortschritt .icon {
+  color: var(--gruen);
+}
+.fortschritt[hidden] {
+  display: none;
+}
+
+/* Lexikon: Rückweg zur Anleitung */
+.glossar__zurueck {
+  margin: 0 0 1.5rem;
+}
+.glossar__zurueck[hidden] {
+  display: none;
 }
 
 /* ---------- Glossar ---------- */
@@ -814,6 +910,10 @@ html[data-schrift] .kacheln {
 }
 .fuss p {
   margin: 0;
+  max-width: var(--inhalt-breite);
+}
+.fuss p + p {
+  margin-top: 0.4rem;
 }
 
 /* ---------- Schmale Bildschirme (Handy) ---------- */
@@ -825,11 +925,52 @@ html[data-schrift] .kacheln {
   h1 {
     font-size: 1.6rem;
   }
-  .schrift__titel {
-    flex-basis: 100%;
+  /* Kopf auf dem Handy: eine einzige Zeile. „Schrift:“, „kleiner“, „größer“ und „Ich brauche“ hört nur der Bildschirmleser. */
+  .kopf {
+    font-size: 18px;
+  }
+  .kopf__innen {
+    flex-wrap: nowrap;
+    gap: 0.5em;
+  }
+  .kopf__werkzeuge {
+    flex-wrap: nowrap;
+    gap: 0.4em;
+  }
+  .marke {
+    font-size: 1em;
+    gap: 0.35em;
+    white-space: nowrap;
+  }
+  /* Zurück-Knopf und „Sie sind hier“ wachsen auf dem Handy nur begrenzt mit, damit der Inhalt sichtbar bleibt. */
+  .orientierung {
+    font-size: min(1rem, 20px);
+    gap: 0.5em 1em;
+    margin: 1em 0 1.25em;
   }
   .schrift {
-    flex-wrap: wrap;
+    gap: 0.3em;
+  }
+  .schrift .knopf {
+    padding: 0.3em 0.5em;
+  }
+  .kopf .knopf--hilfe {
+    padding: 0.4em 0.7em;
+  }
+  .kopf .knopf--hilfe .icon {
+    display: none;
+  }
+  .schrift__titel,
+  .kopf__lang {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
   .inhalt ol > li {
     padding-left: 1.25rem;
@@ -848,6 +989,8 @@ html[data-schrift] .kacheln {
   }
   .kopf,
   .orientierung,
+  .erklaerung,
+  .hinweis-niveau,
   .fuss,
   .lektion__ende,
   .sprung-link {
@@ -866,5 +1009,59 @@ html[data-schrift] .kacheln {
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+}
+
+/* Outlook-Umschalter: Nur die gewählte Version ist sichtbar (Standard: klassisch). */
+html:not([data-outlook='neu']) [data-outlook='neu'],
+html[data-outlook='neu'] [data-outlook='klassisch'] {
+  display: none;
+}
+.umschalter {
+  max-width: var(--inhalt-breite);
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border: 3px solid var(--primaer);
+  border-radius: 12px;
+}
+.umschalter legend {
+  font-weight: 700;
+  font-size: 1.15em;
+  padding: 0 0.4rem;
+}
+.umschalter__wahl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.umschalter__wahl label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.4rem 1rem;
+  border: 2px solid currentColor;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.umschalter__wahl label:has(input:checked) {
+  background: var(--primaer-hell);
+  border-width: 3px;
+}
+.umschalter__wahl input {
+  width: 1.4em;
+  height: 1.4em;
+  margin: 0;
+  accent-color: var(--primaer);
+}
+.umschalter__tipp {
+  margin: 0.75rem 0 0;
+  font-size: 0.95em;
+}
+@media print {
+  .umschalter__wahl,
+  .umschalter__tipp {
+    display: none;
   }
 }

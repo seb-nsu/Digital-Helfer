@@ -110,7 +110,7 @@ export const THEMEN: Thema[] = [
   },
   {
     id: 'bedienhilfen',
-    titel: 'Besser sehen und hören',
+    titel: 'Besser sehen, hören, sprechen',
     kurz: 'Größere Schrift, Lupe, Vorlesen, Diktieren',
     einleitung:
       'Computer und iPhone können sich Ihnen anpassen: größere Schrift, eine Lupe, Texte vorlesen lassen oder sprechen statt tippen. Probieren Sie aus, was Ihnen hilft.',

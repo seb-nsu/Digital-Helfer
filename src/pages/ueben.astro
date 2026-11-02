@@ -14,6 +14,11 @@ import { url } from '../lib';
       Hier üben Sie Maus und Tastatur ohne Risiko. Es kann nichts kaputt gehen und nichts verloren gehen. Fangen Sie oben an.
       Jede Übung können Sie so oft wiederholen, wie Sie möchten.
     </p>
+    <p class="kasten uebung__touch-hinweis" data-touch-hinweis hidden>
+      <strong>Gut zu wissen:</strong> Die Übungsecke ist für Maus und Tastatur am Computer gedacht. Auf dem iPhone oder Tablet geht es
+      trotzdem: Statt Doppelklick tippen Sie zweimal schnell. Statt Rechtsklick halten Sie den Finger etwas länger auf den Kasten. Äpfel
+      ziehen Sie mit dem Finger in den Korb.
+    </p>
 
     <section class="uebung" aria-labelledby="ue-klick" data-uebung="klick">
       <h2 id="ue-klick"><span class="uebung__nr" aria-hidden="true">1</span> Klicken</h2>
@@ -47,7 +52,7 @@ import { url } from '../lib';
       </p>
       <div class="uebung__feld">
         <div class="uebung__kasten" tabindex="0" data-rechts-ziel aria-describedby="ue-rechts-hinweis">Rechtsklick hier</div>
-        <span id="ue-rechts-hinweis" class="nur-vorlesen">Mit der Tastatur: Umschalt und F10 drücken.</span>
+        <span id="ue-rechts-hinweis" class="nur-vorlesen">Mit der Tastatur: Shift und F10 drücken. Auf dem iPhone: den Finger länger auf den Kasten halten.</span>
         <div class="uebung__menue" role="menu" hidden data-menue>
           <button type="button" role="menuitem" data-wahl="falsch">Ausschneiden</button>
           <button type="button" role="menuitem" data-wahl="richtig">Kopieren</button>
@@ -83,7 +88,7 @@ import { url } from '../lib';
       <h2 id="ue-tippen"><span class="uebung__nr" aria-hidden="true">5</span> Tippen</h2>
       <p>
         Klicken Sie in das weiße Feld. Tippen Sie das Wort ab, das darüber steht. Einen <strong>großen Buchstaben</strong> bekommen Sie, wenn
-        Sie die <kbd>Umschalt</kbd>-Taste (dicker Pfeil nach oben) gedrückt halten.
+        Sie die Umschalttaste <kbd>⇧ Shift</kbd> (dicker Pfeil nach oben) gedrückt halten.
       </p>
       <div class="uebung__feld uebung__feld--tippen">
         <p class="uebung__vorlage">Tippen Sie: <strong data-vorlage>Hallo</strong></p>
@@ -184,7 +189,17 @@ import { url } from '../lib';
     line-height: 1;
   }
 
+  .uebung__touch-hinweis {
+    max-width: var(--inhalt-breite);
+    background: var(--tipp-hell);
+  }
+  .uebung__touch-hinweis[hidden] {
+    display: none;
+  }
   .uebung__kasten {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    max-width: 100%;
     display: inline-block;
     padding: 1.5rem 2rem;
     border: 3px solid var(--primaer);
@@ -198,7 +213,7 @@ import { url } from '../lib';
     z-index: 5;
     display: flex;
     flex-direction: column;
-    min-width: 12rem;
+    min-width: min(12rem, 100%);
     padding: 0.3rem;
     border: 1px solid var(--rand);
     border-radius: 0.5rem;
@@ -234,6 +249,7 @@ import { url } from '../lib';
   }
   .uebung__aepfel {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     min-height: 4.5rem;
   }
@@ -260,10 +276,11 @@ import { url } from '../lib';
     background: var(--primaer-hell);
   }
   .uebung__korb {
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 9rem;
+    min-width: min(9rem, 100%);
     padding: 0.75rem 1.25rem;
     border: 3px dashed var(--primaer);
     border-radius: 1rem;
@@ -327,6 +344,12 @@ import { url } from '../lib';
     };
   }
 
+  // Auf Geräten ohne Maus einen Hinweis zeigen.
+  if (matchMedia('(hover: none)').matches) {
+    const hinweis = document.querySelector<HTMLElement>('[data-touch-hinweis]');
+    if (hinweis) hinweis.hidden = false;
+  }
+
   // 1. Klicken: Der Knopf springt nach jedem Klick an eine neue Stelle.
   {
     const b = bereich('klick');
@@ -374,6 +397,14 @@ import { url } from '../lib';
       // detail = Anzahl schneller Klicks; 0 bei der Tastatur
       if (e.detail === 1) b.sag('Der Ordner ist jetzt nur markiert. Klicken Sie zweimal schnell hintereinander.');
     });
+    // Fallback für Geräte, die kein dblclick melden (z. B. iPhone): zwei Klicks kurz hintereinander.
+    let letzterKlick = 0;
+    ordner.addEventListener('click', (e) => {
+      if (offen || e.detail === 0) return;
+      const jetzt = Date.now();
+      if (jetzt - letzterKlick < 500) ordner.dispatchEvent(new MouseEvent('dblclick'));
+      letzterKlick = jetzt;
+    });
     ordner.addEventListener('dblclick', () => {
       if (offen) return;
       offen = true;
@@ -407,21 +438,47 @@ import { url } from '../lib';
     const schliessen = () => {
       menue.hidden = true;
     };
-    kasten.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
+    const menueOeffnen = (clientX: number, clientY: number) => {
       const r = feld.getBoundingClientRect();
       const k = kasten.getBoundingClientRect();
       // Mauskoordinaten, bei Tastatur (0/0) die Mitte des Kastens
-      const x = e.clientX || k.left + k.width / 2;
-      const y = e.clientY || k.top + k.height / 2;
+      const x = clientX || k.left + k.width / 2;
+      const y = clientY || k.top + k.height / 2;
       menue.style.left = `${Math.min(x - r.left, r.width - 200)}px`;
       menue.style.top = `${y - r.top}px`;
       menue.hidden = false;
       menue.querySelector<HTMLButtonElement>('button')?.focus();
       b.sag('Das Menü ist offen. Klicken Sie jetzt mit der linken Taste auf „Kopieren“.');
+    };
+    kasten.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      menueOeffnen(e.clientX, e.clientY);
     });
-    kasten.addEventListener('click', () => {
-      if (menue.hidden) b.sag('Das war die linke Taste. Nehmen Sie die rechte Maustaste.');
+    // iPhone und Tablet: langes Drücken mit dem Finger zählt als Rechtsklick (Safari meldet dafür kein contextmenu).
+    let druckTimer = 0;
+    let langGedrueckt = false;
+    kasten.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'touch') return;
+      langGedrueckt = false;
+      druckTimer = window.setTimeout(() => {
+        langGedrueckt = true;
+        menueOeffnen(e.clientX, e.clientY);
+      }, 500);
+    });
+    const druckEnde = () => window.clearTimeout(druckTimer);
+    kasten.addEventListener('pointerup', druckEnde);
+    kasten.addEventListener('pointercancel', druckEnde);
+    kasten.addEventListener('pointerleave', druckEnde);
+    kasten.addEventListener('click', (e) => {
+      if (langGedrueckt) {
+        // Der Klick nach dem langen Drücken soll das gerade geöffnete Menü nicht wieder schließen.
+        langGedrueckt = false;
+        e.stopPropagation();
+        return;
+      }
+      if (!menue.hidden) return;
+      const finger = (e as PointerEvent).pointerType === 'touch' || matchMedia('(hover: none)').matches;
+      b.sag(finger ? 'Halten Sie den Finger etwas länger auf den Kasten, bis das Menü erscheint.' : 'Das war die linke Taste. Nehmen Sie die rechte Maustaste.');
     });
     menue.addEventListener('click', (e) => {
       const wahl = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-wahl]');
@@ -534,9 +591,9 @@ import { url } from '../lib';
     const vorlage = b.el.querySelector<HTMLElement>('[data-vorlage]')!;
     const WOERTER = ['Hallo', 'Guten Tag', 'Bis bald!'];
     const TIPPS = [
-      'Das H ist groß: Umschalt-Taste gedrückt halten und H tippen.',
+      'Das H ist groß: Umschalttaste ⇧ gedrückt halten und H tippen.',
       'Zwischen den Wörtern tippen Sie einmal auf die lange Leertaste unten.',
-      'Das Ausrufezeichen bekommen Sie mit Umschalt-Taste und der Taste 1.',
+      'Das Ausrufezeichen bekommen Sie mit der Umschalttaste ⇧ und der Taste 1.',
     ];
     let stufe = 0;
     const zeigen = () => {

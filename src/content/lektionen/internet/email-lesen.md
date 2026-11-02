@@ -33,7 +33,7 @@ suchwoerter: [E-Mail, Mail, lesen, Posteingang, antworten, Outlook, T-Online, Na
 
 ## Neue E-Mails abrufen
 
-Outlook holt neue E-Mails von selbst ab. Möchten Sie nicht warten? Drücken Sie die Taste <kbd>F9</kbd> oben auf der Tastatur.
+<span data-outlook="klassisch">Outlook holt neue E-Mails von selbst ab. Möchten Sie nicht warten? Drücken Sie die Taste <kbd>F9</kbd> oben auf der Tastatur.</span><span data-outlook="neu">Das neue Outlook holt neue E-Mails ganz von selbst ab. Sie müssen dafür nichts tun.</span>
 
 <div class="warnung">
 
@@ -49,4 +49,4 @@ Outlook holt neue E-Mails von selbst ab. Möchten Sie nicht warten? Drücken Sie
 
 - **Ich sehe meine E-Mails nicht:** Klicken Sie links auf **Posteingang**. Haben Sie mehrere Postfächer? Dann klicken Sie auf den Posteingang unter Ihrer T-Online-Adresse.
 - **Outlook fragt nach einem Passwort:** Geben Sie das Passwort Ihres T-Online-Postfachs ein. Kennen Sie es nicht? Holen Sie Hilfe.
-- **Outlook sieht ganz anders aus:** Es gibt ein älteres und ein neues Outlook. Die Knöpfe heißen aber gleich: **Antworten**, **Senden**, **Neue E-Mail**.
+- **Outlook sieht ganz anders aus:** Es gibt ein klassisches und ein neues Outlook. Stellen Sie oben in dieser Anleitung den Schalter auf das andere Outlook um. Die wichtigsten Knöpfe heißen in beiden gleich: **Antworten**, **Senden**, **Neue E-Mail**.

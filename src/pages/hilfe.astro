@@ -1,27 +1,29 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import { HILFE, MIT_NUMMER } from '../config';
 import { url } from '../lib';
 
 const whatsappText = encodeURIComponent('Hallo, ich brauche Hilfe mit dem Computer.');
+const name = HILFE.name;
+const probleme = (await getCollection('lektionen', (l) => l.data.thema === 'probleme')).sort(
+  (a, b) => a.data.nummer - b.data.nummer,
+);
 ---
 
 <Base titel="Hilfe holen" krumen={[{ titel: 'Hilfe holen' }]}>
   <h1>Hilfe holen</h1>
-  <p class="einleitung">
-    Etwas klappt nicht? Das ist ganz normal. {HILFE.name} hilft Ihnen gern.
-    {MIT_NUMMER ? 'Wählen Sie einen Weg:' : `Rufen Sie ${HILFE.name} einfach wie gewohnt an oder schreiben Sie eine Nachricht.`}
-  </p>
+  <p class="einleitung">Etwas klappt nicht? Das ist ganz normal. {name} hilft Ihnen gern.</p>
 
   {
-    MIT_NUMMER && (
+    MIT_NUMMER ? (
       <>
         <div class="hilfe-wege">
           <a class="knopf knopf--hilfe knopf--gross" href={`tel:${HILFE.telefon}`}>
             <Icon name="phone" />
             <span>
-              {HILFE.name} anrufen
+              {name} anrufen
               <small>{HILFE.telefonAnzeige}</small>
             </span>
           </a>
@@ -29,7 +31,7 @@ const whatsappText = encodeURIComponent('Hallo, ich brauche Hilfe mit dem Comput
             <a class="knopf knopf--whatsapp knopf--gross" href={`https://wa.me/${HILFE.whatsapp}?text=${whatsappText}`}>
               <Icon name="message-circle" />
               <span>
-                {HILFE.name} bei WhatsApp schreiben
+                {name} bei WhatsApp schreiben
                 <small>Öffnet WhatsApp mit einer fertigen Nachricht</small>
               </span>
             </a>
@@ -38,36 +40,76 @@ const whatsappText = encodeURIComponent('Hallo, ich brauche Hilfe mit dem Comput
 
         <h2>Am Computer anrufen?</h2>
         <p>
-          Der Knopf „anrufen“ funktioniert am besten auf dem iPhone. Am Computer öffnet sich vielleicht ein Fenster. Dann
-          nehmen Sie einfach Ihr Telefon und wählen die Nummer <strong>{HILFE.telefonAnzeige}</strong>.
+          Der Knopf „anrufen“ funktioniert am besten auf dem iPhone. Am Computer öffnet sich vielleicht ein Fenster. Dann nehmen
+          Sie einfach Ihr Telefon und wählen die Nummer <strong>{HILFE.telefonAnzeige}</strong>.
         </p>
       </>
+    ) : (
+      <section class="kasten kasten--darum hilfe-erreichen" aria-labelledby="erreichen-titel">
+        <h2 id="erreichen-titel">
+          <Icon name="phone" /> So erreichen Sie {name}
+        </h2>
+        <ol class="schritte-einfach">
+          <li>
+            <strong>Mit dem iPhone anrufen:</strong> Tippen Sie auf <strong>Telefon</strong> (grünes Symbol mit Hörer). Tippen Sie
+            unten auf <strong>Kontakte</strong> und dann auf <strong>{name}</strong>.
+          </li>
+          <li>
+            <strong>Bei WhatsApp schreiben:</strong> Öffnen Sie WhatsApp und tippen Sie auf den Chat mit {name}. Schreiben Sie kurz, was nicht
+            klappt.
+          </li>
+          <li>
+            <strong>Ein Foto hilft sehr:</strong> Fotografieren Sie den Bildschirm mit dem iPhone und schicken Sie das Foto mit. Dann sieht
+            {' '}{name} gleich, was los ist.
+          </li>
+        </ol>
+        <p>
+          <strong>Tipp:</strong> Schreiben Sie {name}s Telefonnummer auf einen Zettel. Legen Sie ihn neben den Computer. Dann haben Sie
+          sie immer zur Hand.
+        </p>
+      </section>
     )
   }
 
-  <h2>Selbst nachschauen</h2>
+  <h2>{name} soll auf Ihren Bildschirm schauen</h2>
   <p>
-    Viele Probleme lassen sich schnell lösen. Schauen Sie in die <a href={url()}>häufigsten Probleme auf der Startseite</a>
-    oder nutzen Sie dort die Suche.
-  </p>
-
-  <h2>{HILFE.name} soll auf Ihren Bildschirm schauen</h2>
-  <p>
-    Windows 11 hat dafür ein Programm. Es heißt <strong>Schnellhilfe</strong>. Damit sieht {HILFE.name} Ihren Bildschirm
-    und kann Ihnen helfen. So geht es:
+    Windows 11 hat dafür ein Programm. Es heißt <strong>Schnellhilfe</strong>. Damit sieht {name} Ihren Bildschirm und kann Ihnen helfen.
+    So geht es:
   </p>
   <ol class="schritte-einfach">
-    <li>Rufen Sie {HILFE.name} zuerst an.</li>
+    <li>Rufen Sie {name} zuerst an.</li>
     <li>Drücken Sie gleichzeitig die Tasten <kbd>Strg</kbd> + <kbd>Windows-Taste</kbd> + <kbd>Q</kbd>.</li>
     <li>Das Programm „Schnellhilfe“ öffnet sich.</li>
-    <li>{HILFE.name} nennt Ihnen einen Code. Tippen Sie ihn in das Feld ein und klicken Sie auf „Senden“.</li>
-    <li>Klicken Sie danach auf „Zulassen“. Jetzt sieht {HILFE.name} Ihren Bildschirm.</li>
+    <li>{name} nennt Ihnen einen Code. Tippen Sie ihn in das Feld ein und klicken Sie auf „Senden“.</li>
+    <li>Klicken Sie danach auf „Zulassen“. Jetzt sieht {name} Ihren Bildschirm.</li>
     <li>Zum Beenden schließen Sie einfach das Fenster der Schnellhilfe.</li>
   </ol>
   <p>
-    <strong>Wichtig:</strong> Machen Sie das nur mit {HILFE.name}. Fremde Anrufer, die auf Ihren Bildschirm wollen, sind
-    Betrüger. Mehr dazu lesen Sie in der Anleitung
-    <a href={url('sicherheit/falscher-support/')}>„Ein Anrufer will auf meinen Computer“</a>.
+    <strong>Wichtig:</strong> Machen Sie das nur mit {name}. Fremde Anrufer, die auf Ihren Bildschirm wollen, sind Betrüger. Mehr dazu lesen
+    Sie in der Anleitung <a href={url('sicherheit/falscher-support/')}>„Ein Anrufer will auf meinen Computer“</a>.
+  </p>
+
+  <div class="kasten hilfe-notfall">
+    <h2>Sind Sie vielleicht auf Betrug hereingefallen?</h2>
+    <p>
+      Dann zählt jede Minute. Lassen Sie Ihre Bankkarte über den <strong>Sperr-Notruf 116 116</strong> sperren. Er ist rund um die Uhr
+      erreichbar. Alle weiteren Schritte stehen in <a href={url('sicherheit/notfall/')}>„Ich bin auf Betrug hereingefallen. Was jetzt?“</a>.
+    </p>
+  </div>
+
+  <h2>Selbst nachschauen</h2>
+  <p>Viele Probleme lassen sich schnell selbst lösen. Das sind die häufigsten:</p>
+  <ul class="hilfe-probleme">
+    {
+      probleme.map((p) => (
+        <li>
+          <a href={url(`${p.id}/`)}>{p.data.titel}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <p>
+    Etwas anderes? Nutzen Sie die <a href={url('suche/')}>Suche</a> oder schauen Sie in die <a href={url('alle/')}>Liste aller Anleitungen</a>.
   </p>
 </Base>
 
@@ -76,8 +118,36 @@ const whatsappText = encodeURIComponent('Hallo, ich brauche Hilfe mit dem Comput
     list-style: decimal;
     padding-left: 2rem;
     display: block;
+    max-width: var(--inhalt-breite);
   }
   .schritte-einfach li {
     margin-bottom: 0.6rem;
+  }
+  .hilfe-erreichen,
+  .hilfe-notfall {
+    max-width: var(--inhalt-breite);
+    margin-top: 1.5rem;
+  }
+  .hilfe-erreichen h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+  }
+  .hilfe-notfall {
+    border: 3px solid var(--warnung);
+    background: var(--warnung-hell);
+  }
+  .hilfe-notfall h2 {
+    font-size: 1.2rem;
+  }
+  .hilfe-probleme {
+    max-width: var(--inhalt-breite);
+  }
+  .hilfe-probleme li {
+    margin-bottom: 0.5rem;
+  }
+  p {
+    max-width: var(--inhalt-breite);
   }
 </style>

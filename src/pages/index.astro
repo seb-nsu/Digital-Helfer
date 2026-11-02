@@ -18,13 +18,44 @@ const probleme = (await getCollection('lektionen', (l) => l.data.thema === 'prob
   (a, b) => a.data.nummer - b.data.nummer,
 );
 if (kacheln.length > 9) throw new Error('Die Startseite darf höchstens 9 Kacheln haben.');
+
+// Für die Fortschrittszeile: nur Anleitungen zählen, die es wirklich gibt.
+const alleIds = (await getCollection('lektionen')).map((l) => l.id);
 ---
 
 <Base titel="Startseite">
   <section class="begruessung" aria-labelledby="gruss">
-    <h1 id="gruss" data-gruss>Willkommen beim Digital-Helfer</h1>
+    <h1 id="gruss"><span data-gruss>Willkommen beim Digital-Helfer</span></h1>
     <p data-datum>Hier finden Sie Anleitungen für Computer, iPhone und Internet.</p>
+    <script is:inline>
+      // Sofort setzen, noch bevor die Seite gezeichnet wird: so springt die Überschrift nicht.
+      (function () {
+        var jetzt = new Date();
+        var h = jetzt.getHours();
+        var gruss = h < 11 ? 'Guten Morgen' : h < 18 ? 'Guten Tag' : 'Guten Abend';
+        var el = document.querySelector('[data-gruss]');
+        var d = document.querySelector('[data-datum]');
+        if (el) {
+          el.textContent = gruss + '!';
+          // Bildschirmleser hören weiterhin, auf welcher Seite sie sind.
+          var rest = document.createElement('span');
+          rest.className = 'nur-vorlesen';
+          rest.textContent = ' Willkommen beim Digital-Helfer.';
+          el.after(rest);
+        }
+        if (d)
+          d.textContent =
+            'Heute ist ' +
+            jetzt.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) +
+            '.';
+      })();
+    </script>
   </section>
+
+  <p class="fortschritt" data-fortschritt data-gesamt={alleIds.length} data-ids={JSON.stringify(alleIds)} hidden>
+    <Icon name="circle-check" />
+    <span data-fortschritt-text></span>
+  </p>
 
   <form class="suchfeld" role="search" action={url('suche/')} method="get">
     <label for="suche-start">Was möchten Sie wissen?</label>
@@ -94,13 +125,22 @@ if (kacheln.length > 9) throw new Error('Die Startseite darf höchstens 9 Kachel
 </Base>
 
 <script>
-  // Begrüßung passend zur Tageszeit, dazu das heutige Datum.
-  const jetzt = new Date();
-  const h = jetzt.getHours();
-  const gruss = h < 11 ? 'Guten Morgen' : h < 18 ? 'Guten Tag' : 'Guten Abend';
-  const datum = jetzt.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-  const el = document.querySelector('[data-gruss]');
-  const d = document.querySelector('[data-datum]');
-  if (el) el.textContent = `${gruss}!`;
-  if (d) d.textContent = `Heute ist ${datum}.`;
+  // Fortschritt: wie viele Anleitungen sind schon abgehakt?
+  const box = document.querySelector<HTMLElement>('[data-fortschritt]');
+  if (box) {
+    let erledigt: string[] = [];
+    try {
+      erledigt = JSON.parse(localStorage.getItem('dh-erledigt') ?? '[]');
+    } catch {}
+    const ids: string[] = JSON.parse(box.dataset.ids ?? '[]');
+    const anzahl = erledigt.filter((e) => ids.includes(e)).length;
+    if (anzahl > 0) {
+      const text = box.querySelector('[data-fortschritt-text]');
+      if (text)
+        text.textContent = `Sie haben schon ${anzahl} von ${ids.length} Anleitungen geschafft. ${
+          anzahl === ids.length ? 'Großartig, alle!' : 'Weiter so!'
+        }`;
+      box.hidden = false;
+    }
+  }
 </script>
