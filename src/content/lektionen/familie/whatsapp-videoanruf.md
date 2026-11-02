@@ -7,7 +7,7 @@ dauer: 6
 darum: Bei einem Videoanruf sehen Sie die andere Person, und sie sieht Sie. Das ist kostenlos, wenn Sie im WLAN sind. So können Sie zum Beispiel die Enkel sehen.
 brauchen:
   - Ihr iPhone mit WhatsApp, am besten im WLAN
-suchwoerter: [WhatsApp, Videoanruf, Video telefonieren, Kamera, sehen, Enkel, anrufen, Gruppenanruf, Videochat, Facetime]
+suchwoerter: [WhatsApp, Videoanruf, Video telefonieren, Kamera, sehen, Enkel, anrufen, Gruppenanruf, Gruppe, Familiengruppe, Videochat, Facetime]
 ---
 
 ## Einen Videoanruf starten
@@ -21,6 +21,14 @@ suchwoerter: [WhatsApp, Videoanruf, Video telefonieren, Kamera, sehen, Enkel, an
 
 1. Wenn jemand per Video anruft, klingelt das iPhone.
 2. Tippen Sie auf den **grünen Knopf** oder wischen Sie den Regler nach rechts.
+
+## Ein Videoanruf mit der ganzen Familie
+
+1. Öffnen Sie die Gruppe, zum Beispiel die Familiengruppe.
+2. Tippen Sie oben rechts auf das **Kamera-Symbol**.
+3. Bei manchen Gruppen fragt WhatsApp, wen Sie anrufen möchten. Tippen Sie auf die Personen und dann auf **Anrufen**.
+4. Alle, die annehmen, erscheinen in eigenen Kästchen auf dem Bildschirm.
+5. Wer später dazukommen möchte, tippt in der Gruppe auf **Beitreten**.
 
 ## Während des Anrufs
 

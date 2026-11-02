@@ -1,7 +1,7 @@
 ---
 titel: Ich bin auf Betrug hereingefallen. Was jetzt?
 thema: sicherheit
-nummer: 7
+nummer: 9
 dauer: 5
 darum: Es kann jedem passieren. Wichtig ist, jetzt schnell zu handeln. Diese Schritte begrenzen den Schaden.
 brauchen:

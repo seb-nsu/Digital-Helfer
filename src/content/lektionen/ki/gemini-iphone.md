@@ -1,7 +1,7 @@
 ---
 titel: Wie richte ich Gemini auf dem iPhone ein?
 thema: ki
-nummer: 3
+nummer: 4
 dauer: 10
 darum: Gemini ist der KI-Assistent von Google. Auf dem iPhone können Sie ihm Fragen stellen, mit ihm sprechen und sogar Fotos erklären lassen.
 brauchen:

@@ -71,17 +71,17 @@ export const THEMEN: Thema[] = [
   {
     id: 'internet',
     titel: 'E-Mail und Internet',
-    kurz: 'E-Mails, Spotify, YouTube',
+    kurz: 'E-Mails, Spotify, YouTube, Mediathek',
     einleitung:
-      'Hier lernen Sie, wie Sie E-Mails lesen und schreiben, Anhänge öffnen und Fotos verschicken. Außerdem: mehrere Internetseiten gleichzeitig öffnen, Musik hören mit Spotify und Videos schauen auf YouTube.',
+      'Hier lernen Sie, wie Sie E-Mails lesen und schreiben, Anhänge öffnen und Fotos verschicken. Außerdem: mehrere Internetseiten gleichzeitig öffnen, Musik hören mit Spotify, Videos schauen auf YouTube und verpasste Sendungen in der Mediathek von ARD und ZDF.',
     icon: 'mail',
   },
   {
     id: 'iphone',
     titel: 'iPhone und WhatsApp',
-    kurz: 'Notruf, Nachrichten, Sprachnachrichten',
+    kurz: 'Notruf, Nachrichten, Familiengruppe',
     einleitung:
-      'Hier finden Sie Anleitungen für Ihr iPhone: den Notruf und WhatsApp mit Fotos, Sprachnachrichten und weitergeleiteten Nachrichten. Videoanrufe und Fotos haben ein eigenes Thema.',
+      'Hier finden Sie Anleitungen für Ihr iPhone: den Notruf und WhatsApp mit Fotos, Sprachnachrichten, weitergeleiteten Nachrichten und der Familiengruppe. Videoanrufe und Fotos haben ein eigenes Thema.',
     icon: 'smartphone',
   },
   {
@@ -95,17 +95,17 @@ export const THEMEN: Thema[] = [
   {
     id: 'alltag',
     titel: 'Online-Alltag',
-    kurz: 'Bank, Arzttermin, Bahn, Einkaufen',
+    kurz: 'Bank, Arzt, Bahn, Einkaufen, PayPal',
     einleitung:
-      'Vieles geht heute bequem im Internet: Überweisungen, Arzttermine, Fahrkarten und Einkäufe. Hier lernen Sie, wie das geht und worauf Sie achten müssen.',
+      'Vieles geht heute bequem im Internet: Überweisungen, Arzttermine, Fahrkarten und Einkäufe. Dazu Preise vergleichen und mit PayPal bezahlen. Hier lernen Sie, wie das geht und worauf Sie achten müssen.',
     icon: 'shopping-cart',
   },
   {
     id: 'sicherheit',
     titel: 'Sicherheit',
-    kurz: 'Betrug erkennen, sicher bleiben',
+    kurz: 'Betrug erkennen, sicher einkaufen',
     einleitung:
-      'Betrüger versuchen es per E-Mail, SMS und Telefon. Hier lernen Sie die Tricks kennen. So fallen Sie nicht darauf herein.',
+      'Betrüger versuchen es per E-Mail, SMS und Telefon, mit falschen Online-Shops und bei Kleinanzeigen. Hier lernen Sie die Tricks kennen. So fallen Sie nicht darauf herein.',
     icon: 'shield-check',
   },
   {
@@ -119,9 +119,9 @@ export const THEMEN: Thema[] = [
   {
     id: 'ki',
     titel: 'Künstliche Intelligenz',
-    kurz: 'Google-Suche mit KI und Gemini',
+    kurz: 'Google-Suche mit KI, Gemini, Übersetzen',
     einleitung:
-      'Künstliche Intelligenz, kurz KI, beantwortet Fragen in ganzen Sätzen. Hier lernen Sie die KI in der Google-Suche und den Assistenten Gemini kennen.',
+      'Künstliche Intelligenz, kurz KI, beantwortet Fragen in ganzen Sätzen. Hier lernen Sie die KI in der Google-Suche und den Assistenten Gemini kennen. Außerdem: eine Speisekarte im Urlaub mit dem iPhone übersetzen.',
     icon: 'sparkles',
   },
   {

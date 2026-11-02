@@ -1,7 +1,7 @@
 ---
 titel: Wie kaufe ich sicher bei Amazon ein?
 thema: alltag
-nummer: 4
+nummer: 6
 dauer: 8
 darum: Bei Amazon bestellen Sie fast alles von zu Hause. Die Ware kommt mit der Post. Hier lernen Sie, wie Sie bestellen und worauf Sie achten müssen.
 brauchen:
@@ -14,7 +14,7 @@ suchwoerter: [Amazon, einkaufen, bestellen, online kaufen, Warenkorb, Paket, Lie
 
 1. Tippen Sie oben in den [Browser](../../glossar/#browser) **amazon.de** ein.
 2. Tippen Sie oben in das Suchfeld, was Sie suchen, zum Beispiel **Lesebrille**. Drücken Sie <kbd>Enter</kbd>.
-3. Klicken Sie auf ein Angebot. Lesen Sie Preis, Lieferzeit und die Bewertungen mit Sternen.
+3. Klicken Sie auf ein Angebot. Lesen Sie Preis, Lieferzeit und die Bewertungen mit Sternen. Ob es woanders günstiger ist, sehen Sie mit [„Wie finde ich den günstigsten Preis für ein Produkt?“](../preise-vergleichen/).
 4. Klicken Sie auf **In den Einkaufswagen**.
 5. Klicken Sie oben rechts auf den **Einkaufswagen** und dann auf **Zur Kasse gehen**.
 6. Melden Sie sich an. Prüfen Sie Adresse und Zahlungsart. Klicken Sie auf **Jetzt kaufen**. Erst jetzt ist die Bestellung fest.

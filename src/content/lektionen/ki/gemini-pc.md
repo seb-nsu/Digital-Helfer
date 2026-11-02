@@ -1,7 +1,7 @@
 ---
 titel: Wie nutze ich Gemini am Computer?
 thema: ki
-nummer: 4
+nummer: 5
 dauer: 6
 darum: Gemini funktioniert auch am Computer, ganz ohne Installation. Sie öffnen es einfach im Browser. Das ist praktisch für längere Texte, zum Beispiel Briefe.
 brauchen:
