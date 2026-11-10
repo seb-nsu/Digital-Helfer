@@ -1,0 +1,130 @@
+/**
+ * Zentrale Einstellungen des Digital-Helfers.
+ * Name und Telefonnummer der Hilfsperson stehen nicht hier, sondern kommen beim Bauen
+ * aus Umgebungsvariablen (siehe src/helfer.mjs und README).
+ */
+import { HELFER } from './helfer.mjs';
+
+export const HILFE = HELFER;
+
+/** Ist eine Telefonnummer eingetragen? */
+export const MIT_NUMMER = HILFE.telefon !== '';
+
+/**
+ * Solange die Seite nur für die Familie gedacht ist, sollen Suchmaschinen sie nicht aufnehmen.
+ * Für eine öffentliche Version auf false setzen.
+ */
+export const NICHT_INDEXIEREN = true;
+
+export const THEMA_IDS = [
+  'pc-grundlagen',
+  'office',
+  'internet',
+  'iphone',
+  'familie',
+  'alltag',
+  'sicherheit',
+  'bedienhilfen',
+  'ki',
+  'probleme',
+] as const;
+export type ThemaId = (typeof THEMA_IDS)[number];
+
+export interface Thema {
+  id: ThemaId;
+  titel: string;
+  kurz: string;
+  einleitung: string;
+  icon: string;
+  /** false: erscheint nicht als Kachel auf der Startseite (z. B. der Problemlöser, der einen eigenen Bereich hat) */
+  kachel?: boolean;
+}
+
+/** Reihenfolge = Reihenfolge der Kacheln auf der Startseite (höchstens 9 Kacheln, drei Reihen zu je drei). */
+export const THEMEN: Thema[] = [
+  {
+    id: 'pc-grundlagen',
+    titel: 'PC-Grundlagen',
+    kurz: 'Maus, Tastatur, Drucken, Scannen',
+    einleitung:
+      'Hier lernen Sie die Grundlagen am Computer: Maus, Tastatur und Fenster, dazu Drucken und Scannen. Fangen Sie oben an. Jede Anleitung dauert nur wenige Minuten.',
+    icon: 'monitor',
+  },
+  {
+    id: 'office',
+    titel: 'Word und Excel',
+    kurz: 'Briefe schreiben, Listen anlegen',
+    einleitung:
+      'Mit Word schreiben Sie Briefe und andere Texte. Mit Excel legen Sie Listen und Tabellen an, und Excel rechnet für Sie.',
+    icon: 'file-text',
+  },
+  {
+    id: 'internet',
+    titel: 'E-Mail und Internet',
+    kurz: 'E-Mails, Spotify, YouTube, Mediathek',
+    einleitung:
+      'Hier lernen Sie, wie Sie E-Mails lesen und schreiben, Anhänge öffnen und Fotos verschicken. Außerdem: mehrere Internetseiten gleichzeitig öffnen, Musik hören mit Spotify, Videos schauen auf YouTube und verpasste Sendungen in der Mediathek von ARD und ZDF.',
+    icon: 'mail',
+  },
+  {
+    id: 'iphone',
+    titel: 'iPhone und WhatsApp',
+    kurz: 'Notruf, Nachrichten, Familiengruppe',
+    einleitung:
+      'Hier finden Sie Anleitungen für Ihr iPhone: den Notruf und WhatsApp mit Fotos, Sprachnachrichten, weitergeleiteten Nachrichten und der Familiengruppe. Videoanrufe und Fotos haben ein eigenes Thema.',
+    icon: 'smartphone',
+  },
+  {
+    id: 'familie',
+    titel: 'Fotos und Videoanrufe',
+    kurz: 'Familie per Video sehen, Fotos ordnen',
+    einleitung:
+      'Hier lernen Sie, wie Sie Ihre Familie per Video sehen, mit WhatsApp, FaceTime oder Zoom. Außerdem: Fotos auf dem iPhone ansehen und ordnen und auf den Computer holen.',
+    icon: 'camera',
+  },
+  {
+    id: 'alltag',
+    titel: 'Online-Alltag',
+    kurz: 'Bank, Arzt, Bahn, Einkaufen, PayPal',
+    einleitung:
+      'Vieles geht heute bequem im Internet: Überweisungen, Arzttermine, Fahrkarten und Einkäufe. Dazu Preise vergleichen und mit PayPal bezahlen. Hier lernen Sie, wie das geht und worauf Sie achten müssen.',
+    icon: 'shopping-cart',
+  },
+  {
+    id: 'sicherheit',
+    titel: 'Sicherheit',
+    kurz: 'Betrug erkennen, sicher einkaufen',
+    einleitung:
+      'Betrüger versuchen es per E-Mail, SMS und Telefon, mit falschen Online-Shops und bei Kleinanzeigen. Hier lernen Sie die Tricks kennen. So fallen Sie nicht darauf herein.',
+    icon: 'shield-check',
+  },
+  {
+    id: 'bedienhilfen',
+    titel: 'Besser sehen, hören, sprechen',
+    kurz: 'Größere Schrift, Lupe, Vorlesen, Diktieren',
+    einleitung:
+      'Computer und iPhone können sich Ihnen anpassen: größere Schrift, eine Lupe, Texte vorlesen lassen oder sprechen statt tippen. Probieren Sie aus, was Ihnen hilft.',
+    icon: 'eye',
+  },
+  {
+    id: 'ki',
+    titel: 'Künstliche Intelligenz',
+    kurz: 'Google-Suche mit KI, Gemini, Übersetzen',
+    einleitung:
+      'Künstliche Intelligenz, kurz KI, beantwortet Fragen in ganzen Sätzen. Hier lernen Sie die KI in der Google-Suche und den Assistenten Gemini kennen. Außerdem: eine Speisekarte im Urlaub mit dem iPhone übersetzen.',
+    icon: 'sparkles',
+  },
+  {
+    id: 'probleme',
+    titel: 'Hilfe bei Problemen',
+    kurz: 'Schnelle Lösungen für häufige Probleme',
+    einleitung:
+      'Etwas funktioniert nicht? Hier finden Sie die häufigsten Probleme und was Sie selbst tun können. Probieren Sie die Schritte der Reihe nach aus.',
+    icon: 'wrench',
+    kachel: false,
+  },
+];
+
+export function themaById(id: string) {
+  return THEMEN.find((t) => t.id === id);
+}

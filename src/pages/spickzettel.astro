@@ -1,0 +1,276 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { HILFE, MIT_NUMMER } from '../config';
+import { url } from '../lib';
+
+const name = HILFE.name;
+// Adresse der Seite, damit man sie auch vom Zettel abtippen kann.
+const adresse = new URL(url(), Astro.site ?? 'https://seb-nsu.github.io').href.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+const TASTEN: { tasten: string[]; was: string }[] = [
+  { tasten: ['Strg', 'C'], was: 'Kopieren' },
+  { tasten: ['Strg', 'V'], was: 'Einfügen' },
+  { tasten: ['Strg', 'Z'], was: 'Rückgängig: Fehler ungeschehen machen' },
+  { tasten: ['Strg', 'P'], was: 'Drucken' },
+  { tasten: ['Strg', '+'], was: 'Alles größer (im Browser)' },
+  { tasten: ['Strg', '−'], was: 'Alles kleiner (im Browser)' },
+  { tasten: ['Alt', 'F4'], was: 'Fenster schließen, auch bei falschen Warnungen' },
+  { tasten: ['Esc'], was: 'Abbrechen, Menü schließen' },
+  { tasten: ['Enter'], was: 'Bestätigen, neue Zeile' },
+  { tasten: ['Strg', 'Windows-Taste', 'Q'], was: `Schnellhilfe: ${name} schaut auf Ihren Bildschirm` },
+];
+---
+
+<Base
+  titel="Spickzettel zum Ausdrucken"
+  beschreibung="Eine Seite für neben den Computer: die wichtigsten Tasten, drei Regeln gegen Betrug und wie Sie Hilfe bekommen."
+  krumen={[{ titel: 'Spickzettel' }]}
+>
+  <div class="spickzettel">
+    <h1>Spickzettel</h1>
+    <p class="einleitung spickzettel__bildschirm">
+      Drucken Sie diese Seite aus und legen Sie sie neben den Computer. Dann haben Sie das Wichtigste immer zur Hand.
+    </p>
+    <p class="spickzettel__bildschirm">
+      <button type="button" class="knopf knopf--voll knopf--gross" data-drucken>
+        <Icon name="printer" />
+        Spickzettel ausdrucken
+      </button>
+    </p>
+
+    <section class="spickzettel__teil spickzettel__hilfe" aria-labelledby="sz-hilfe">
+      <h2 id="sz-hilfe"><Icon name="phone" /> So bekommen Sie Hilfe</h2>
+      <dl>
+        <dt>{name}</dt>
+        <dd>
+          {
+            MIT_NUMMER ? (
+              <strong>{HILFE.telefonAnzeige}</strong>
+            ) : (
+              <span class="spickzettel__linie" aria-label="Hier die Telefonnummer von Hand eintragen">
+                Telefon:
+              </span>
+            )
+          }
+        </dd>
+        <dt>Karte sperren</dt>
+        <dd><strong>116 116</strong> (Sperr-Notruf, Tag und Nacht)</dd>
+        <dt>Polizei</dt>
+        <dd><strong>110</strong></dd>
+        <dt>Digital-Helfer</dt>
+        <dd>{adresse}</dd>
+      </dl>
+    </section>
+
+    <section class="spickzettel__teil" aria-labelledby="sz-tasten">
+      <h2 id="sz-tasten"><Icon name="monitor" /> Die wichtigsten Tasten</h2>
+      <p class="spickzettel__klein">Das Pluszeichen heißt: Tasten gleichzeitig drücken.</p>
+      <table class="spickzettel__tasten">
+        <thead>
+          <tr>
+            <th scope="col">Tasten</th>
+            <th scope="col">Was passiert</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            TASTEN.map((t) => (
+              <tr>
+                <td>
+                  {t.tasten.map((k, i) => (
+                    <>
+                      {i > 0 && ' + '}
+                      <kbd>{k}</kbd>
+                    </>
+                  ))}
+                </td>
+                <td>{t.was}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
+
+    <section class="spickzettel__teil spickzettel__regeln" aria-labelledby="sz-betrug">
+      <h2 id="sz-betrug"><Icon name="shield-check" /> Drei Regeln gegen Betrug</h2>
+      <ol>
+        <li>
+          <strong>Niemand Echtes fragt nach Passwort, PIN oder TAN.</strong> Weder die Bank noch die Polizei noch Microsoft. Nicht am
+          Telefon, nicht per E-Mail, nicht per SMS.
+        </li>
+        <li>
+          <strong>Bei Druck: auflegen.</strong> Wer drängelt oder Angst macht, ist ein Betrüger. Rufen Sie selbst zurück, unter einer Nummer,
+          die Sie kennen. Oder fragen Sie {name}.
+        </li>
+        <li>
+          <strong>Keine Links aus Nachrichten, keine Fremden am Computer.</strong> Klicken Sie nicht auf Links in unerwarteten Nachrichten.
+          Lassen Sie nur {name} auf Ihren Bildschirm.
+        </li>
+      </ol>
+    </section>
+
+    <p class="spickzettel__schluss">Sie können nichts kaputt machen. Probieren Sie es in Ruhe aus.</p>
+  </div>
+</Base>
+
+<script>
+  document.querySelector('[data-drucken]')?.addEventListener('click', () => window.print());
+</script>
+
+<style>
+  .spickzettel {
+    max-width: var(--inhalt-breite);
+  }
+  .spickzettel__teil {
+    margin: 0 0 1.5rem;
+    padding: 1.1rem 1.4rem;
+    border: 2px solid var(--rand);
+    border-radius: var(--radius);
+    background: var(--flaeche);
+  }
+  .spickzettel__teil h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+  }
+  .spickzettel__hilfe {
+    border: 3px solid var(--hilfe);
+  }
+  .spickzettel__hilfe dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1.25rem;
+    margin: 0;
+  }
+  .spickzettel__hilfe dt {
+    font-weight: 700;
+  }
+  .spickzettel__hilfe dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .spickzettel__linie {
+    display: block;
+    border-bottom: 2px solid var(--text);
+    min-width: 10rem;
+    padding-bottom: 0.2rem;
+  }
+  .spickzettel__klein {
+    margin: 0 0 0.5rem;
+    color: var(--text-leise);
+  }
+  .spickzettel__tasten {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .spickzettel__tasten th {
+    text-align: left;
+    padding: 0.3rem 0.5rem 0.3rem 0;
+    border-bottom: 2px solid var(--rand);
+  }
+  .spickzettel__tasten td {
+    padding: 0.45rem 0.5rem 0.45rem 0;
+    border-bottom: 1px solid var(--rand);
+    vertical-align: top;
+  }
+  .spickzettel__tasten td:first-child {
+    white-space: nowrap;
+  }
+  .spickzettel__regeln {
+    border: 3px solid var(--warnung);
+    background: var(--warnung-hell);
+  }
+  .spickzettel__regeln ol {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+  .spickzettel__regeln li {
+    margin-bottom: 0.5rem;
+  }
+  .spickzettel__schluss {
+    font-weight: 700;
+  }
+
+  /* Auf dem Handy: Tasten dürfen umbrechen. */
+  @media (max-width: 30rem) {
+    /* Tasten und Erklärung untereinander statt nebeneinander */
+    .spickzettel__tasten thead {
+      display: none;
+    }
+    .spickzettel__tasten tr,
+    .spickzettel__tasten td {
+      display: block;
+    }
+    .spickzettel__tasten tr {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--rand);
+    }
+    .spickzettel__tasten td {
+      border: 0;
+      padding: 0;
+    }
+    .spickzettel__tasten td:first-child {
+      white-space: normal;
+      margin-bottom: 0.2rem;
+    }
+    .spickzettel__hilfe dl {
+      grid-template-columns: 1fr;
+      gap: 0 0;
+    }
+    .spickzettel__hilfe dd {
+      margin-bottom: 0.6rem;
+    }
+  }
+
+  /* Ausdruck: alles auf eine Seite A4. */
+  @media print {
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+    :global(main) {
+      padding-bottom: 0;
+    }
+    .spickzettel {
+      max-width: none;
+      font-size: 12pt;
+      line-height: 1.4;
+    }
+    .spickzettel h1 {
+      margin: 0 0 0.3rem;
+      font-size: 18pt;
+    }
+    .spickzettel__bildschirm {
+      display: none;
+    }
+    .spickzettel__teil {
+      margin-bottom: 0.8rem;
+      padding: 0.6rem 0.9rem;
+      break-inside: avoid;
+      background: #fff;
+    }
+    .spickzettel__teil h2 {
+      font-size: 14pt;
+      margin-bottom: 0.4rem;
+    }
+    .spickzettel__hilfe dd {
+      font-size: 13pt;
+    }
+    .spickzettel__linie {
+      min-height: 1.6em;
+    }
+    .spickzettel__tasten td {
+      padding: 0.25rem 0.5rem 0.25rem 0;
+    }
+    .spickzettel__regeln li {
+      margin-bottom: 0.3rem;
+    }
+    .spickzettel__schluss {
+      margin: 0;
+    }
+  }
+</style>

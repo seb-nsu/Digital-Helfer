@@ -1,0 +1,183 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import { HILFE, THEMEN } from '../config';
+import { url } from '../lib';
+
+// Höchstens 9 Kacheln: die Themen. Übungsecke, „Alle Anleitungen“ und „Wörter erklärt“ stehen als Knöpfe darunter.
+const kacheln = THEMEN.filter((t) => t.kachel !== false).map((t) => ({
+  titel: t.titel,
+  text: t.kurz,
+  icon: t.icon,
+  href: url(`${t.id}/`),
+}));
+
+// Problemlöser: die häufigsten Probleme direkt auf der Startseite.
+const probleme = (await getCollection('lektionen', (l) => l.data.thema === 'probleme')).sort(
+  (a, b) => a.data.nummer - b.data.nummer,
+);
+if (kacheln.length > 9) throw new Error('Die Startseite darf höchstens 9 Kacheln haben.');
+
+// Für die Fortschrittszeile: nur Anleitungen zählen, die es wirklich gibt.
+const alleIds = (await getCollection('lektionen')).map((l) => l.id);
+---
+
+<Base titel="Startseite">
+  <section class="begruessung" aria-labelledby="gruss">
+    <h1 id="gruss"><span data-gruss>Willkommen beim Digital-Helfer</span></h1>
+    <p data-datum>Hier finden Sie Anleitungen für Computer, iPhone und Internet.</p>
+    <script is:inline>
+      // Sofort setzen, noch bevor die Seite gezeichnet wird: so springt die Überschrift nicht.
+      (function () {
+        var jetzt = new Date();
+        var h = jetzt.getHours();
+        var gruss = h < 11 ? 'Guten Morgen' : h < 18 ? 'Guten Tag' : 'Guten Abend';
+        var el = document.querySelector('[data-gruss]');
+        var d = document.querySelector('[data-datum]');
+        if (el) {
+          el.textContent = gruss + '!';
+          // Bildschirmleser hören weiterhin, auf welcher Seite sie sind.
+          var rest = document.createElement('span');
+          rest.className = 'nur-vorlesen';
+          rest.textContent = ' Willkommen beim Digital-Helfer.';
+          el.after(rest);
+        }
+        if (d)
+          d.textContent =
+            'Heute ist ' +
+            jetzt.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) +
+            '.';
+      })();
+    </script>
+  </section>
+
+  <p class="fortschritt" data-fortschritt data-gesamt={alleIds.length} data-ids={JSON.stringify(alleIds)} hidden>
+    <Icon name="circle-check" />
+    <span data-fortschritt-text></span>
+  </p>
+
+  <p class="weiterlesen" data-weiterlesen hidden>
+    <Icon name="bookmark" />
+    <span>
+      <span class="weiterlesen__titel" data-weiterlesen-titel>Weiterlesen, wo Sie aufgehört haben:</span>
+      <a href="" data-weiterlesen-link></a>
+    </span>
+  </p>
+
+  <form class="suchfeld" role="search" action={url('suche/')} method="get">
+    <label for="suche-start">Was möchten Sie wissen?</label>
+    <input id="suche-start" name="q" type="search" placeholder="z. B. Text kopieren" autocomplete="off" />
+    <button class="knopf knopf--voll" type="submit">
+      <Icon name="search" />
+      Suchen
+    </button>
+  </form>
+
+  <section class="problemloeser" aria-labelledby="probleme-titel">
+    <h2 id="probleme-titel">
+      <Icon name="wrench" />
+      Hilfe, ich habe ein Problem
+    </h2>
+    <ul>
+      {
+        probleme.map((p) => (
+          <li>
+            <a href={url(`${p.id}/`)}>
+              <span>{p.data.titel}</span>
+              <Icon name="chevron-right" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <h2 class="nur-vorlesen">Themen</h2>
+  <ul class="kacheln">
+    {
+      kacheln.map((k) => (
+        <li>
+          <a class="kachel" href={k.href}>
+            <Icon name={k.icon} />
+            <span class="kachel__titel">{k.titel}</span>
+            <span class="kachel__text">{k.text}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="zusatz-link">
+    <a class="knopf" href={url('ueben/')}>
+      <Icon name="mouse-pointer-click" />
+      Übungsecke: Klicken und Tippen üben
+    </a>
+    <a class="knopf" href={url('alle/')}>
+      <Icon name="list" />
+      Alle Anleitungen auf einen Blick
+    </a>
+    <a class="knopf" href={url('glossar/')}>
+      <Icon name="book-open" />
+      Kleines Lexikon: Wörter erklärt
+    </a>
+    <a class="knopf" href={url('spickzettel/')}>
+      <Icon name="notebook-text" />
+      Spickzettel zum Ausdrucken
+    </a>
+  </p>
+
+  <aside class="hinweis-hilfe" aria-label="Hilfe">
+    <p>Etwas klappt nicht? {HILFE.name} hilft Ihnen gern.</p>
+    <a class="knopf knopf--hilfe" href={url('hilfe/')}>
+      <Icon name="phone" />
+      Hilfe holen
+    </a>
+  </aside>
+</Base>
+
+<script>
+  // Fortschritt: wie viele Anleitungen sind schon abgehakt?
+  const box = document.querySelector<HTMLElement>('[data-fortschritt]');
+  if (box) {
+    let erledigt: string[] = [];
+    try {
+      erledigt = JSON.parse(localStorage.getItem('dh-erledigt') ?? '[]');
+    } catch {}
+    const ids: string[] = JSON.parse(box.dataset.ids ?? '[]');
+    const anzahl = erledigt.filter((e) => ids.includes(e)).length;
+    if (anzahl > 0) {
+      const text = box.querySelector('[data-fortschritt-text]');
+      if (text)
+        text.textContent = `Sie haben schon ${anzahl} von ${ids.length} Anleitungen geschafft. ${
+          anzahl === ids.length ? 'Großartig, alle!' : 'Weiter so!'
+        }`;
+      box.hidden = false;
+    }
+  }
+
+  // Weiterlesen: die zuletzt geöffnete Anleitung. Ist sie schon abgehakt, zeigen wir die nächste.
+  const weiter = document.querySelector<HTMLElement>('[data-weiterlesen]');
+  if (weiter) {
+    try {
+      const z = JSON.parse(localStorage.getItem('dh-zuletzt') ?? 'null');
+      const erledigt: string[] = JSON.parse(localStorage.getItem('dh-erledigt') ?? '[]');
+      const ids: string[] = JSON.parse(box?.dataset.ids ?? '[]');
+      // Nur Anleitungen, die es noch gibt.
+      if (z && typeof z.titel === 'string' && typeof z.href === 'string' && z.href.startsWith('/') && ids.includes(z.id)) {
+        const fertig = erledigt.includes(z.id);
+        const titel = fertig ? z.naechsteTitel : z.titel;
+        const href = fertig ? z.naechsteHref : z.href;
+        if (titel && typeof href === 'string' && href.startsWith('/')) {
+          weiter.querySelector('[data-weiterlesen-titel]')!.textContent = fertig
+            ? 'Als Nächstes für Sie:'
+            : 'Weiterlesen, wo Sie aufgehört haben:';
+          const link = weiter.querySelector<HTMLAnchorElement>('[data-weiterlesen-link]')!;
+          link.textContent = titel;
+          link.href = href;
+          weiter.hidden = false;
+        }
+      }
+    } catch {}
+  }
+</script>

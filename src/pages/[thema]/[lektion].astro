@@ -1,0 +1,417 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import MitHelfer from '../../components/MitHelfer.astro';
+import { THEMEN, themaById } from '../../config';
+import { minuten, url } from '../../lib';
+import { abschnitteVon } from '../../abschnitte';
+
+export async function getStaticPaths() {
+  const alle = await getCollection('lektionen');
+  return alle.map((lektion) => {
+    const [thema, name] = lektion.id.split('/');
+    // Dieselbe Einteilung wie auf der Themenseite: Nummern zählen je Abschnitt (z. B. „Word“, „Excel“).
+    const abschnitte = abschnitteVon(alle.filter((l) => l.data.thema === lektion.data.thema));
+    const reihe = abschnitte.flatMap((a) => a.lektionen.map((l) => ({ l, abschnitt: a.titel })));
+    const index = reihe.findIndex((r) => r.l.id === lektion.id);
+    const abschnitt = abschnitte.find((a) => a.titel === reihe[index].abschnitt)!;
+    const naechste = reihe[index + 1];
+    return {
+      params: { thema, lektion: name },
+      props: {
+        lektion,
+        naechste: naechste?.l,
+        // Beginnt mit der nächsten Anleitung ein neuer Abschnitt? Dann sagen wir das auf dem Knopf.
+        naechsterAbschnitt: naechste && naechste.abschnitt !== abschnitt.titel ? naechste.abschnitt : '',
+        position: abschnitt.lektionen.findIndex((l) => l.id === lektion.id) + 1,
+        anzahl: abschnitt.lektionen.length,
+        abschnittTitel: abschnitt.titel,
+      },
+    };
+  });
+}
+
+const { lektion, naechste, naechsterAbschnitt, position, anzahl, abschnittTitel } = Astro.props;
+const thema = themaById(lektion.data.thema) ?? THEMEN[0];
+const { Content } = await render(lektion);
+const themaHref = url(`${thema.id}/`);
+const glossar = (await getCollection('glossar')).map((g) => ({ id: g.id, wort: g.data.wort, text: g.data.erklaerung }));
+// Anleitungen mit Abschnitten für klassisches und neues Outlook bekommen einen Umschalter.
+const mitOutlook = (lektion.body ?? '').includes('data-outlook=');
+const wo = abschnittTitel ? `im Bereich ${abschnittTitel}` : `im Thema ${thema.titel}`;
+---
+
+<Base
+  titel={lektion.data.titel}
+  beschreibung={lektion.data.darum}
+  krumen={[{ titel: thema.titel, href: themaHref }, { titel: lektion.data.titel }]}
+  zurueck={{ href: themaHref, titel: thema.titel }}
+>
+  <article
+    class="lektion"
+    data-pagefind-body
+    data-zuletzt={JSON.stringify({
+      id: lektion.id,
+      titel: lektion.data.titel,
+      href: url(`${lektion.id}/`),
+      naechsteTitel: naechste?.data.titel ?? '',
+      naechsteHref: naechste ? url(`${naechste.id}/`) : '',
+    })}
+  >
+    <h1>{lektion.data.titel}</h1>
+    <p class="lektion__info" data-pagefind-ignore>
+      <span><Icon name="clock" /> {minuten(lektion.data.dauer)}</span>
+      <span>Anleitung {position} von {anzahl} {wo}</span>
+      {lektion.data.niveau === 'Fortgeschritten' && <span class="etikett">Für Fortgeschrittene</span>}
+    </p>
+
+    <div class="vorlesen" data-pagefind-ignore data-vorlesen hidden>
+      <button type="button" class="knopf" aria-pressed="false" data-vorlesen-knopf>
+        <span class="vorlesen__an"><Icon name="volume-2" /> Anleitung vorlesen</span>
+        <span class="vorlesen__aus"><Icon name="volume-x" /> Vorlesen beenden</span>
+      </button>
+      <p class="nur-vorlesen" aria-live="polite" data-vorlesen-meldung></p>
+    </div>
+
+    {
+      lektion.data.niveau === 'Fortgeschritten' && (
+        <p class="hinweis-niveau" data-pagefind-ignore>
+          Diese Anleitung hat etwas mehr Schritte. Nehmen Sie sich Zeit. Sie können jederzeit eine Pause machen und später weitermachen.
+        </p>
+      )
+    }
+
+    <div class="kasten kasten--darum">
+      <h2>Darum geht es</h2>
+      <p>{lektion.data.darum}</p>
+    </div>
+
+    {
+      lektion.data.brauchen.length > 0 && (
+        <div class="kasten">
+          <h2>Das brauchen Sie</h2>
+          <ul>
+            {lektion.data.brauchen.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      mitOutlook && (
+        <fieldset class="umschalter" data-pagefind-ignore>
+          <legend>Welches Outlook haben Sie?</legend>
+          <div class="umschalter__wahl">
+            <label>
+              <input type="radio" name="outlook" value="klassisch" checked />
+              Klassisches Outlook
+            </label>
+            <label>
+              <input type="radio" name="outlook" value="neu" />
+              Neues Outlook
+            </label>
+          </div>
+          <p class="umschalter__tipp">
+            Nicht sicher? Steht in Outlook oben rechts ein Schalter <strong>Neues Outlook</strong> und ist er eingeschaltet? Dann haben Sie das
+            neue Outlook.
+          </p>
+          <p class="nur-vorlesen" aria-live="polite" data-umschalter-meldung></p>
+        </fieldset>
+      )
+    }
+
+    <div class="inhalt">
+      <MitHelfer><Content /></MitHelfer>
+    </div>
+
+    {
+      lektion.data.suchwoerter.length > 0 && (
+        <p hidden data-pagefind-weight="3">
+          {lektion.data.suchwoerter.join(', ')}
+        </p>
+      )
+    }
+  </article>
+
+  <section class="lektion__ende" aria-labelledby="ende-titel" data-pagefind-ignore>
+    <h2 id="ende-titel">Hat alles geklappt?</h2>
+    <div class="lektion__knoepfe">
+      <button type="button" class="knopf knopf--geschafft" aria-pressed="false" data-geschafft={lektion.id}>
+        <Icon name="check" />
+        <span>Geschafft!</span>
+      </button>
+      <button type="button" class="knopf" data-drucken>
+        <Icon name="printer" />
+        Anleitung ausdrucken
+      </button>
+    </div>
+    <p class="geschafft-meldung" aria-live="polite"></p>
+    <p>
+      Hat es nicht geklappt? Kein Problem. <a href={url('hilfe/')}>Fragen Sie einfach nach Hilfe</a>.
+    </p>
+    {
+      naechste ? (
+        <a class="knopf knopf--voll knopf--gross weiter" href={url(`${naechste.id}/`)}>
+          <span class="weiter__text">
+            <small>{naechsterAbschnitt ? `Nächster Bereich: ${naechsterAbschnitt}` : 'Nächste Anleitung'}</small>
+            {naechste.data.titel}
+          </span>
+          <Icon name="chevron-right" />
+        </a>
+      ) : (
+        <a class="knopf knopf--voll knopf--gross weiter" href={themaHref}>
+          <span class="weiter__text">
+            <small>Fertig mit diesem Thema</small>
+            Alle Anleitungen zu {thema.titel}
+          </span>
+          <Icon name="chevron-right" />
+        </a>
+      )
+    }
+  </section>
+</Base>
+
+<script is:inline type="application/json" id="glossar-daten" set:html={JSON.stringify(glossar).replace(/</g, '\\u003c')} />
+
+<script>
+  const knopf = document.querySelector<HTMLButtonElement>('[data-geschafft]');
+  const meldung = document.querySelector('.geschafft-meldung');
+  const id = knopf?.dataset.geschafft ?? '';
+
+  function lesen(): string[] {
+    try {
+      return JSON.parse(localStorage.getItem('dh-erledigt') ?? '[]');
+    } catch {
+      return [];
+    }
+  }
+  function zeigen(erledigt: boolean) {
+    if (!knopf) return;
+    knopf.setAttribute('aria-pressed', String(erledigt));
+    const text = knopf.querySelector('span');
+    if (text) text.textContent = erledigt ? 'Geschafft! (abgehakt)' : 'Geschafft!';
+  }
+
+  zeigen(lesen().includes(id));
+  knopf?.addEventListener('click', () => {
+    let liste = lesen();
+    const jetztErledigt = !liste.includes(id);
+    liste = jetztErledigt ? [...liste, id] : liste.filter((x) => x !== id);
+    try {
+      localStorage.setItem('dh-erledigt', JSON.stringify(liste));
+    } catch {}
+    zeigen(jetztErledigt);
+    if (meldung) meldung.textContent = jetztErledigt ? 'Sehr gut! Die Anleitung ist abgehakt.' : 'Das Häkchen ist wieder entfernt.';
+  });
+
+  // Outlook-Umschalter: Es bleibt immer nur die gewählte Version sichtbar. Die Wahl merkt sich der Browser.
+  const wahl = document.querySelectorAll<HTMLInputElement>('input[name="outlook"]');
+  if (wahl.length) {
+    const umschalterMeldung = document.querySelector('[data-umschalter-meldung]');
+    const setzen = (wert: string) => {
+      document.documentElement.dataset.outlook = wert;
+      wahl.forEach((r) => (r.checked = r.value === wert));
+    };
+    let gespeichert = 'klassisch';
+    try {
+      gespeichert = localStorage.getItem('dh-outlook') === 'neu' ? 'neu' : 'klassisch';
+    } catch {}
+    setzen(gespeichert);
+    wahl.forEach((r) =>
+      r.addEventListener('change', () => {
+        setzen(r.value);
+        try {
+          localStorage.setItem('dh-outlook', r.value);
+        } catch {}
+        if (umschalterMeldung)
+          umschalterMeldung.textContent = `Die Anleitung zeigt jetzt das ${r.value === 'neu' ? 'neue' : 'klassische'} Outlook.`;
+      }),
+    );
+  }
+
+  document.querySelector('[data-drucken]')?.addEventListener('click', () => window.print());
+
+  // Für die Startseite merken: Das ist die zuletzt geöffnete Anleitung („Weiterlesen, wo Sie aufgehört haben“).
+  try {
+    const zuletzt = document.querySelector<HTMLElement>('[data-zuletzt]')?.dataset.zuletzt;
+    if (zuletzt) localStorage.setItem('dh-zuletzt', zuletzt);
+  } catch {}
+
+  // Vorlesen: Die Sprachausgabe des Browsers liest die Anleitung Absatz für Absatz vor.
+  // Der Absatz, der gerade gelesen wird, ist farbig hinterlegt.
+  const vorlesen = document.querySelector<HTMLElement>('[data-vorlesen]');
+  const sprache = 'speechSynthesis' in window ? window.speechSynthesis : null;
+  if (vorlesen && sprache) {
+    vorlesen.hidden = false;
+    const vKnopf = vorlesen.querySelector<HTMLButtonElement>('[data-vorlesen-knopf]')!;
+    const vMeldung = vorlesen.querySelector('[data-vorlesen-meldung]');
+    let laeuft = false;
+    let aktiv: Element | null = null;
+
+    // Abkürzungen auf Tasten so, wie man sie ausspricht.
+    const AUSSPRACHE: [RegExp, string][] = [
+      [/\bStrg\b/g, 'Steuerung'],
+      [/\bEntf\b/g, 'Entfernen'],
+      [/\bEsc\b/g, 'Escape'],
+      [/\bca\.\s/g, 'circa '],
+      [/\bz\.\s?B\./g, 'zum Beispiel'],
+      [/\bd\.\s?h\./g, 'das heißt'],
+    ];
+    const aussprechen = (t: string) => AUSSPRACHE.reduce((x, [muster, ersatz]) => x.replace(muster, ersatz), t);
+
+    const sichtbar = (el: Element) => (el as HTMLElement).getClientRects().length > 0 && !el.closest('[data-pagefind-ignore], [hidden]');
+
+    // Einzelne Abschnitte zum Vorlesen sammeln: Überschriften, Absätze, Schritte.
+    function abschnitte(): { el: Element; text: string }[] {
+      const artikel = document.querySelector('.lektion');
+      if (!artikel) return [];
+      const AUSWAHL = 'h1, h2, h3, p, li';
+      const liste: { el: Element; text: string }[] = [];
+      artikel.querySelectorAll(AUSWAHL).forEach((el) => {
+        if (!sichtbar(el)) return;
+        let text: string;
+        if (el.querySelector(AUSWAHL)) {
+          // Enthält weitere Absätze: nur den eigenen Text lesen, der Rest kommt danach einzeln.
+          const kopie = el.cloneNode(true) as Element;
+          kopie.querySelectorAll(AUSWAHL).forEach((k) => k.remove());
+          text = kopie.textContent ?? '';
+        } else {
+          text = (el as HTMLElement).innerText ?? el.textContent ?? '';
+        }
+        text = text.replace(/\s+/g, ' ').trim();
+        if (text) liste.push({ el, text: aussprechen(text) });
+      });
+      return liste;
+    }
+
+    function markieren(el: Element | null) {
+      aktiv?.classList.remove('wird-vorgelesen');
+      aktiv = el;
+      if (el) {
+        el.classList.add('wird-vorgelesen');
+        const r = el.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > window.innerHeight) el.scrollIntoView({ block: 'center' });
+      }
+    }
+
+    function anzeigen(an: boolean, text: string) {
+      laeuft = an;
+      vKnopf.setAttribute('aria-pressed', String(an));
+      if (vMeldung) vMeldung.textContent = text;
+    }
+
+    function beenden(text = 'Vorlesen beendet.') {
+      laeuft = false;
+      sprache!.cancel();
+      markieren(null);
+      anzeigen(false, text);
+    }
+
+    function deutscheStimme() {
+      const stimmen = sprache!.getVoices().filter((v) => v.lang.toLowerCase().startsWith('de'));
+      return stimmen.find((v) => v.lang === 'de-DE' && v.localService) ?? stimmen.find((v) => v.lang === 'de-DE') ?? stimmen[0];
+    }
+
+    function starten() {
+      const teile = abschnitte();
+      if (!teile.length) return;
+      sprache!.cancel();
+      anzeigen(true, 'Die Anleitung wird vorgelesen.');
+      const stimme = deutscheStimme();
+      let i = 0;
+      // Absatz für Absatz: so bricht die Sprachausgabe bei langen Texten nicht ab.
+      const naechster = () => {
+        if (!laeuft) return;
+        if (i >= teile.length) return beenden('Fertig vorgelesen.');
+        const { el, text } = teile[i++];
+        const satz = new SpeechSynthesisUtterance(text);
+        satz.lang = 'de-DE';
+        if (stimme) satz.voice = stimme;
+        satz.rate = 0.9;
+        satz.onstart = () => markieren(el);
+        satz.onend = naechster;
+        satz.onerror = (e) => {
+          if (e.error !== 'interrupted' && e.error !== 'canceled') beenden('Das Vorlesen hat leider nicht geklappt.');
+        };
+        sprache!.speak(satz);
+      };
+      naechster();
+    }
+
+    // Manche Browser laden die Stimmen erst später.
+    sprache.getVoices();
+    sprache.addEventListener?.('voiceschanged', () => sprache.getVoices());
+    vKnopf.addEventListener('click', () => (laeuft ? beenden() : starten()));
+    window.addEventListener('pagehide', () => sprache.cancel());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && laeuft) beenden();
+    });
+  }
+
+  // Fachwörter: Ein Klick zeigt die Erklärung direkt unter dem Absatz, statt die Anleitung zu verlassen.
+  type Eintrag = { id: string; wort: string; text: string };
+  let eintraege: Eintrag[] = [];
+  try {
+    eintraege = JSON.parse(document.getElementById('glossar-daten')?.textContent ?? '[]');
+  } catch {}
+  const nachId = new Map(eintraege.map((e) => [e.id, e]));
+  let zaehler = 0;
+
+  document.querySelectorAll<HTMLAnchorElement>('.inhalt a[href*="glossar/#"]').forEach((link) => {
+    const anker = link.hash.slice(1);
+    const eintrag = nachId.get(anker);
+    if (!eintrag) return;
+    const kastenId = `erklaerung-${++zaehler}`;
+    link.classList.add('fachwort');
+    link.title = `${eintrag.wort}: ${eintrag.text}`;
+    link.setAttribute('aria-expanded', 'false');
+    link.setAttribute('aria-controls', kastenId);
+    const lexikonHref = link.href;
+
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const offen = document.getElementById(kastenId);
+      if (offen) {
+        offen.remove();
+        link.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      const kasten = document.createElement('div');
+      kasten.className = 'erklaerung';
+      kasten.id = kastenId;
+      kasten.setAttribute('role', 'note');
+      const titel = document.createElement('p');
+      titel.className = 'erklaerung__wort';
+      titel.textContent = eintrag.wort;
+      const text = document.createElement('p');
+      text.textContent = eintrag.text;
+      const knoepfe = document.createElement('p');
+      knoepfe.className = 'erklaerung__knoepfe';
+      const zu = document.createElement('button');
+      zu.type = 'button';
+      zu.className = 'knopf';
+      zu.textContent = 'Verstanden, schließen';
+      zu.addEventListener('click', () => {
+        kasten.remove();
+        link.setAttribute('aria-expanded', 'false');
+        link.focus();
+      });
+      const mehr = document.createElement('a');
+      mehr.href = lexikonHref;
+      mehr.textContent = 'Alle Wörter im Lexikon';
+      knoepfe.append(zu, mehr);
+      kasten.append(titel, text, knoepfe);
+      // Unter dem ganzen Absatz oder Schritt einfügen, damit der Lesefluss nicht zerreißt.
+      const absatz = link.closest('p');
+      const punkt = link.closest('li');
+      if (absatz) absatz.after(kasten);
+      else if (punkt) punkt.append(kasten);
+      else link.parentElement?.after(kasten);
+      link.setAttribute('aria-expanded', 'true');
+      zu.focus();
+    });
+  });
+</script>

@@ -1,0 +1,11 @@
+---
+/**
+ * Setzt in den Inhalt (z. B. eine Anleitung) den Namen der Hilfsperson ein:
+ * {{helfer}} und {{helfer-dativ}} werden ersetzt. Siehe src/helfer.mjs.
+ */
+import { helferEinsetzen } from '../helfer.mjs';
+
+const html = helferEinsetzen(await Astro.slots.render('default'));
+---
+
+<Fragment set:html={html} />

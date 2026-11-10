@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import LektionsListe from '../../components/LektionsListe.astro';
+import { THEMEN } from '../../config';
+import { abschnitteFuerThema } from '../../abschnitte';
+
+export function getStaticPaths() {
+  return THEMEN.map((thema) => ({ params: { thema: thema.id }, props: { thema } }));
+}
+
+const { thema } = Astro.props;
+// Abschnitte nach Gruppe (z. B. „Word“ und „Excel“). Jede Gruppe zählt ab 1, genau wie auf der Anleitungsseite.
+const abschnitte = await abschnitteFuerThema(thema.id);
+---
+
+<Base titel={thema.titel} beschreibung={thema.einleitung} krumen={[{ titel: thema.titel }]}>
+  <div data-pagefind-body>
+    <h1>{thema.titel}</h1>
+    <p class="einleitung">{thema.einleitung}</p>
+    {
+      abschnitte.map((a) => (
+        <>
+          {a.titel ? <h2>{a.titel}</h2> : <h2 class="nur-vorlesen">Anleitungen</h2>}
+          <LektionsListe lektionen={a.lektionen} />
+        </>
+      ))
+    }
+  </div>
+</Base>

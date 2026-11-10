@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import LektionsListe from '../components/LektionsListe.astro';
+import { THEMEN } from '../config';
+import { url } from '../lib';
+import { abschnitteVon } from '../abschnitte';
+
+const alle = await getCollection('lektionen');
+const gruppen = THEMEN.map((t) => ({
+  thema: t,
+  abschnitte: abschnitteVon(alle.filter((l) => l.data.thema === t.id)),
+}));
+---
+
+<Base titel="Alle Anleitungen" krumen={[{ titel: 'Alle Anleitungen' }]}>
+  <h1>Alle Anleitungen</h1>
+  <p class="einleitung">Hier sehen Sie alle {alle.length} Anleitungen auf einer Seite, sortiert nach Thema.</p>
+  {
+    gruppen.map((g) => (
+      <section aria-labelledby={`gruppe-${g.thema.id}`}>
+        <h2 id={`gruppe-${g.thema.id}`}>
+          <a href={url(`${g.thema.id}/`)}>{g.thema.titel}</a>
+        </h2>
+        {g.abschnitte.map((a) => (
+          <>
+            {a.titel && <h3>{a.titel}</h3>}
+            <LektionsListe lektionen={a.lektionen} />
+          </>
+        ))}
+      </section>
+    ))
+  }
+</Base>

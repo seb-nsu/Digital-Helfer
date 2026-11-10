@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+
+const eintraege = (await getCollection('glossar')).sort((a, b) => a.data.wort.localeCompare(b.data.wort, 'de'));
+const buchstabe = (w: string) => w.charAt(0).toLocaleUpperCase('de').replace('Ä', 'A').replace('Ö', 'O').replace('Ü', 'U');
+// Jeder Buchstabe verweist auf das erste Wort mit diesem Anfangsbuchstaben.
+const buchstaben = new Map<string, string>();
+for (const e of eintraege) if (!buchstaben.has(buchstabe(e.data.wort))) buchstaben.set(buchstabe(e.data.wort), e.id);
+---
+
+<Base titel="Wörter erklärt" beschreibung="Fachwörter rund um Computer und Internet, einfach erklärt." krumen={[{ titel: 'Wörter erklärt' }]}>
+  <div class="glossar" data-pagefind-body>
+    <h1>Wörter erklärt</h1>
+    <p class="einleitung">Hier finden Sie Fachwörter von A bis Z. Jedes Wort ist in ein bis zwei Sätzen erklärt.</p>
+    <p class="glossar__zurueck" data-glossar-zurueck hidden data-pagefind-ignore>
+      <button type="button" class="knopf knopf--voll">
+        <Icon name="arrow-left" />
+        <span>Zurück zur Anleitung</span>
+      </button>
+    </p>
+
+    <nav aria-label="Springen zum Buchstaben">
+      <ul class="glossar__abc">
+        {
+          [...buchstaben].map(([b, id]) => (
+            <li>
+              <a href={`#${id}`} aria-label={`Wörter mit ${b}`}>{b}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <dl>
+      {
+        eintraege.map((e) => (
+          <div class="glossar__eintrag" id={e.id}>
+            <dt>{e.data.wort}</dt>
+            <dd>{e.data.erklaerung}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</Base>
+
+<script>
+  // Kommt jemand aus einer Anleitung hierher, zeigen wir einen großen Knopf zurück dorthin.
+  const box = document.querySelector<HTMLElement>('[data-glossar-zurueck]');
+  try {
+    const von = document.referrer ? new URL(document.referrer) : null;
+    const basis = new URL('..', location.href).pathname;
+    const istAnleitung =
+      von &&
+      von.origin === location.origin &&
+      von.pathname.startsWith(basis) &&
+      // Anleitungen liegen zwei Ebenen tief: /<basis>/<thema>/<anleitung>/
+      von.pathname.slice(basis.length).split('/').filter(Boolean).length === 2;
+    if (box && istAnleitung && history.length > 1) {
+      box.hidden = false;
+      box.querySelector('button')?.addEventListener('click', () => history.back());
+    }
+  } catch {}
+</script>

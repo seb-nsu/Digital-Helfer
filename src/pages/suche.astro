@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib';
+---
+
+<Base titel="Suchen" krumen={[{ titel: 'Suchen' }]}>
+  <h1>Suchen</h1>
+  <p class="einleitung">Schreiben Sie ein Wort oder eine Frage in das Feld. Die Ergebnisse erscheinen darunter.</p>
+  <div class="suche" id="suche" data-pagefind-ui={url('pagefind/')}></div>
+  <noscript>
+    <p class="suche-ohne-js">
+      Die Suche braucht JavaScript. Schauen Sie stattdessen in die <a href={url('alle/')}>Liste aller Anleitungen</a>.
+    </p>
+  </noscript>
+</Base>
+
+<script>
+  const ziel = document.getElementById('suche');
+  const pfad = ziel?.dataset.pagefindUi ?? '/pagefind/';
+
+  // Pagefind entsteht erst beim Bauen der Seite (npm run build).
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = `${pfad}pagefind-ui.css`;
+  document.head.append(css);
+
+  const js = document.createElement('script');
+  js.src = `${pfad}pagefind-ui.js`;
+  js.onload = () => {
+    // @ts-expect-error: wird von pagefind-ui.js bereitgestellt
+    const ui = new window.PagefindUI({
+      element: '#suche',
+      showImages: false,
+      showSubResults: false,
+      resetStyles: false,
+      autofocus: true,
+      translations: {
+        placeholder: 'Was möchten Sie wissen?',
+        clear_search: 'Löschen',
+        load_more: 'Weitere Ergebnisse zeigen',
+        search_label: 'Diese Seite durchsuchen',
+        zero_results: 'Leider nichts gefunden zu „[SEARCH_TERM]“. Versuchen Sie ein anderes Wort.',
+        many_results: '[COUNT] Ergebnisse zu „[SEARCH_TERM]“',
+        one_result: '1 Ergebnis zu „[SEARCH_TERM]“',
+        searching: 'Suche nach „[SEARCH_TERM]“ …',
+      },
+    });
+    document.querySelector('.pagefind-ui__search-input')?.setAttribute('aria-label', 'Suchbegriff eingeben');
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) ui.triggerSearch(q);
+  };
+  js.onerror = () => {
+    if (ziel) ziel.textContent = 'Die Suche ist erst nach dem Bauen der Seite verfügbar (npm run build).';
+  };
+  document.head.append(js);
+</script>
