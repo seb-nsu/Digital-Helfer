@@ -7,6 +7,27 @@ Jede Anleitung hat einen Knopf „Anleitung vorlesen“ (Sprachausgabe des Brows
 
 Gebaut mit [Astro](https://astro.build) (statische Seite), Suche mit [Pagefind](https://pagefind.app).
 
+> **English:** A calm website with step-by-step guides in plain German for older people: PC, smartphone, video calls and online safety. Built for my parents and refined based on their feedback.
+
+**Live:** https://seb-nsu.github.io/Digital-Helfer/
+
+![Startseite mit Suche, Hilfe bei Problemen und Themen-Kacheln](docs/bilder/startseite.png)
+
+![Eine Anleitung mit Vorlesen-Knopf und Schritt-Karten](docs/bilder/anleitung.png)
+
+## Meine Rolle und wichtigste Entscheidungen
+
+Die Seite habe ich für meine Eltern gebaut und nach ihren Rückmeldungen überarbeitet. Zielgruppe, Themen, Aufbau der Anleitungen und die Abnahme stammen von mir; den Code haben KI-Agenten (Claude Code) nach meinen Vorgaben geschrieben.
+
+| Entscheidung | Begründung |
+| --- | --- |
+| Einfache Sprache und Sie-Form in allen Texten | Die Leser sind ältere Menschen ohne Vorwissen |
+| Höchstens 9 Themen-Kacheln auf der Startseite | Die Startseite bleibt auf einen Blick erfassbar |
+| „Hilfe, ich habe ein Problem“ steht ganz oben | Wer die Seite öffnet, hat oft gerade ein Problem |
+| Jede Anleitung lässt sich vorlesen und endet mit „Jetzt Sie!“ | Hören und selbst ausprobieren hilft mehr als nur lesen |
+| Name und Telefonnummer der Hilfsperson stehen nicht im Repository | Persönliche Daten kommen erst beim Bauen aus Umgebungsvariablen |
+| Suchmaschinen sind ausgesperrt | Die Seite ist für die Familie gedacht, nicht für die Öffentlichkeit |
+
 ## Loslegen
 
 ```bash
@@ -101,3 +122,7 @@ Einmalig einschalten: im Repository unter **Settings → Pages** bei **Source** 
 3. Auf dem iPhone: Seite in Safari öffnen → Teilen → „Zum Home-Bildschirm“.
 
 Lokal lässt sich der Basis-Pfad beim Bauen mit `BASE_PATH` ändern, die Domain mit `SITE_URL`.
+
+## Lizenz
+
+[MIT](LICENSE)
