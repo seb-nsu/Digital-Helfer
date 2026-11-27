@@ -13,7 +13,7 @@ interface Krume {
 interface Props {
   titel: string;
   beschreibung?: string;
-  /** Brotkrumen-Pfad ohne „Startseite“ (wird automatisch vorangestellt) */
+  /** Pfad der Seite (für den Seitentitel; sichtbar ist nur der große Zurück-Knopf) */
   krumen?: Krume[];
   /** Ziel des Zurück-Knopfs. Fehlt er, ist dies die Startseite. */
   zurueck?: { href: string; titel: string };
@@ -55,12 +55,13 @@ const seitenTitel = krumen ? `${titel} | Digital-Helfer` : 'Digital-Helfer';
           <div class="schrift" role="group" aria-labelledby="schrift-titel">
             <span class="schrift__titel" id="schrift-titel">Schrift:</span>
             <button type="button" class="knopf" data-schrift-aendern="-1"><span aria-hidden="true">A&minus;</span> <span class="kopf__lang">kleiner</span></button>
+            <span class="schrift__stufe" aria-hidden="true" data-schrift-stufe>normal</span>
             <button type="button" class="knopf" data-schrift-aendern="1"><span aria-hidden="true">A+</span> <span class="kopf__lang">größer</span></button>
             <span class="nur-vorlesen" aria-live="polite" id="schrift-meldung"></span>
           </div>
           <a class="knopf knopf--hilfe" href={url('hilfe/')}>
             <Icon name="life-buoy" />
-            <span><span class="kopf__lang">Ich brauche </span>Hilfe</span>
+            <span>Hilfe<span class="kopf__lang"> holen</span></span>
           </a>
         </div>
       </div>
@@ -74,17 +75,6 @@ const seitenTitel = krumen ? `${titel} | Digital-Helfer` : 'Digital-Helfer';
               <Icon name="arrow-left" />
               Zurück{zurueck ? ` zu ${zurueck.titel}` : ' zur Startseite'}
             </a>
-            <div class="brotkrumen">
-              <span class="nur-vorlesen">Sie sind hier:</span>
-              <ol>
-                <li>
-                  <a href={url()}>Startseite</a>
-                </li>
-                {krumen.map((k) => (
-                  <li>{k.href ? <a href={k.href}>{k.titel}</a> : <span aria-current="page">{k.titel}</span>}</li>
-                ))}
-              </ol>
-            </div>
           </nav>
         )
       }
@@ -106,15 +96,19 @@ const seitenTitel = krumen ? `${titel} | Digital-Helfer` : 'Digital-Helfer';
       const html = document.documentElement;
       const meldung = document.getElementById('schrift-meldung');
       const knoepfe = document.querySelectorAll<HTMLButtonElement>('[data-schrift-aendern]');
+      const stufe = document.querySelector<HTMLElement>('[data-schrift-stufe]');
 
       function aktuell(): number {
         return Math.max(0, STUFEN.indexOf(html.dataset.schrift ?? '1'));
       }
       function anzeigen() {
         const i = aktuell();
+        if (stufe) stufe.textContent = NAMEN[i];
         knoepfe.forEach((k) => {
           const richtung = Number(k.dataset.schriftAendern);
           k.disabled = (richtung < 0 && i === 0) || (richtung > 0 && i === STUFEN.length - 1);
+          // Ein gesperrter Knopf sagt, warum: „Kleiner geht nicht“ statt nur grau.
+          k.title = k.disabled ? (richtung < 0 ? 'Die Schrift ist schon am kleinsten.' : 'Die Schrift ist schon am größten.') : '';
         });
       }
       knoepfe.forEach((k) =>

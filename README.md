@@ -23,7 +23,7 @@ Die Seite habe ich für meine Eltern gebaut und nach ihren Rückmeldungen übera
 | --- | --- |
 | Einfache Sprache und Sie-Form in allen Texten | Die Leser sind ältere Menschen ohne Vorwissen |
 | Höchstens 9 Themen-Kacheln auf der Startseite | Die Startseite bleibt auf einen Blick erfassbar |
-| „Hilfe, ich habe ein Problem“ steht ganz oben | Wer die Seite öffnet, hat oft gerade ein Problem |
+| „Häufige Probleme selbst lösen“ steht ganz oben, „Hilfe holen“ (Vertrauensperson anrufen) oben rechts | Wer die Seite öffnet, hat oft gerade ein Problem |
 | Jede Anleitung lässt sich vorlesen und endet mit „Jetzt Sie!“ | Hören und selbst ausprobieren hilft mehr als nur lesen |
 | Name und Telefonnummer der Hilfsperson stehen nicht im Repository | Persönliche Daten kommen erst beim Bauen aus Umgebungsvariablen |
 | Suchmaschinen sind ausgesperrt | Die Seite ist für die Familie gedacht, nicht für die Öffentlichkeit |

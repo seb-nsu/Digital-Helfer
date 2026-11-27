@@ -21,7 +21,7 @@ suchwoerter: [Betrug passiert, hereingefallen, Notfall, Karte sperren, Sperr-Not
 1. **Bank anrufen:** Haben Sie Bankdaten, PIN oder TAN genannt? Rufen Sie sofort Ihre Bank an. Oder lassen Sie Ihre Karte über den **Sperr-Notruf 116 116** sperren. Er ist rund um die Uhr erreichbar.
 2. **Passwort ändern:** Haben Sie ein Passwort eingegeben? Ändern Sie es sofort. Lassen Sie sich dabei helfen.
 3. **Computer ausschalten:** War ein Fremder auf Ihrem Computer? Schalten Sie ihn aus und ziehen Sie das Internetkabel. Nutzen Sie ihn erst wieder, wenn er geprüft ist.
-4. **Hilfe holen:** Rufen Sie Ihre Vertrauensperson an. Die Hilfe-Seite erreichen Sie oben rechts mit dem Knopf „Ich brauche Hilfe“.
+4. **Hilfe holen:** Rufen Sie Ihre Vertrauensperson an. Die Hilfe-Seite erreichen Sie oben rechts mit dem Knopf „Hilfe holen“.
 
 ## Danach
 
