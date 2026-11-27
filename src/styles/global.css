@@ -188,11 +188,16 @@ main {
 .knopf:hover {
   background: var(--primaer-hell);
 }
+/* Gesperrt sieht der Knopf aus wie die anderen, nur blasser und mit gestricheltem Rand:
+   so wirkt er nicht „kaputt“, und der Tooltip sagt, warum (schon kleinste bzw. größte Schrift). */
 .knopf[disabled] {
-  border-color: var(--rand);
-  color: #6b6b6b;
-  background: #f2efe9;
-  cursor: not-allowed;
+  border-style: dashed;
+  opacity: 0.6;
+  background: var(--flaeche);
+  cursor: default;
+}
+.knopf[disabled]:hover {
+  background: var(--flaeche);
 }
 .knopf--voll {
   background: var(--primaer);
@@ -271,8 +276,19 @@ main {
 .schrift .knopf {
   padding: 0.4em 0.8em;
 }
+/* Sichtbare Stufe zwischen den Knöpfen: „normal“, „groß“, „sehr groß“ */
+.schrift__stufe {
+  min-width: 5.5em;
+  text-align: center;
+  font-weight: 700;
+}
+@media (max-width: 40rem) {
+  .schrift__stufe {
+    display: none;
+  }
+}
 
-/* ---------- Orientierungsleiste: Zurück + Brotkrumen ---------- */
+/* ---------- Orientierungsleiste: großer Zurück-Knopf ---------- */
 .orientierung {
   display: flex;
   flex-wrap: wrap;
@@ -280,29 +296,6 @@ main {
   gap: 0.75rem 1.5rem;
   margin: 1.5rem 0 1.75rem;
 }
-.brotkrumen ol {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 0.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.brotkrumen li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.brotkrumen li + li::before {
-  content: '›';
-  color: var(--text-leise);
-  font-weight: 700;
-}
-.brotkrumen [aria-current='page'] {
-  font-weight: 700;
-}
-
 /* ---------- Startseite ---------- */
 .begruessung {
   margin: 2rem 0 1.5rem;
@@ -1124,5 +1117,33 @@ html[data-outlook='neu'] [data-outlook='klassisch'] {
   .umschalter__wahl,
   .umschalter__tipp {
     display: none;
+  }
+}
+
+/* ---------- Anleitung: auf breiten Bildschirmen „Das brauchen Sie“ rechts neben dem Text ----------
+   Die Textspalte bleibt bei --inhalt-breite (gut lesbar), der Platz daneben wird genutzt statt leer zu bleiben. */
+@media (min-width: 62rem) {
+  .lektion {
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, var(--inhalt-breite)) minmax(14rem, 20rem);
+    column-gap: 2.5rem;
+    align-items: start;
+  }
+  .lektion > * {
+    grid-column: 1;
+  }
+  .lektion > .kasten--brauchen {
+    grid-column: 2;
+    grid-row: 1 / span 8;
+    position: sticky;
+    top: 1rem;
+    margin-top: 0;
+  }
+}
+@media print {
+  .lektion {
+    display: block;
+    max-width: var(--inhalt-breite);
   }
 }
